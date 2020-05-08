@@ -1,26 +1,28 @@
 ﻿import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { Hello } from "./components/hello";
-import "../styles/index.scss";
-
-const Root = (): React.ReactElement => (
-    <Hello name={"Will"}></Hello>
-);
+import "@styles/index.scss";
+import App from "./app";
+import { BrowserRouter, HashRouter } from "react-router-dom";
 
 let render = (): void => {
-    ReactDOM.render(<Root />, document.getElementById("app"));
+  ReactDOM.render(
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>,
+    document.getElementById("app")
+  );
 };
 
 if ((module as any).hot) {
-    const renderApp = render;
+  const renderApp = render;
 
-    render = (): void => {
-        renderApp();
-    };
+  render = (): void => {
+    renderApp();
+  };
 
-    (module as any).hot.accept(Hello, (): void => {
-        setTimeout(render);
-    });
+  (module as any).hot.accept(App, (): void => {
+    setTimeout(render);
+  });
 }
 
 render();

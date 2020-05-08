@@ -11,6 +11,7 @@ using WebApp.Models;
 
 namespace WebApp.Controllers
 {
+    [Route("*")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

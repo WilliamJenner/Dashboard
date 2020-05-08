@@ -12,6 +12,9 @@
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
     <Folder Include="src\assets\" />
+    <Folder Include="src\scripts\state\" />
+    <Folder Include="src\scripts\utils\" />
+    <Folder Include="src\scripts\types\" />
     <Folder Include="Views\Home\" />
     <Folder Include="Views\Shared\" />
   </ItemGroup>

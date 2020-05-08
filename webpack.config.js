@@ -6,11 +6,15 @@ const appRoot = require('app-root-path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const HappyPack = require('happypack');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
+const TsConfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 const commonHtmlWebpackPluginConfig = {
     minify: false,
     inject: false,
-    devServer: { url: 'https://localhost:8081' }
+    devServer: { url: 'https://localhost:8081' },
+    files: {
+        css: ["./src/styles/index.scss"]
+    }
 }
 
 module.exports = {
@@ -18,13 +22,16 @@ module.exports = {
     devtool: "source-map",
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
-        extensions: [".ts", ".tsx", ".js", ".jsx", ".json"]
+        extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
+        plugins: [
+            new TsConfigPathsPlugin()
+        ]
     },
     entry: {
         app: ['./src/scripts/index.tsx'],
     },
     output: {
-        path: path.resolve('dist'),
+        path: path.resolve(__dirname, 'dist'),
         filename: '[name].bundle.js',
         publicPath: '/dist/'
     },
@@ -69,6 +76,7 @@ module.exports = {
         ]
     },
     devServer: {
+        watchContentBase: true,
         contentBase: './dist',
         publicPath: '/dist/',
         port: 8081,

@@ -1,0 +1,15 @@
+@import "./variables.scss";
+
+@mixin horizontal-margin($size) {
+  margin-left: $size;
+  margin-right: $size;
+}
+
+@mixin vertical-margin($size) {
+  margin-top: $size;
+  margin-bottom: $size;
+}
+
+.small-horizontal-margin {
+  @include horizontal-margin($small-spacing);
+}
