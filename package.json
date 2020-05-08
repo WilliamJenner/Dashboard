@@ -1,0 +1,40 @@
+{
+  "name": "webapplication1",
+  "version": "1.0.0",
+  "description": "test",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "dev": "npm run build -- --env.env=dev",
+    "prod": "npm run build -- --env.env=prod",
+    "dev-serve": "npm run dev -- --env.dev_server=true && webpack-dev-server --watch --https --env.env=dev --env.dev_server=true"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "@babel/preset-react": "^7.9.4",
+    "@types/react": "^16.9.34",
+    "@types/react-dom": "^16.9.7",
+    "babel-loader": "^8.1.0",
+    "fork-ts-checker-webpack-plugin": "^4.1.3",
+    "happypack": "^5.0.1",
+    "html-webpack-plugin": "^4.3.0",
+    "source-map-loader": "^0.2.4",
+    "ts-loader": "^7.0.2",
+    "typescript": "^3.8.3",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
+  },
+  "browserslist": [
+    "last 2 versions"
+  ],
+  "dependencies": {
+    "app-root-path": "^3.0.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "keywords": []
+}

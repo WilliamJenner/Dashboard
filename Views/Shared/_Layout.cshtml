@@ -1,0 +1,27 @@
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test App</title>
+    <base href="@Url.Content("https://localhost:8081")" />
+    <meta name="app-root" content="@Url.Content("~/")" />
+
+    @await RenderSectionAsync("Styles", required: false)
+
+    </head>
+<body>
+    <div class="body-content">
+        @RenderBody()
+    </div>
+
+    
+
+    @await RenderSectionAsync("Scripts", required: false)
+    
+    <script src="https://localhost:8081/webpack-dev-server.js"></script>
+    
+</body>
+</html>

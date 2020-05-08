@@ -1,0 +1,16 @@
+﻿
+
+@section Scripts {
+    <% for (var chunk in htmlWebpackPlugin.options.chunks) { %>
+    <% var url = htmlWebpackPlugin.options.chunks[chunk]; %>
+    <% if (htmlWebpackPlugin.options.devServer) { %>
+    <script src="@Url.Content("<%= url %>")" type="text/javascript"></script><%
+    } else { %>
+    <script src="@Url.Content("<%= url %>")"></script>
+    <% } %>
+    <% } %>
+
+}
+
+<div id="app"></div>
+
