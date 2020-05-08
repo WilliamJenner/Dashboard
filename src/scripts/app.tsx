@@ -7,9 +7,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import NavigationBar from "./components/layout/NavBar";
-import { routes, HomeRoute } from "./routes/index";
-import FourOhFour from "./routes/FourOhFourRoute";
-import ShoppingListRoute from "./routes/ShoppingListRoute";
+import { routes, HomeRoute, ShoppingListRoute, FourOhFour } from "./routes/index";
 
 const App: React.FC = () => {
   return (

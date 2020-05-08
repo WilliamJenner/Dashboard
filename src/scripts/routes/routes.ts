@@ -2,7 +2,7 @@ const routes = {
     root: "/",
     home: "/home",
     fourOhFour: "/404",
-    shoppingList: "/shopping-list";
+    shoppingList: "/shopping-list",
 
 }
 

@@ -1,5 +1,5 @@
 ﻿import * as React from "react";
-import { Circle } from "react-feather";
+import { Triangle } from "react-feather";
 import {
   Navbar,
   Nav,
@@ -14,8 +14,8 @@ const NavigationBar: React.FC = () => {
   return (
     <Navbar bg="light" expand="lg">
       <Navbar.Brand href="#home">
-        <Circle { ...SmallFeatherProps } className={"small-horizontal-margin"}/>
-        React Bootstrap
+        <Triangle { ...SmallFeatherProps } className={"small-horizontal-margin"}/>
+        Weekly Digest
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
