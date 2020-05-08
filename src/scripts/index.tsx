@@ -1,7 +1,7 @@
 ﻿import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Hello } from "./components/hello";
-
+import "../styles/index.scss";
 
 const Root = (): React.ReactElement => (
     <Hello name={"Will"}></Hello>
