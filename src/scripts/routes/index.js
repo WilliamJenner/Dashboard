@@ -1,4 +1,6 @@
 import HomeRoute from "./HomeRoute";
 import routes from "./routes";
-export { HomeRoute, routes };
+import ShoppingListRoute from "./ShoppingListRoute";
+import FourOhFour from "./FourOhFourRoute";
+export { HomeRoute, routes, ShoppingListRoute, FourOhFour };
 //# sourceMappingURL=index.js.map
