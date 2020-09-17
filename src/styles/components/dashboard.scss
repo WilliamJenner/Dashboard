@@ -1,0 +1,15 @@
+.dashboard {
+  height: 100vh; /* Set dashboard to take up entire viewport */
+
+  .dash-row {
+    height: 50%;
+    .dash-item {
+      padding: 1em;
+      background-color: #1d1d1d;
+      box-shadow: 10px 10px #0f0f0f;
+      color: #ffffffde;
+      text-align: center;
+      margin: 2em;
+    }
+  }
+}

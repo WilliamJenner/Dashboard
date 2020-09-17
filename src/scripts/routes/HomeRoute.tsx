@@ -1,9 +1,8 @@
 import * as React from "react";
+import { Dashboard } from "../components/common/Dashboard.component";
 
 const HomeRoute: React.FC = () => {
-    return <div>
-        <h1>Home</h1>
-    </div>
-}
+  return <Dashboard />;
+};
 
 export default HomeRoute;
