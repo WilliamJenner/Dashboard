@@ -1,7 +1,7 @@
 ﻿import * as React from "react";
 import * as ReactDOM from "react-dom";
 import "@styles/index.scss";
-import App from "./app";
+import App from "./app/app";
 import { BrowserRouter, HashRouter } from "react-router-dom";
 
 let render = (): void => {
@@ -13,14 +13,14 @@ let render = (): void => {
   );
 };
 
-if ((module as any).hot) {
-  const renderApp = render;
+console.log({module});
 
-  render = (): void => {
-    renderApp();
-  };
+if ((module as any).hot) {
+  console.log("is hot");
+
 
   (module as any).hot.accept(App, (): void => {
+    console.log("hot reloading");
     setTimeout(render);
   });
 }

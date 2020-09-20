@@ -2,9 +2,9 @@
     <% for (var chunk in htmlWebpackPlugin.options.chunks) { %>
     <% var package = htmlWebpackPlugin.options.chunks[chunk]; %>
     <% if (htmlWebpackPlugin.options.devServer) { %>
-    <script src="@Url.Content("<%= htmlWebpackPlugin.options.devServer.url %>/<%= package %>")" type="text/javascript"></script><%
+    <script src="@Url.Content("<%= htmlWebpackPlugin.options.devServer %>/<%= package %>")" type="text/javascript"></script><%
     } else { %>
-    <script src="@Url.Content("<%= htmlWebpackPlugin.options.devServer.url %>/<%= pacakge %>")"></script>
+    <script src="@Url.Content("<%= htmlWebpackPlugin.options.devServer %>/<%= pacakge %>")"></script>
     <% } %>
     <% } %>
 }

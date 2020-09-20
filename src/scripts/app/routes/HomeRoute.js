@@ -1,7 +1,7 @@
 import * as React from "react";
+import { Dashboard } from "../components/common/Dashboard.component";
 const HomeRoute = () => {
-    return React.createElement("div", null,
-        React.createElement("h1", null, "Home"));
+    return React.createElement(Dashboard, null);
 };
 export default HomeRoute;
 //# sourceMappingURL=HomeRoute.js.map

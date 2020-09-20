@@ -1,0 +1,13 @@
+.fourOhFour {
+  background: url(https://i.giphy.com/media/QyDHI3LJx8I9hA51Qs/giphy.webp);
+  background-size: cover;
+  height: 100vh;
+
+  &__text {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    text-shadow: 1px 5px 1px black;
+    font-size: 5em;
+  }
+}

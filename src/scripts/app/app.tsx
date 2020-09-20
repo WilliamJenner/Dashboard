@@ -11,7 +11,7 @@ import { routes, HomeRoute, FourOhFour } from "./routes/index";
 const App: React.FC = () => {
   return (
     <React.Fragment>
-      <Container>
+      <Container bsPrefix={"container-xl"}>
         <Router>
           <Switch>
             {/* Home page */}

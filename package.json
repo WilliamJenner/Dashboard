@@ -7,7 +7,8 @@
     "build": "webpack",
     "dev": "npm run build -- --env.env=dev",
     "prod": "npm run build -- --env.env=prod",
-    "dev-serve": "npm run dev -- --env.dev_server=true && webpack-dev-server --config ./webpack.config.js --hot --watch --https --env.env=dev --env.dev_server=true"
+    "dev-serve": "npm run dev -- --env.dev_server=true && webpack-dev-server --config ./webpack.config.js --hot --watch --https --env.env=dev --env.dev_server=true",
+    "generate-client": "nswag run /runtime:WinX64"
   },
   "author": "",
   "license": "ISC",
@@ -22,7 +23,10 @@
     "fork-ts-checker-webpack-plugin": "^4.1.3",
     "happypack": "^5.0.1",
     "html-webpack-plugin": "^4.3.0",
+    "nswag": "^13.7.4",
     "react-svg-loader": "^3.0.3",
+    "rimraf": "^3.0.2",
+    "swagger-parser": "^10.0.2",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "source-map-loader": "^0.2.4",
@@ -38,15 +42,20 @@
     "last 2 versions"
   ],
   "dependencies": {
+    "@types/moment": "^2.13.0",
     "@types/react-router-dom": "^5.1.5",
     "app-root-path": "^3.0.0",
     "bootstrap": "^4.4.1",
+    "file-system": "^2.2.2",
+    "moment": "^2.28.0",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",
     "react-dom": "^16.13.1",
     "react-feather": "^2.0.8",
     "react-router-dom": "^5.1.2",
-    "unstated-next": "^1.1.0"
+    "tmp": "^0.2.1",
+    "unstated-next": "^1.1.0",
+    "util": "^0.12.3"
   },
   "keywords": []
 }

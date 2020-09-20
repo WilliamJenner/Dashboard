@@ -11,7 +11,7 @@ const TsConfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 const commonHtmlWebpackPluginConfig = {
     minify: false,
     inject: false,
-    devServer: { url: 'https://localhost:8081' },
+    devServer: 'https://localhost:8081',
     files: {
         css: ["./src/styles/index.scss"]
     }

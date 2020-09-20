@@ -5,9 +5,9 @@ $large-spacing: 1.5em;
 $background-color: #121212;
 $content-background-color: #1D1D1D;
 
-
 $primary-text-color: #ffffffde;
-$secondary-text-color: #ffffff99;
-$disabled-text-color: #ffffff61;
+$secondary-text-color: $color-primary-0;
+$disabled-text-color: $color-secondary-1-0;
 
 $shadow-color: #0f0f0f;
+

@@ -27,7 +27,7 @@
 
     @await RenderSectionAsync("Scripts", required: false)
     <% if (htmlWebpackPlugin.options.devServer) { %>
-    <script src="<%= htmlWebpackPlugin.options.devServer.url %>/webpack-dev-server.js"></script>
+    <script src="<%= htmlWebpackPlugin.options.devServer %>/webpack-dev-server.js"></script>
     <% } %>
 </body>
 </html>

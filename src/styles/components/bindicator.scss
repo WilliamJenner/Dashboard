@@ -1,0 +1,9 @@
+.bindicator {
+  .bin-notification {
+    &__text {
+      .call-to-action {
+        color: $secondary-text-color;
+      }
+    }
+  }
+}
