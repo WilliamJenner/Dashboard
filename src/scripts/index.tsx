@@ -13,15 +13,14 @@ let render = (): void => {
   );
 };
 
-console.log({module});
-
 if ((module as any).hot) {
   console.log("is hot");
 
-
   (module as any).hot.accept(App, (): void => {
     console.log("hot reloading");
-    setTimeout(render);
+    setTimeout(() => {
+      render();
+    });
   });
 }
 

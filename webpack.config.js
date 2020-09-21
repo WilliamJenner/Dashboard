@@ -10,7 +10,7 @@ const TsConfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 const commonHtmlWebpackPluginConfig = {
     minify: false,
-    inject: false,
+    inject: true,
     devServer: 'https://localhost:8081',
     files: {
         css: ["./src/styles/index.scss"]
@@ -116,6 +116,9 @@ module.exports = {
         }),
         new ForkTsCheckerWebpackPlugin({
             checkSyntacticErrors: true,
+        }),
+        new webpack.HotModuleReplacementPlugin({
+            // Options...
         }),
     ]
 };

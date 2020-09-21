@@ -7,12 +7,13 @@ let render = () => {
     ReactDOM.render(React.createElement(BrowserRouter, null,
         React.createElement(App, null)), document.getElementById("app"));
 };
-console.log({ module });
 if (module.hot) {
     console.log("is hot");
     module.hot.accept(App, () => {
         console.log("hot reloading");
-        setTimeout(render);
+        setTimeout(() => {
+            render();
+        });
     });
 }
 render();

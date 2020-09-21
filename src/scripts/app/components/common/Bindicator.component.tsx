@@ -25,7 +25,7 @@ const BinNotification: React.SFC<IBinNotificationProps> = (props) => {
           <span className={textClass}>
             {GetDisplayName(name as keyof BinLookup)}
           </span>{" "}
-          is next due on{" "}
+          next due on{" "}
           <span className={textClass}>
             {moment(bin?.next).format("dddd, MMMM Do YYYY")}
           </span>
@@ -70,9 +70,6 @@ export const Bindicator: React.FunctionComponent<IBindicatorProps> = (
         };
       }
     )
-    .filter((bin: NamedBin | undefined) => {
-      bin !== undefined;
-    })
     .sort((a: NamedBin, b: NamedBin): number => {
       // defaults if undefined
       let firstDate = a!.bin!.next ? a!.bin!.next : new Date();
@@ -88,6 +85,8 @@ export const Bindicator: React.FunctionComponent<IBindicatorProps> = (
     });
 
   const lastBin = orderedBins[orderedBins.length - 1];
+
+  console.log({ orderedBins });
 
   return (
     <div className={"bindicator"}>
