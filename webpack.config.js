@@ -118,7 +118,6 @@ module.exports = {
             checkSyntacticErrors: true,
         }),
         new webpack.HotModuleReplacementPlugin({
-            // Options...
         }),
     ]
 };
