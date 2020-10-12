@@ -13,18 +13,19 @@ const webpackProd = require('./webpack/webpack.prod');
 const { exception } = require('console');
 const { merge } = require('webpack-merge');
 
-module.exports = ({ env, dev_server }) => {
-
-    var envConfig = () => {
-        switch (env) {
-            case "prod":
-                return webpackProd;
-            case "dev":
-                return webpackDev;
-            default:
-                throw exception("unexpected env variable", env);
-        }
+function envConfig(env) {
+    switch (env.env) {
+        case "prod":
+            return webpackProd;
+        case "dev":
+            return webpackDev;
+        default:
+            throw new Error("unexpected env variable");
     }
+}
 
-    return merge(webpackCommon(dev_server, __dirname), envConfig())
+module.exports = (env) => {
+    console.log(env);
+    return merge(webpackCommon(env.dev_server, __dirname), envConfig(env))
 };
+

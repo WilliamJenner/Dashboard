@@ -77,7 +77,7 @@ module.exports = (dev_server, dir_name) => {
         },
         devServer: {
             watchContentBase: true,
-            contentBase: './dist',
+            contentBase: path.resolve(dir_name, 'wwwroot/dist'),
             publicPath: '/dist/',
             port: 8081,
             hot: true,

@@ -20,6 +20,8 @@ const App: React.FC = () => {
     config.setConfig(appState);
   }, []);
 
+  console.log({ config });
+
   return (
     <React.Fragment>
       <Container bsPrefix={"container-xl"}>

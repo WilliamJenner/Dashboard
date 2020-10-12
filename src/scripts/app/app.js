@@ -10,6 +10,7 @@ const App = () => {
     React.useEffect(() => {
         config.setConfig(appState);
     }, []);
+    console.log({ config });
     return (React.createElement(React.Fragment, null,
         React.createElement(Container, { bsPrefix: "container-xl" },
             React.createElement(Router, null,

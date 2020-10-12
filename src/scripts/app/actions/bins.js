@@ -1,5 +1,5 @@
 import { Client } from "../client/client";
 export const GetBins = () => {
-    return new Client("https://192.168.0.69:44335").bindicator();
+    return new Client("http://192.168.0.69:4433/").bindicator();
 };
 //# sourceMappingURL=bins.js.map
