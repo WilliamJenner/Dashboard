@@ -22,9 +22,8 @@ namespace WebApplication1
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var configAppSettings = Configuration.GetSection("AppSettings");
             services.AddControllersWithViews();
-            services.Configure<AppSettings>(configAppSettings);
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
             ServiceRegistry.ScanForAllRemainingRegistrations(services);
         }

@@ -3,9 +3,10 @@ import * as ReactDOM from "react-dom";
 import "@styles/index.scss";
 import App from "./app/app";
 import { BrowserRouter } from "react-router-dom";
+import Base from "./app/base";
 let render = () => {
     ReactDOM.render(React.createElement(BrowserRouter, null,
-        React.createElement(App, null)), document.getElementById("app"));
+        React.createElement(Base, null)), document.getElementById("app"));
 };
 if (module.hot) {
     console.log("is hot");

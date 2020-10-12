@@ -7,7 +7,7 @@
     "build": "webpack",
     "dev": "npm run build -- --env.env=dev",
     "prod": "npm run build -- --env.env=prod",
-    "dev-serve": "npm run dev -- --env.dev_server=true && webpack-dev-server --config ./webpack.config.js --hot --watch --https --env.env=dev --env.dev_server=true",
+    "dev-serve": "npm run dev -- --env.dev_server=true && webpack-dev-server --config ./webpack.config.js --hot --watch --https",
     "generate-client": "nswag run /runtime:WinX64"
   },
   "author": "",
@@ -55,7 +55,8 @@
     "react-router-dom": "^5.1.2",
     "tmp": "^0.2.1",
     "unstated-next": "^1.1.0",
-    "util": "^0.12.3"
+    "util": "^0.12.3",
+    "webpack-merge": "^5.2.0"
   },
   "keywords": []
 }

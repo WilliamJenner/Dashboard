@@ -8,5 +8,7 @@ namespace WebApp.Models
     public class AppSettings
     {
         public string ApiUrl { get; set; }
+        public string SecurityCamUrl { get; set; }
+
     }
 }

@@ -2,7 +2,14 @@ import * as React from "react";
 import { Container } from "react-bootstrap";
 import { BrowserRouter as Router, Switch, Route, Redirect, } from "react-router-dom";
 import { routes, HomeRoute, FourOhFour } from "./routes/index";
+import ConfigContainer from "./state/config";
 const App = () => {
+    var _a;
+    const config = ConfigContainer.useContainer();
+    const appState = JSON.parse((_a = document.getElementById("config")) === null || _a === void 0 ? void 0 : _a.innerHTML);
+    React.useEffect(() => {
+        config.setConfig(appState);
+    }, []);
     return (React.createElement(React.Fragment, null,
         React.createElement(Container, { bsPrefix: "container-xl" },
             React.createElement(Router, null,

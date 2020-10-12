@@ -1,13 +1,11 @@
-﻿@section Scripts {
+﻿@model AppState
+@section Scripts {
     <% for (var chunk in htmlWebpackPlugin.options.chunks) { %>
     <% var package = htmlWebpackPlugin.options.chunks[chunk]; %>
-    <% if (htmlWebpackPlugin.options.devServer) { %>
-    <script src="@Url.Content("<%= htmlWebpackPlugin.options.devServer %>/<%= package %>")" type="text/javascript"></script><%
-    } else { %>
-    <script src="@Url.Content("<%= htmlWebpackPlugin.options.devServer %>/<%= pacakge %>")"></script>
-    <% } %>
+        <script src="@Url.Content("<%= htmlWebpackPlugin.options.dist %>/<%= package %>")" type="text/javascript"></script>
     <% } %>
 }
 
+<div id="config" style="display: none">@Json.Serialize(@Model.AppSettings)</div>
 <div id="app"></div>
 
