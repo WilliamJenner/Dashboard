@@ -2,6 +2,7 @@ import * as React from "react";
 import { Row, Col } from "react-bootstrap";
 import { Bindicator } from "./Bindicator.component";
 import { SecurityCamera } from "./SecurityCam.component";
+import { Requester } from "./Requester.component"
 
 interface IDashboardProps {}
 
@@ -18,7 +19,9 @@ export const Dashboard: React.FC<IDashboardProps> = () => {
         <Col className={"dash-item"}>3</Col>
       </Row>
       <Row className={"dash-row"}>
-        <Col className={"dash-item"}>4</Col>
+        <Col className={"dash-item"}>
+          <Requester/>
+        </Col>
         <Col className={"dash-item dash-item--grow"}>5</Col>
       </Row>
     </div>
