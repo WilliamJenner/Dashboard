@@ -1,6 +1,8 @@
 .ticker {
+  white-space: nowrap;
+  
   .ticker__content {
-    padding: 1em;
+    padding: 0em 1em;
     &__bold {
       font-weight: bold;
     }
