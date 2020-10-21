@@ -102,3 +102,5 @@ export const Bindicator: React.FunctionComponent<IBindicatorProps> = (
     </div>
   );
 };
+
+export default Bindicator;
