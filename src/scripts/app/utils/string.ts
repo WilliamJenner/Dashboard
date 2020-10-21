@@ -1,6 +1,6 @@
 import { BinLookup } from "../client/client";
 
-export const CapitaliseIndex = (str: string, index: number): string => {
+export const capitaliseIndex = (str: string, index: number): string => {
   if (index > 0) {
     return (
       str.slice(0, index - 1) +
@@ -12,11 +12,11 @@ export const CapitaliseIndex = (str: string, index: number): string => {
   }
 };
 
-export const CapitaliseFirst = (str: string): string => {
-  return CapitaliseIndex(str, 0);
+export const capitaliseFirst = (str: string): string => {
+  return capitaliseIndex(str, 0);
 };
 
-export const GetDisplayName = (key: keyof BinLookup): string => {
+export const getBinDisplayName = (key: keyof BinLookup): string => {
   switch (key) {
     case "rubbish":
       return "Rubbish";

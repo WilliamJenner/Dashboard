@@ -17,3 +17,5 @@ export const SecurityCamera: React.FC<ISecurityCameraProps> = () => {
     />
   );
 };
+
+export default SecurityCamera;
