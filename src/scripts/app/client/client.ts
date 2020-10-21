@@ -11,12 +11,7 @@ export interface IClient {
     /**
      * @return Success
      */
-    alertAll(): Promise<Alert[]>;
-    /**
-     * @param body (optional) 
-     * @return Success
-     */
-    alert(body: NewAlert | undefined): Promise<void>;
+    all(): Promise<Alert[]>;
     /**
      * @return Success
      */
@@ -24,21 +19,26 @@ export interface IClient {
     /**
      * @return Success
      */
-    alert2(id: number): Promise<Alert[]>;
+    alertAll(id: number): Promise<Alert[]>;
     /**
      * @param body (optional) 
      * @return Success
      */
-    alert3(id: number, body: NewAlert | undefined): Promise<void>;
+    alert(id: number, body: NewAlert | undefined): Promise<void>;
     /**
      * @return Success
      */
-    alert4(id: number): Promise<void>;
+    alert2(id: number): Promise<void>;
     /**
      * @param body (optional) 
      * @return Success
      */
-    getAll(body: number[] | null | undefined): Promise<Alert[]>;
+    getMultiple(body: number[] | null | undefined): Promise<Alert[]>;
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    newAlert(body: NewAlert | undefined): Promise<void>;
     /**
      * @return Success
      */
@@ -125,8 +125,8 @@ export class Client implements IClient {
     /**
      * @return Success
      */
-    alertAll(): Promise<Alert[]> {
-        let url_ = this.baseUrl + "/Alert";
+    all(): Promise<Alert[]> {
+        let url_ = this.baseUrl + "/Alert/all";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
@@ -137,11 +137,11 @@ export class Client implements IClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processAlertAll(_response);
+            return this.processAll(_response);
         });
     }
 
-    protected processAlertAll(response: Response): Promise<Alert[]> {
+    protected processAll(response: Response): Promise<Alert[]> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -161,44 +161,6 @@ export class Client implements IClient {
             });
         }
         return Promise.resolve<Alert[]>(<any>null);
-    }
-
-    /**
-     * @param body (optional) 
-     * @return Success
-     */
-    alert(body: NewAlert | undefined): Promise<void> {
-        let url_ = this.baseUrl + "/Alert";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(body);
-
-        let options_ = <RequestInit>{
-            body: content_,
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            }
-        };
-
-        return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processAlert(_response);
-        });
-    }
-
-    protected processAlert(response: Response): Promise<void> {
-        const status = response.status;
-        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
-        if (status === 200) {
-            return response.text().then((_responseText) => {
-            return;
-            });
-        } else if (status !== 200 && status !== 204) {
-            return response.text().then((_responseText) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            });
-        }
-        return Promise.resolve<void>(<any>null);
     }
 
     /**
@@ -245,7 +207,7 @@ export class Client implements IClient {
     /**
      * @return Success
      */
-    alert2(id: number): Promise<Alert[]> {
+    alertAll(id: number): Promise<Alert[]> {
         let url_ = this.baseUrl + "/Alert/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -260,11 +222,11 @@ export class Client implements IClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processAlert2(_response);
+            return this.processAlertAll(_response);
         });
     }
 
-    protected processAlert2(response: Response): Promise<Alert[]> {
+    protected processAlertAll(response: Response): Promise<Alert[]> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -290,7 +252,7 @@ export class Client implements IClient {
      * @param body (optional) 
      * @return Success
      */
-    alert3(id: number, body: NewAlert | undefined): Promise<void> {
+    alert(id: number, body: NewAlert | undefined): Promise<void> {
         let url_ = this.baseUrl + "/Alert/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -308,11 +270,11 @@ export class Client implements IClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processAlert3(_response);
+            return this.processAlert(_response);
         });
     }
 
-    protected processAlert3(response: Response): Promise<void> {
+    protected processAlert(response: Response): Promise<void> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -330,7 +292,7 @@ export class Client implements IClient {
     /**
      * @return Success
      */
-    alert4(id: number): Promise<void> {
+    alert2(id: number): Promise<void> {
         let url_ = this.baseUrl + "/Alert/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -344,11 +306,11 @@ export class Client implements IClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processAlert4(_response);
+            return this.processAlert2(_response);
         });
     }
 
-    protected processAlert4(response: Response): Promise<void> {
+    protected processAlert2(response: Response): Promise<void> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -367,8 +329,8 @@ export class Client implements IClient {
      * @param body (optional) 
      * @return Success
      */
-    getAll(body: number[] | null | undefined): Promise<Alert[]> {
-        let url_ = this.baseUrl + "/Alert/get";
+    getMultiple(body: number[] | null | undefined): Promise<Alert[]> {
+        let url_ = this.baseUrl + "/Alert/GetMultiple";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -383,11 +345,11 @@ export class Client implements IClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processGetAll(_response);
+            return this.processGetMultiple(_response);
         });
     }
 
-    protected processGetAll(response: Response): Promise<Alert[]> {
+    protected processGetMultiple(response: Response): Promise<Alert[]> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -407,6 +369,44 @@ export class Client implements IClient {
             });
         }
         return Promise.resolve<Alert[]>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    newAlert(body: NewAlert | undefined): Promise<void> {
+        let url_ = this.baseUrl + "/Alert/NewAlert";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ = <RequestInit>{
+            body: content_,
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processNewAlert(_response);
+        });
+    }
+
+    protected processNewAlert(response: Response): Promise<void> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            return;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<void>(<any>null);
     }
 
     /**
