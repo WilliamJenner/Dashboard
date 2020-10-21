@@ -4,8 +4,8 @@ export class Client {
         this.http = http ? http : window;
         this.baseUrl = baseUrl ? baseUrl : "";
     }
-    alertAll() {
-        let url_ = this.baseUrl + "/Alert";
+    all() {
+        let url_ = this.baseUrl + "/Alert/all";
         url_ = url_.replace(/[?&]$/, "");
         let options_ = {
             method: "GET",
@@ -14,10 +14,10 @@ export class Client {
             }
         };
         return this.http.fetch(url_, options_).then((_response) => {
-            return this.processAlertAll(_response);
+            return this.processAll(_response);
         });
     }
-    processAlertAll(response) {
+    processAll(response) {
         const status = response.status;
         let _headers = {};
         if (response.headers && response.headers.forEach) {
@@ -34,40 +34,6 @@ export class Client {
                         result200.push(Alert.fromJS(item));
                 }
                 return result200;
-            });
-        }
-        else if (status !== 200 && status !== 204) {
-            return response.text().then((_responseText) => {
-                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            });
-        }
-        return Promise.resolve(null);
-    }
-    alert(body) {
-        let url_ = this.baseUrl + "/Alert";
-        url_ = url_.replace(/[?&]$/, "");
-        const content_ = JSON.stringify(body);
-        let options_ = {
-            body: content_,
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            }
-        };
-        return this.http.fetch(url_, options_).then((_response) => {
-            return this.processAlert(_response);
-        });
-    }
-    processAlert(response) {
-        const status = response.status;
-        let _headers = {};
-        if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v, k) => _headers[k] = v);
-        }
-        ;
-        if (status === 200) {
-            return response.text().then((_responseText) => {
-                return;
             });
         }
         else if (status !== 200 && status !== 204) {
@@ -116,7 +82,7 @@ export class Client {
         }
         return Promise.resolve(null);
     }
-    alert2(id) {
+    alertAll(id) {
         let url_ = this.baseUrl + "/Alert/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -129,10 +95,10 @@ export class Client {
             }
         };
         return this.http.fetch(url_, options_).then((_response) => {
-            return this.processAlert2(_response);
+            return this.processAlertAll(_response);
         });
     }
-    processAlert2(response) {
+    processAlertAll(response) {
         const status = response.status;
         let _headers = {};
         if (response.headers && response.headers.forEach) {
@@ -158,7 +124,7 @@ export class Client {
         }
         return Promise.resolve(null);
     }
-    alert3(id, body) {
+    alert(id, body) {
         let url_ = this.baseUrl + "/Alert/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -173,10 +139,10 @@ export class Client {
             }
         };
         return this.http.fetch(url_, options_).then((_response) => {
-            return this.processAlert3(_response);
+            return this.processAlert(_response);
         });
     }
-    processAlert3(response) {
+    processAlert(response) {
         const status = response.status;
         let _headers = {};
         if (response.headers && response.headers.forEach) {
@@ -195,7 +161,7 @@ export class Client {
         }
         return Promise.resolve(null);
     }
-    alert4(id) {
+    alert2(id) {
         let url_ = this.baseUrl + "/Alert/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -206,10 +172,10 @@ export class Client {
             headers: {}
         };
         return this.http.fetch(url_, options_).then((_response) => {
-            return this.processAlert4(_response);
+            return this.processAlert2(_response);
         });
     }
-    processAlert4(response) {
+    processAlert2(response) {
         const status = response.status;
         let _headers = {};
         if (response.headers && response.headers.forEach) {
@@ -228,8 +194,8 @@ export class Client {
         }
         return Promise.resolve(null);
     }
-    getAll(body) {
-        let url_ = this.baseUrl + "/Alert/get";
+    getMultiple(body) {
+        let url_ = this.baseUrl + "/Alert/GetMultiple";
         url_ = url_.replace(/[?&]$/, "");
         const content_ = JSON.stringify(body);
         let options_ = {
@@ -241,10 +207,10 @@ export class Client {
             }
         };
         return this.http.fetch(url_, options_).then((_response) => {
-            return this.processGetAll(_response);
+            return this.processGetMultiple(_response);
         });
     }
-    processGetAll(response) {
+    processGetMultiple(response) {
         const status = response.status;
         let _headers = {};
         if (response.headers && response.headers.forEach) {
@@ -261,6 +227,40 @@ export class Client {
                         result200.push(Alert.fromJS(item));
                 }
                 return result200;
+            });
+        }
+        else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve(null);
+    }
+    newAlert(body) {
+        let url_ = this.baseUrl + "/Alert/NewAlert";
+        url_ = url_.replace(/[?&]$/, "");
+        const content_ = JSON.stringify(body);
+        let options_ = {
+            body: content_,
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        };
+        return this.http.fetch(url_, options_).then((_response) => {
+            return this.processNewAlert(_response);
+        });
+    }
+    processNewAlert(response) {
+        const status = response.status;
+        let _headers = {};
+        if (response.headers && response.headers.forEach) {
+            response.headers.forEach((v, k) => _headers[k] = v);
+        }
+        ;
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+                return;
             });
         }
         else if (status !== 200 && status !== 204) {
