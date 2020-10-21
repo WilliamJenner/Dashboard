@@ -1,6 +1,6 @@
 import React, { Component, useEffect } from "react";
 import moment from "moment";
-import { CapitaliseFirst, GetDisplayName } from "../../utils/string";
+import { capitaliseFirst, getBinDisplayName } from "../../utils/string";
 import { useInterval } from "../../hooks/useInterval";
 import { hoursToMilliseconds } from "../../utils/number";
 import { NamedBin } from "../../types/bins";
@@ -23,7 +23,7 @@ const BinNotification: React.SFC<IBinNotificationProps> = (props) => {
       <div className={"bin-notification__text"}>
         <h1>
           <span className={textClass}>
-            {GetDisplayName(name as keyof BinLookup)}
+            {getBinDisplayName(name as keyof BinLookup)}
           </span>{" "}
           next due on{" "}
           <span className={textClass}>
