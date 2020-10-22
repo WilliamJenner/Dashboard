@@ -1,6 +1,6 @@
 import React from "react";
 import { getRequiredAmount } from "../../actions/requester";
-import { hoursToMilliseconds } from "../../utils/number";
+import { hoursToMilliseconds, minutesToMilliseconds } from "../../utils/number";
 import { useInterval } from "../../hooks/useInterval";
 
 export const Requester: React.FC = () => {
@@ -20,7 +20,7 @@ export const Requester: React.FC = () => {
   // Then poll every X time
   useInterval(() => {
     getAndSetRequest();
-  }, hoursToMilliseconds(1));
+  }, minutesToMilliseconds(10));
 
   if (requestedAmount === undefined) {
     return <div>Client not found</div>;
