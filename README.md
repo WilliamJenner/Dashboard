@@ -1,20 +1,10 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
-
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
-
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
-
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
-
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+[![Build Status](http://86.11.71.191:82/buildStatus/icon?job=Dashboard)](http://86.11.71.191:82/job/Dashboard/)
+# The Dashboard 
+This is the front end for the house wallboard.
+# Getting her going
+You'll need to restore the node dependencies with 'npm install' and aquire the secrets or you'll be missing some key files and it will not build.
+Then npm run prod to package the typescript and output the app.js. Then just run through IIS in visual studio or dotnet run.
+# Pending TODO's
+- webpack dev server with hot reloading
+- putting the API url in config with corresponding dev urls
+- More tiles
