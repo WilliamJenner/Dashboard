@@ -19,7 +19,7 @@ const Clock: React.FC = () => {
   return (
     <div className={`clock`}>
       <h1>{time.format("HH:mm:ss")}</h1>
-      <h2>{time.format("YYYY-MM-DD")}</h2>
+      <h3>{time.format("YYYY-MM-DD")}</h3>
     </div>
   );
 };
