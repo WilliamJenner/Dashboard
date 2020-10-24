@@ -2,7 +2,8 @@ import * as React from "react";
 import { Row, Col } from "react-bootstrap";
 import AlertTicker from "./AlertTicker.component";
 import Bindicator from "./Bindicator.component";
-import Environment from "./Environment.component";
+import Weather from "./Weather.comonent";
+import Clock from "./Clock.component";
 import Requester from "./Requester.component";
 import SecurityCamera from "./SecurityCam.component";
 
@@ -26,7 +27,10 @@ export const Dashboard: React.FC<IDashboardProps> = () => {
       </Row>
       <Row className={"dash-row"}>
         <Col className={"dash-item"}>
-          <Environment />
+          <Weather />
+        </Col>
+        <Col className={"dash-item"}>
+          <Clock />
         </Col>
         <Col className={"dash-item"}>
           <Requester />

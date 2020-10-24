@@ -1,3 +1,18 @@
 .weather {
   color: $primary-text-color;
+
+  &__text {
+    font-weight: bold;
+  }
+  &__info {
+    flex-direction: column;
+    justify-content: space-evenly;
+    display: flex;
+  }
+  &--cold {
+    color: aqua;
+  }
+  &--hot {
+    color: crimson;
+  }
 }
