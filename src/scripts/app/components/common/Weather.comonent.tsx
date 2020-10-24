@@ -31,7 +31,7 @@ const Weather: React.FC = () => {
 
     return (
         <div className={`weather`}>
-            <h1 className={classNames({ 'weather__cold': weather?.main?.temperature && weather.main.temperature < 15, 'weather__hot': weather?.main?.temperature && weather.main.temperature > 20 })}>{weather?.main?.temperature}°C</h1>
+            <h1 className={classNames({ 'weather--cold': weather?.main?.temperature && weather.main.temperature < 15, 'weather--hot': weather?.main?.temperature && weather.main.temperature > 20 })}>{weather?.main?.temperature}°C</h1>
             <div className={'weather__info'}>
                 <span>Feels like {weather?.main?.feelsLike}°C</span>
                 <span className={'weather'}>{weather?.main?.humidity && weather.main.humidity > 80 && <span>Its <CloudRain /> bring an <Umbrella /></span>}</span>
