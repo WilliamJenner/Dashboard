@@ -9,10 +9,10 @@
     justify-content: space-evenly;
     display: flex;
   }
-  &__cold {
+  &--cold {
     color: aqua;
   }
-  &__hot {
+  &--hot {
     color: crimson;
   }
 }
