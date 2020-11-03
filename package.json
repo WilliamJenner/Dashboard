@@ -41,7 +41,7 @@
     "last 2 versions"
   ],
   "dependencies": {
-    "@types/classnames": "^2.2.10",
+    "@types/classnames": "^2.2.11",
     "@types/moment": "^2.13.0",
     "@types/react-router-dom": "^5.1.5",
     "app-root-path": "^3.0.0",
