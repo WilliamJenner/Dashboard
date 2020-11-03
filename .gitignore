@@ -105,3 +105,6 @@ obj/
 
 # Visual Studio 2019
 .vs/
+
+# Secrets
+appsettings.prod.json

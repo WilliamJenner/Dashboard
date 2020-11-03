@@ -1,0 +1,26 @@
+.requester {
+  display: grid;
+  grid-template-areas: "header", "amount", "requesters";
+  .requester__text {
+    display: contents;
+
+    & > h2 {
+      grid-area: "header";
+    }
+    & > .requester__amount {
+      grid-area: "amount";
+      font-weight: bold;
+    }
+  }
+
+  .requester__requesters {
+    .ticker__element {
+      .ticker__content__amount {
+        font-weight: bold;
+      }
+      .ticker__content__author {
+        font-weight: normal;
+      }
+    }
+  }
+}
