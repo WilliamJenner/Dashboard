@@ -61,6 +61,7 @@ module.exports = (__dirname, env) => {
                 template: path.join(`${appRoot}`, "Views", "Templates", "_App_Template.cshtml"),
                 filename: path.join(`${appRoot}`, "Views", "Home", "Index.cshtml"),
                 chunks: ["dist/app.bundle.js"],
+                devServer: env.development !== undefined,
             }),
             new HtmlWebPackPlugin({
                 ...commonHtmlWebpackPluginConfig(),

@@ -2,7 +2,7 @@ import React, { Component, useEffect } from "react";
 import moment from "moment";
 import { capitaliseFirst, getBinDisplayName } from "../../utils/string";
 import { useInterval } from "../../hooks/useInterval";
-import { hoursToMilliseconds } from "../../utils/number";
+import { daysBetween, hoursToMilliseconds } from "../../utils/number";
 import { NamedBin } from "../../types/bins";
 import { BinLookup, IBinLookup, IBin } from "../../client/client";
 import { GetBins } from "../../actions/bins";
@@ -11,27 +11,31 @@ interface IBindicatorProps {}
 
 interface IBinNotificationProps {
   namedBin: NamedBin;
-  callToAction: boolean;
 }
 
 const BinNotification: React.SFC<IBinNotificationProps> = (props) => {
   const { bin, name } = props.namedBin;
-  const textClass = props.callToAction ? "call-to-action" : "";
+
+  // Got to check to stop the compiler complaining
+  if (bin?.next === undefined) {
+    return null;
+  }
+
+  const textClass =
+    daysBetween(bin?.next, new Date()) < 1.5 ? "call-to-action" : "";
 
   return (
     <div className={"bin-notification"}>
-      <div className={"bin-notification__text"}>
-        <h1>
-          <span className={textClass}>
-            {getBinDisplayName(name as keyof BinLookup)}
-          </span>{" "}
-          next due on{" "}
-          <span className={textClass}>
-            {moment(bin?.next).format("dddd, MMMM Do YYYY")}
-          </span>
-          .
-        </h1>
-      </div>
+      <h1 className={"bin-notification__text"}>
+        <span className={textClass}>
+          {getBinDisplayName(name as keyof BinLookup)}
+        </span>{" "}
+        next due on{" "}
+        <span className={textClass}>
+          {moment(bin?.next).format("dddd, MMMM Do YYYY")}
+        </span>
+        .
+      </h1>
     </div>
   );
 };
@@ -82,20 +86,13 @@ export const Bindicator: React.FunctionComponent<IBindicatorProps> = (
       } else if (firstDate > secondDate) {
         return 1;
       } else return 1;
-    });
-
-  const lastBin = orderedBins[orderedBins.length - 1];
+    })
+    .slice(0, 2); // take the top two | two closest collections
 
   return (
     <div className={"bindicator"}>
       {orderedBins.map((b, index) => {
-        return (
-          <BinNotification
-            key={index}
-            namedBin={b}
-            callToAction={b?.name !== lastBin?.name}
-          />
-        );
+        return <BinNotification key={index} namedBin={b} />;
       })}
     </div>
   );

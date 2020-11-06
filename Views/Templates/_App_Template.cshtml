@@ -1,15 +1,12 @@
 ﻿@model AppState
 @section Scripts {
     <% if (htmlWebpackPlugin.options.devServer) { %>
-        dev
-    <% } %>
-
-
-
-
-    <% for (var chunk in htmlWebpackPlugin.options.chunks) { %>
-    <% var package = htmlWebpackPlugin.options.chunks[chunk]; %>
+        <script type="module" src="http://localhost:4000/dev/app.bundle.js" type="text/javascript"></script>
+    <% } else { %>
+        <% for (var chunk in htmlWebpackPlugin.options.chunks) { %>
+        <% var package = htmlWebpackPlugin.options.chunks[chunk]; %>
         <script type="module" src="@Url.Content("~<%= htmlWebpackPlugin.options.dist %>/<%= package %>")" type="text/javascript"></script>
+        <% } %>
     <% } %>
 }
 

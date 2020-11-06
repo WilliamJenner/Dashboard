@@ -1,6 +1,10 @@
 .bindicator {
   .bin-notification {
     &__text {
+      span {
+        font-size: $heading1;
+      }
+
       .call-to-action {
         color: $secondary-text-color;
       }

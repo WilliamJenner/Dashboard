@@ -18,9 +18,7 @@ export const Dashboard: React.FC<IDashboardProps> = () => {
         </Col>
       </Row>
       <Row className={"dash-row"}>
-        <Col className={"dash-item"}>
-          <Bindicator />
-        </Col>
+        <Col className={"dash-item"}></Col>
         <Col className={"dash-item"}>
           <SecurityCamera />
         </Col>
@@ -35,7 +33,10 @@ export const Dashboard: React.FC<IDashboardProps> = () => {
         <Col className={"dash-item"}>
           <Requester />
         </Col>
-        <Col className={"dash-item dash-item--grow"}>5</Col>
+
+        <Col className={"dash-item dash-item--grow"}>
+          <Bindicator />
+        </Col>
       </Row>
     </div>
   );

@@ -108,3 +108,5 @@ obj/
 
 # Secrets
 appsettings.prod.json
+
+src/scripts/**/*.js

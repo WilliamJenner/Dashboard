@@ -1,5 +1,21 @@
 ﻿body {
-    background-color: $background-color;
-    color: $primary-text-color;
-  }
-  
+  background-color: $background-color;
+  color: $primary-text-color;
+}
+
+h1 {
+  font-size: $heading1;
+}
+
+h2 {
+  font-size: $heading2;
+}
+
+h3 {
+  font-size: $heading3;
+}
+
+p,
+span {
+  font-size: $small-font-size;
+}

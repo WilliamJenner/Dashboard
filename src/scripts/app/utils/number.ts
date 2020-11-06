@@ -12,3 +12,7 @@ export const secondsToMilliseconds = (seconds: number): number => {
   const milliSecondsInSecond = 1000;
   return seconds * milliSecondsInSecond;
 };
+
+export const daysBetween = (dateOne: Date, dateTwo: Date): number => {
+  return (dateOne.getTime() - dateTwo.getTime()) / (1000 * 60 * 60 * 24.0);
+};

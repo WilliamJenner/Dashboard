@@ -2,8 +2,16 @@ $small-spacing: 0.5em;
 $medium-spacing: 1em;
 $large-spacing: 1.5em;
 
+$small-font-size: 1rem;
+$medium-font-size: 1.5rem;
+$large-font-size: 2rem;
+
+$heading1: $large-font-size;
+$heading2: $large-font-size - 0.2rem;
+$heading3: $heading2 - 0.2rem;
+
 $background-color: #121212;
-$content-background-color: #1D1D1D;
+$content-background-color: #1d1d1d;
 
 $primary-text-color: #ffffffde;
 $secondary-text-color: $color-primary-0;
@@ -11,4 +19,3 @@ $disabled-text-color: $color-secondary-1-0;
 
 $shadow-color: #0f0f0f;
 $primary-accent: $color-primary-0;
-
