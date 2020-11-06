@@ -8,6 +8,7 @@ module.exports = (__dirname) => {
             publicPath: "/dev/",
             port: 4000,
             historyApiFallback: true,
+            hot: true,
             watchContentBase: true,
             headers: {
                 "Access-Control-Allow-Origin": "*",

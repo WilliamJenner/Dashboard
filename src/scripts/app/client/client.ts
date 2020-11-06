@@ -103,7 +103,6 @@ export class Client {
     if (status === 200) {
       return response.text().then((_responseText) => {
         let result200: any = null;
-        console.log({ _responseText });
         let resultData200 =
           _responseText === ""
             ? null

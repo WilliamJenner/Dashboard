@@ -20,7 +20,6 @@ module.exports = (__dirname, env) => {
             mainFields: ['main', 'module', 'browser'],
         },
         entry: __dirname + "/src/scripts/index.tsx",
-        target: 'electron-renderer',
         devtool: 'inline-source-map',
         module: {
             rules: [
