@@ -32,14 +32,8 @@ function createWindow() {
 app.on("ready", createWindow);
 app.on(
   "certificate-error",
-  (
-    event: { preventDefault: () => void },
-    webContents: any,
-    url: any,
-    error: any,
-    certificate: any,
-    callback: (arg0: boolean) => void
-  ) => {
+  // @ts-ignore
+  (event, webContents, url, error, certificate, callback) => {
     // On certificate error we disable default behaviour (stop loading the page)
     // and we then say "it is all fine - true" to the callback
     event.preventDefault();

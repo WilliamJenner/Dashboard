@@ -1,6 +1,5 @@
 import * as React from "react";
 import { createContainer } from "unstated-next";
-import { Client } from "../client/client";
 import { IConfig } from "../types/config";
 
 const defaultConfig: IConfig = {
