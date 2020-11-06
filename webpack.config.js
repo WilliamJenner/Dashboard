@@ -15,19 +15,18 @@ const { merge } = require('webpack-merge');
 const webpackElectron = require('./webpack/webpack.electron');
 
 function envConfig(env) {
-    console.log(env)
-    switch (env) {
-        case "prod":
-            return webpackProd;
-        case "dev":
-            return webpackDev;
-        default:
-            throw new Error("unexpected env variable");
+    if (env.development) {
+        return webpackDev(__dirname);
     }
+    else if (env.prod) {
+        return webpackProd(__dirname);
+    }
+
+    throw new Error("unexpected env variable");
 }
 
-module.exports = (env) => {
-    console.log(env);
-    return merge(webpackCommon(__dirname), webpackElectron(), envConfig(env))
+module.exports = (env, argv) => {
+    console.log({ argv });
+    return merge(webpackCommon(__dirname), envConfig(env))
 };
 

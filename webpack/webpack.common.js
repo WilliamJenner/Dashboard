@@ -1,58 +1,40 @@
 const path = require('path');
-const webpack = require('webpack');
 const appRoot = require('app-root-path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const HappyPack = require('happypack');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
-const TsConfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 const commonHtmlWebpackPluginConfig = () => {
     return {
-        minify: false,
         inject: true,
-        files: {
-            css: ["./src/styles/index.scss"]
-        },
     }
 }
 
-module.exports = (dir_name) => {
+module.exports = (__dirname) => {
     return {
         // Enable sourcemaps for debugging webpack's output.
         resolve: {
-            extensions: ['.tsx', '.ts', '.js'],
+            extensions: ['.ts', '.tsx', '.js', '.json'],
             mainFields: ['main', 'module', 'browser'],
         },
-        entry: './src/app.tsx',
+        entry: __dirname + "/src/scripts/index.tsx",
         target: 'electron-renderer',
-        devtool: 'source-map',
+        devtool: 'inline-source-map',
         module: {
             rules: [
                 {
                     test: /\.(tsx|ts)?$/,
                     exclude: /node_modules/,
-                    loader: "happypack/loader?id=ts",
-                },
-                {
-                    test: /\.tsx?$/,
-                    loader: "ts-loader",
+                    use: {
+                        loader: "ts-loader"
+                    }
                 },
                 {
                     enforce: "pre",
                     test: /\.js$/,
                     loader: "source-map-loader"
                 },
-                {
-                    test: /\.m?js$/,
-                    exclude: /(node_modules|bower_components)/,
-                    use: {
-                        loader: 'babel-loader',
-                        options: {
-                            presets: ['@babel/preset-env']
-                        }
-                    },
-                    exclude: '/.node_modules'
-                },
+
                 {
                     test: /\.s[ac]ss$/i,
                     use: [
@@ -66,13 +48,9 @@ module.exports = (dir_name) => {
                 },
             ]
         },
-        devServer: {
-            contentBase: path.join(__dirname, '../dist/renderer'),
-            historyApiFallback: true,
-            compress: true,
-            hot: true,
-            port: 4000,
-            publicPath: '/',
+        output: {
+            path: __dirname + "./wwwroot/dist",
+            filename: "app.bundle.js"
         },
         plugins: [
             new HtmlWebPackPlugin({
@@ -93,20 +71,12 @@ module.exports = (dir_name) => {
             new HappyPack({
                 id: "ts",
                 threads: 4,
-                loaders: [
-                    {
-                        path: "ts-loader",
-                        query: {
-                            happyPackMode: true,
-                        },
-                    },
-                ],
+                loaders: ['ts-loader']
             }),
             new ForkTsCheckerWebpackPlugin({
                 checkSyntacticErrors: true,
             }),
-            new webpack.HotModuleReplacementPlugin({
-            }),
+
         ]
     }
 }
