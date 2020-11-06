@@ -1,5 +1,12 @@
 ﻿@model AppState
 @section Scripts {
+    <% if (htmlWebpackPlugin.options.devServer) { %>
+        dev
+    <% } %>
+
+
+
+
     <% for (var chunk in htmlWebpackPlugin.options.chunks) { %>
     <% var package = htmlWebpackPlugin.options.chunks[chunk]; %>
         <script type="module" src="@Url.Content("~<%= htmlWebpackPlugin.options.dist %>/<%= package %>")" type="text/javascript"></script>

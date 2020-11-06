@@ -1,12 +1,10 @@
-// import { Client, IClient } from "./client";
-// import ConfigContainer from "";
+import { AppState } from "../state/config";
+import { Client } from "./client";
 
-// export function api(): IClient {
-//   const config = ConfigContainer.useContainer();
+export const api = () => {
+  return new Client(
+    JSON.parse(document.getElementById("config")?.innerHTML!).apiUrl
+  ); // this is gross and I need to find a better way to pass this value in
 
-//   if (!config.config.appState.apiUrl) {
-//     return new Client();
-//   }
-
-//   return new Client(config.config.appState.apiUrl);
-// }
+  // .... but it does work
+};

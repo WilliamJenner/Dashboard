@@ -6,12 +6,12 @@ const defaultConfig = {
         securityCamUrl: "",
     },
 };
-function useConfig() {
+function useAppState() {
     const [config, setConfig] = React.useState(defaultConfig);
     return {
         config,
         setConfig,
     };
 }
-export default createContainer(useConfig);
+export const AppState = createContainer(useAppState);
 //# sourceMappingURL=config.js.map

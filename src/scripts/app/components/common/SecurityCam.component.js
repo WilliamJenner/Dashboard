@@ -1,7 +1,7 @@
 import * as React from "react";
-import ConfigContainer from "../../state/config";
+import { AppState } from "../../state/config";
 export const SecurityCamera = () => {
-    const { config } = ConfigContainer.useContainer();
+    const { config } = AppState.useContainer();
     return (React.createElement("img", { className: "security-camera", src: config.appState
             ? config.appState.securityCamUrl
             : "http://192.168.0.70:8081" }));

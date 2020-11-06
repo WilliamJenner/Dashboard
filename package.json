@@ -5,9 +5,9 @@
   "main": "./src/electron/main.ts",
   "scripts": {
     "dev:electron": "cross-env NODE_ENV=development webpack --config ./webpack/webpack.electron.js --mode development && electron .",
-    "dev:react": " webpack serve --config webpack.react.config.js --mode development",
-    "dev": "webpack serve --env=development --mode development --config webpack.config.js ",
+    "dev:server": "npm run dev && webpack serve --env=development --mode development --config webpack.config.js ",
     "prod": "webpack --env=prod --mode production --config webpack.config.js ",
+    "dev": " webpack --env=development --mode development --config webpack.config.js",
     "generate-client": "nswag run /runtime:WinX64"
   },
   "author": "",

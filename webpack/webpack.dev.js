@@ -4,12 +4,16 @@ const path = require('path');
 module.exports = (__dirname) => {
     return {
         devServer: {
-            contentBase: path.join(__dirname, './wwwroot/dist/app.bundle.js'),
-            historyApiFallback: true,
-            compress: true,
-            hot: true,
+            contentBase: path.join(__dirname, 'wwwroot/dist'),
+            publicPath: "/dev/",
             port: 4000,
-            writeToDisk: true,
+            historyApiFallback: true,
+            watchContentBase: true,
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+                "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
+            }
         },
     }
 }

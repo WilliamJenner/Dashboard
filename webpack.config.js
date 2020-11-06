@@ -19,6 +19,6 @@ function envConfig(env) {
 
 module.exports = (env, argv) => {
     console.log({ argv });
-    return merge(webpackCommon(__dirname), envConfig(env))
+    return merge(webpackCommon(__dirname, env), envConfig(env))
 };
 

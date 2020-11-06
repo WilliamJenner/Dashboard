@@ -3,10 +3,11 @@ import * as ReactDOM from "react-dom";
 import "../styles/index.scss";
 import App from "./app/app";
 import { BrowserRouter } from "react-router-dom";
-import Base from "./app/base";
+import { AppState } from "./app/state/config";
 let render = () => {
     ReactDOM.render(React.createElement(BrowserRouter, null,
-        React.createElement(Base, null)), document.getElementById("app"));
+        React.createElement(AppState.Provider, null,
+            React.createElement(App, null))), document.getElementById("app"));
 };
 if (module.hot) {
     module.hot.accept(App, () => {

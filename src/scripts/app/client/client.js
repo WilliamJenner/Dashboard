@@ -10,8 +10,8 @@ export class Client {
         let options_ = {
             method: "GET",
             headers: {
-                "Accept": "text/plain"
-            }
+                Accept: "text/plain",
+            },
         };
         return this.http.fetch(url_, options_).then((_response) => {
             return this.processAll(_response);
@@ -21,13 +21,14 @@ export class Client {
         const status = response.status;
         let _headers = {};
         if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v, k) => _headers[k] = v);
+            response.headers.forEach((v, k) => (_headers[k] = v));
         }
-        ;
         if (status === 200) {
             return response.text().then((_responseText) => {
                 let result200 = null;
-                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                let resultData200 = _responseText === ""
+                    ? null
+                    : JSON.parse(_responseText, this.jsonParseReviver);
                 if (Array.isArray(resultData200)) {
                     result200 = [];
                     for (let item of resultData200)
@@ -49,8 +50,8 @@ export class Client {
         let options_ = {
             method: "GET",
             headers: {
-                "Accept": "text/plain"
-            }
+                Accept: "text/plain",
+            },
         };
         return this.http.fetch(url_, options_).then((_response) => {
             return this.processGetLatest(_response);
@@ -60,13 +61,15 @@ export class Client {
         const status = response.status;
         let _headers = {};
         if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v, k) => _headers[k] = v);
+            response.headers.forEach((v, k) => (_headers[k] = v));
         }
-        ;
         if (status === 200) {
             return response.text().then((_responseText) => {
                 let result200 = null;
-                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                console.log({ _responseText });
+                let resultData200 = _responseText === ""
+                    ? null
+                    : JSON.parse(_responseText, this.jsonParseReviver);
                 if (Array.isArray(resultData200)) {
                     result200 = [];
                     for (let item of resultData200)
@@ -91,8 +94,8 @@ export class Client {
         let options_ = {
             method: "GET",
             headers: {
-                "Accept": "text/plain"
-            }
+                Accept: "text/plain",
+            },
         };
         return this.http.fetch(url_, options_).then((_response) => {
             return this.processAlertAll(_response);
@@ -102,13 +105,14 @@ export class Client {
         const status = response.status;
         let _headers = {};
         if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v, k) => _headers[k] = v);
+            response.headers.forEach((v, k) => (_headers[k] = v));
         }
-        ;
         if (status === 200) {
             return response.text().then((_responseText) => {
                 let result200 = null;
-                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                let resultData200 = _responseText === ""
+                    ? null
+                    : JSON.parse(_responseText, this.jsonParseReviver);
                 if (Array.isArray(resultData200)) {
                     result200 = [];
                     for (let item of resultData200)
@@ -136,7 +140,7 @@ export class Client {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-            }
+            },
         };
         return this.http.fetch(url_, options_).then((_response) => {
             return this.processAlert(_response);
@@ -146,9 +150,8 @@ export class Client {
         const status = response.status;
         let _headers = {};
         if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v, k) => _headers[k] = v);
+            response.headers.forEach((v, k) => (_headers[k] = v));
         }
-        ;
         if (status === 200) {
             return response.text().then((_responseText) => {
                 return;
@@ -169,7 +172,7 @@ export class Client {
         url_ = url_.replace(/[?&]$/, "");
         let options_ = {
             method: "DELETE",
-            headers: {}
+            headers: {},
         };
         return this.http.fetch(url_, options_).then((_response) => {
             return this.processAlert2(_response);
@@ -179,9 +182,8 @@ export class Client {
         const status = response.status;
         let _headers = {};
         if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v, k) => _headers[k] = v);
+            response.headers.forEach((v, k) => (_headers[k] = v));
         }
-        ;
         if (status === 200) {
             return response.text().then((_responseText) => {
                 return;
@@ -203,8 +205,8 @@ export class Client {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Accept": "text/plain"
-            }
+                Accept: "text/plain",
+            },
         };
         return this.http.fetch(url_, options_).then((_response) => {
             return this.processGetMultiple(_response);
@@ -214,13 +216,14 @@ export class Client {
         const status = response.status;
         let _headers = {};
         if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v, k) => _headers[k] = v);
+            response.headers.forEach((v, k) => (_headers[k] = v));
         }
-        ;
         if (status === 200) {
             return response.text().then((_responseText) => {
                 let result200 = null;
-                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                let resultData200 = _responseText === ""
+                    ? null
+                    : JSON.parse(_responseText, this.jsonParseReviver);
                 if (Array.isArray(resultData200)) {
                     result200 = [];
                     for (let item of resultData200)
@@ -245,7 +248,7 @@ export class Client {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-            }
+            },
         };
         return this.http.fetch(url_, options_).then((_response) => {
             return this.processNewAlert(_response);
@@ -255,9 +258,8 @@ export class Client {
         const status = response.status;
         let _headers = {};
         if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v, k) => _headers[k] = v);
+            response.headers.forEach((v, k) => (_headers[k] = v));
         }
-        ;
         if (status === 200) {
             return response.text().then((_responseText) => {
                 return;
@@ -276,8 +278,8 @@ export class Client {
         let options_ = {
             method: "GET",
             headers: {
-                "Accept": "text/plain"
-            }
+                Accept: "text/plain",
+            },
         };
         return this.http.fetch(url_, options_).then((_response) => {
             return this.processBindicator(_response);
@@ -287,13 +289,14 @@ export class Client {
         const status = response.status;
         let _headers = {};
         if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v, k) => _headers[k] = v);
+            response.headers.forEach((v, k) => (_headers[k] = v));
         }
-        ;
         if (status === 200) {
             return response.text().then((_responseText) => {
                 let result200 = null;
-                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                let resultData200 = _responseText === ""
+                    ? null
+                    : JSON.parse(_responseText, this.jsonParseReviver);
                 result200 = BinLookup.fromJS(resultData200);
                 return result200;
             });
@@ -312,7 +315,7 @@ export class Client {
         url_ = url_.replace(/[?&]$/, "");
         let options_ = {
             method: "GET",
-            headers: {}
+            headers: {},
         };
         return this.http.fetch(url_, options_).then((_response) => {
             return this.processRequest(_response);
@@ -322,9 +325,8 @@ export class Client {
         const status = response.status;
         let _headers = {};
         if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v, k) => _headers[k] = v);
+            response.headers.forEach((v, k) => (_headers[k] = v));
         }
-        ;
         if (status === 200) {
             return response.text().then((_responseText) => {
                 return;
@@ -342,7 +344,7 @@ export class Client {
         url_ = url_.replace(/[?&]$/, "");
         let options_ = {
             method: "GET",
-            headers: {}
+            headers: {},
         };
         return this.http.fetch(url_, options_).then((_response) => {
             return this.processExpire(_response);
@@ -352,9 +354,8 @@ export class Client {
         const status = response.status;
         let _headers = {};
         if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v, k) => _headers[k] = v);
+            response.headers.forEach((v, k) => (_headers[k] = v));
         }
-        ;
         if (status === 200) {
             return response.text().then((_responseText) => {
                 return;
@@ -373,8 +374,8 @@ export class Client {
         let options_ = {
             method: "GET",
             headers: {
-                "Accept": "text/plain"
-            }
+                Accept: "text/plain",
+            },
         };
         return this.http.fetch(url_, options_).then((_response) => {
             return this.processAmount(_response);
@@ -384,13 +385,14 @@ export class Client {
         const status = response.status;
         let _headers = {};
         if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v, k) => _headers[k] = v);
+            response.headers.forEach((v, k) => (_headers[k] = v));
         }
-        ;
         if (status === 200) {
             return response.text().then((_responseText) => {
                 let result200 = null;
-                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                let resultData200 = _responseText === ""
+                    ? null
+                    : JSON.parse(_responseText, this.jsonParseReviver);
                 result200 = resultData200 !== undefined ? resultData200 : null;
                 return result200;
             });
@@ -408,8 +410,8 @@ export class Client {
         let options_ = {
             method: "GET",
             headers: {
-                "Accept": "text/plain"
-            }
+                Accept: "text/plain",
+            },
         };
         return this.http.fetch(url_, options_).then((_response) => {
             return this.processActiveamount(_response);
@@ -419,13 +421,14 @@ export class Client {
         const status = response.status;
         let _headers = {};
         if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v, k) => _headers[k] = v);
+            response.headers.forEach((v, k) => (_headers[k] = v));
         }
-        ;
         if (status === 200) {
             return response.text().then((_responseText) => {
                 let result200 = null;
-                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                let resultData200 = _responseText === ""
+                    ? null
+                    : JSON.parse(_responseText, this.jsonParseReviver);
                 if (Array.isArray(resultData200)) {
                     result200 = [];
                     for (let item of resultData200)
@@ -447,8 +450,8 @@ export class Client {
         let options_ = {
             method: "POST",
             headers: {
-                "Accept": "text/plain"
-            }
+                Accept: "text/plain",
+            },
         };
         return this.http.fetch(url_, options_).then((_response) => {
             return this.processExpireRows(_response);
@@ -458,13 +461,14 @@ export class Client {
         const status = response.status;
         let _headers = {};
         if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v, k) => _headers[k] = v);
+            response.headers.forEach((v, k) => (_headers[k] = v));
         }
-        ;
         if (status === 200) {
             return response.text().then((_responseText) => {
                 let result200 = null;
-                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                let resultData200 = _responseText === ""
+                    ? null
+                    : JSON.parse(_responseText, this.jsonParseReviver);
                 result200 = resultData200 !== undefined ? resultData200 : null;
                 return result200;
             });
@@ -491,7 +495,7 @@ export class Client {
         url_ = url_.replace(/[?&]$/, "");
         let options_ = {
             method: "POST",
-            headers: {}
+            headers: {},
         };
         return this.http.fetch(url_, options_).then((_response) => {
             return this.processSubmitRequest(_response);
@@ -501,9 +505,8 @@ export class Client {
         const status = response.status;
         let _headers = {};
         if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v, k) => _headers[k] = v);
+            response.headers.forEach((v, k) => (_headers[k] = v));
         }
-        ;
         if (status === 200) {
             return response.text().then((_responseText) => {
                 return;
@@ -522,8 +525,8 @@ export class Client {
         let options_ = {
             method: "GET",
             headers: {
-                "Accept": "text/plain"
-            }
+                Accept: "text/plain",
+            },
         };
         return this.http.fetch(url_, options_).then((_response) => {
             return this.processUniEventAll(_response);
@@ -533,13 +536,14 @@ export class Client {
         const status = response.status;
         let _headers = {};
         if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v, k) => _headers[k] = v);
+            response.headers.forEach((v, k) => (_headers[k] = v));
         }
-        ;
         if (status === 200) {
             return response.text().then((_responseText) => {
                 let result200 = null;
-                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                let resultData200 = _responseText === ""
+                    ? null
+                    : JSON.parse(_responseText, this.jsonParseReviver);
                 if (Array.isArray(resultData200)) {
                     result200 = [];
                     for (let item of resultData200)
@@ -564,7 +568,7 @@ export class Client {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-            }
+            },
         };
         return this.http.fetch(url_, options_).then((_response) => {
             return this.processUniEvent(_response);
@@ -574,9 +578,8 @@ export class Client {
         const status = response.status;
         let _headers = {};
         if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v, k) => _headers[k] = v);
+            response.headers.forEach((v, k) => (_headers[k] = v));
         }
-        ;
         if (status === 200) {
             return response.text().then((_responseText) => {
                 return;
@@ -598,8 +601,8 @@ export class Client {
         let options_ = {
             method: "GET",
             headers: {
-                "Accept": "text/plain"
-            }
+                Accept: "text/plain",
+            },
         };
         return this.http.fetch(url_, options_).then((_response) => {
             return this.processUniEvent2(_response);
@@ -609,13 +612,14 @@ export class Client {
         const status = response.status;
         let _headers = {};
         if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v, k) => _headers[k] = v);
+            response.headers.forEach((v, k) => (_headers[k] = v));
         }
-        ;
         if (status === 200) {
             return response.text().then((_responseText) => {
                 let result200 = null;
-                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                let resultData200 = _responseText === ""
+                    ? null
+                    : JSON.parse(_responseText, this.jsonParseReviver);
                 if (Array.isArray(resultData200)) {
                     result200 = [];
                     for (let item of resultData200)
@@ -643,7 +647,7 @@ export class Client {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-            }
+            },
         };
         return this.http.fetch(url_, options_).then((_response) => {
             return this.processUniEvent3(_response);
@@ -653,9 +657,8 @@ export class Client {
         const status = response.status;
         let _headers = {};
         if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v, k) => _headers[k] = v);
+            response.headers.forEach((v, k) => (_headers[k] = v));
         }
-        ;
         if (status === 200) {
             return response.text().then((_responseText) => {
                 return;
@@ -676,7 +679,7 @@ export class Client {
         url_ = url_.replace(/[?&]$/, "");
         let options_ = {
             method: "DELETE",
-            headers: {}
+            headers: {},
         };
         return this.http.fetch(url_, options_).then((_response) => {
             return this.processUniEvent4(_response);
@@ -686,9 +689,8 @@ export class Client {
         const status = response.status;
         let _headers = {};
         if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v, k) => _headers[k] = v);
+            response.headers.forEach((v, k) => (_headers[k] = v));
         }
-        ;
         if (status === 200) {
             return response.text().then((_responseText) => {
                 return;
@@ -710,8 +712,8 @@ export class Client {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Accept": "text/plain"
-            }
+                Accept: "text/plain",
+            },
         };
         return this.http.fetch(url_, options_).then((_response) => {
             return this.processGet(_response);
@@ -721,13 +723,14 @@ export class Client {
         const status = response.status;
         let _headers = {};
         if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v, k) => _headers[k] = v);
+            response.headers.forEach((v, k) => (_headers[k] = v));
         }
-        ;
         if (status === 200) {
             return response.text().then((_responseText) => {
                 let result200 = null;
-                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                let resultData200 = _responseText === ""
+                    ? null
+                    : JSON.parse(_responseText, this.jsonParseReviver);
                 if (Array.isArray(resultData200)) {
                     result200 = [];
                     for (let item of resultData200)
@@ -752,7 +755,7 @@ export class Client {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-            }
+            },
         };
         return this.http.fetch(url_, options_).then((_response) => {
             return this.processGetMultipleTimetables(_response);
@@ -762,9 +765,8 @@ export class Client {
         const status = response.status;
         let _headers = {};
         if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v, k) => _headers[k] = v);
+            response.headers.forEach((v, k) => (_headers[k] = v));
         }
-        ;
         if (status === 200) {
             return response.text().then((_responseText) => {
                 return;
@@ -786,7 +788,7 @@ export class Client {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-            }
+            },
         };
         return this.http.fetch(url_, options_).then((_response) => {
             return this.processGetTimetable(_response);
@@ -796,9 +798,8 @@ export class Client {
         const status = response.status;
         let _headers = {};
         if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v, k) => _headers[k] = v);
+            response.headers.forEach((v, k) => (_headers[k] = v));
         }
-        ;
         if (status === 200) {
             return response.text().then((_responseText) => {
                 return;
@@ -816,7 +817,7 @@ export class Client {
         url_ = url_.replace(/[?&]$/, "");
         let options_ = {
             method: "GET",
-            headers: {}
+            headers: {},
         };
         return this.http.fetch(url_, options_).then((_response) => {
             return this.processDeDupe(_response);
@@ -826,9 +827,8 @@ export class Client {
         const status = response.status;
         let _headers = {};
         if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v, k) => _headers[k] = v);
+            response.headers.forEach((v, k) => (_headers[k] = v));
         }
-        ;
         if (status === 200) {
             return response.text().then((_responseText) => {
                 return;
@@ -847,8 +847,8 @@ export class Client {
         let options_ = {
             method: "GET",
             headers: {
-                "Accept": "text/plain"
-            }
+                Accept: "text/plain",
+            },
         };
         return this.http.fetch(url_, options_).then((_response) => {
             return this.processWeatherForecast(_response);
@@ -858,13 +858,14 @@ export class Client {
         const status = response.status;
         let _headers = {};
         if (response.headers && response.headers.forEach) {
-            response.headers.forEach((v, k) => _headers[k] = v);
+            response.headers.forEach((v, k) => (_headers[k] = v));
         }
-        ;
         if (status === 200) {
             return response.text().then((_responseText) => {
                 let result200 = null;
-                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                let resultData200 = _responseText === ""
+                    ? null
+                    : JSON.parse(_responseText, this.jsonParseReviver);
                 result200 = OpenWeatherCurrent.fromJS(resultData200);
                 return result200;
             });
@@ -890,21 +891,25 @@ export class Alert {
         if (_data) {
             this.id = _data["id"];
             this.message = _data["message"];
-            this.dateCreated = _data["dateCreated"] ? new Date(_data["dateCreated"].toString()) : undefined;
+            this.dateCreated = _data["dateCreated"]
+                ? new Date(_data["dateCreated"].toString())
+                : undefined;
             this.createdBy = _data["createdBy"];
         }
     }
     static fromJS(data) {
-        data = typeof data === 'object' ? data : {};
+        data = typeof data === "object" ? data : {};
         let result = new Alert();
         result.init(data);
         return result;
     }
     toJSON(data) {
-        data = typeof data === 'object' ? data : {};
+        data = typeof data === "object" ? data : {};
         data["id"] = this.id;
         data["message"] = this.message;
-        data["dateCreated"] = this.dateCreated ? this.dateCreated.toISOString() : undefined;
+        data["dateCreated"] = this.dateCreated
+            ? this.dateCreated.toISOString()
+            : undefined;
         data["createdBy"] = this.createdBy;
         return data;
     }
@@ -925,13 +930,13 @@ export class NewAlert {
         }
     }
     static fromJS(data) {
-        data = typeof data === 'object' ? data : {};
+        data = typeof data === "object" ? data : {};
         let result = new NewAlert();
         result.init(data);
         return result;
     }
     toJSON(data) {
-        data = typeof data === 'object' ? data : {};
+        data = typeof data === "object" ? data : {};
         data["message"] = this.message;
         data["createdBy"] = this.createdBy;
         return data;
@@ -948,21 +953,27 @@ export class Bin {
     }
     init(_data) {
         if (_data) {
-            this.subsequent = _data["subsequent"] ? new Date(_data["subsequent"].toString()) : undefined;
-            this.next = _data["next"] ? new Date(_data["next"].toString()) : undefined;
+            this.subsequent = _data["subsequent"]
+                ? new Date(_data["subsequent"].toString())
+                : undefined;
+            this.next = _data["next"]
+                ? new Date(_data["next"].toString())
+                : undefined;
             this.pdfLink = _data["pdfLink"];
             this.communal = _data["communal"];
         }
     }
     static fromJS(data) {
-        data = typeof data === 'object' ? data : {};
+        data = typeof data === "object" ? data : {};
         let result = new Bin();
         result.init(data);
         return result;
     }
     toJSON(data) {
-        data = typeof data === 'object' ? data : {};
-        data["subsequent"] = this.subsequent ? this.subsequent.toISOString() : undefined;
+        data = typeof data === "object" ? data : {};
+        data["subsequent"] = this.subsequent
+            ? this.subsequent.toISOString()
+            : undefined;
         data["next"] = this.next ? this.next.toISOString() : undefined;
         data["pdfLink"] = this.pdfLink;
         data["communal"] = this.communal;
@@ -980,22 +991,32 @@ export class BinLookup {
     }
     init(_data) {
         if (_data) {
-            this.rubbish = _data["rubbish"] ? Bin.fromJS(_data["rubbish"]) : undefined;
-            this.recycling = _data["recycling"] ? Bin.fromJS(_data["recycling"]) : undefined;
-            this.foodWaste = _data["foodWaste"] ? Bin.fromJS(_data["foodWaste"]) : undefined;
+            this.rubbish = _data["rubbish"]
+                ? Bin.fromJS(_data["rubbish"])
+                : undefined;
+            this.recycling = _data["recycling"]
+                ? Bin.fromJS(_data["recycling"])
+                : undefined;
+            this.foodWaste = _data["foodWaste"]
+                ? Bin.fromJS(_data["foodWaste"])
+                : undefined;
         }
     }
     static fromJS(data) {
-        data = typeof data === 'object' ? data : {};
+        data = typeof data === "object" ? data : {};
         let result = new BinLookup();
         result.init(data);
         return result;
     }
     toJSON(data) {
-        data = typeof data === 'object' ? data : {};
+        data = typeof data === "object" ? data : {};
         data["rubbish"] = this.rubbish ? this.rubbish.toJSON() : undefined;
-        data["recycling"] = this.recycling ? this.recycling.toJSON() : undefined;
-        data["foodWaste"] = this.foodWaste ? this.foodWaste.toJSON() : undefined;
+        data["recycling"] = this.recycling
+            ? this.recycling.toJSON()
+            : undefined;
+        data["foodWaste"] = this.foodWaste
+            ? this.foodWaste.toJSON()
+            : undefined;
         return data;
     }
 }
@@ -1017,13 +1038,13 @@ export class RequestDto {
         }
     }
     static fromJS(data) {
-        data = typeof data === 'object' ? data : {};
+        data = typeof data === "object" ? data : {};
         let result = new RequestDto();
         result.init(data);
         return result;
     }
     toJSON(data) {
-        data = typeof data === 'object' ? data : {};
+        data = typeof data === "object" ? data : {};
         data["id"] = this.id;
         data["requester"] = this.requester;
         data["requestedAmount"] = this.requestedAmount;
@@ -1058,8 +1079,12 @@ export class UniEvent {
     }
     init(_data) {
         if (_data) {
-            this.startTime = _data["startTime"] ? new Date(_data["startTime"].toString()) : undefined;
-            this.endTime = _data["endTime"] ? new Date(_data["endTime"].toString()) : undefined;
+            this.startTime = _data["startTime"]
+                ? new Date(_data["startTime"].toString())
+                : undefined;
+            this.endTime = _data["endTime"]
+                ? new Date(_data["endTime"].toString())
+                : undefined;
             this.eventType = _data["eventType"];
             this.unit = _data["unit"];
             this.eventLeader = _data["eventLeader"];
@@ -1067,15 +1092,19 @@ export class UniEvent {
         }
     }
     static fromJS(data) {
-        data = typeof data === 'object' ? data : {};
+        data = typeof data === "object" ? data : {};
         let result = new UniEvent();
         result.init(data);
         return result;
     }
     toJSON(data) {
-        data = typeof data === 'object' ? data : {};
-        data["startTime"] = this.startTime ? this.startTime.toISOString() : undefined;
-        data["endTime"] = this.endTime ? this.endTime.toISOString() : undefined;
+        data = typeof data === "object" ? data : {};
+        data["startTime"] = this.startTime
+            ? this.startTime.toISOString()
+            : undefined;
+        data["endTime"] = this.endTime
+            ? this.endTime.toISOString()
+            : undefined;
         data["eventType"] = this.eventType;
         data["unit"] = this.unit;
         data["eventLeader"] = this.eventLeader;
@@ -1094,23 +1123,31 @@ export class NewUniEvent {
     }
     init(_data) {
         if (_data) {
-            this.startTime = _data["startTime"] ? new Date(_data["startTime"].toString()) : undefined;
-            this.endTime = _data["endTime"] ? new Date(_data["endTime"].toString()) : undefined;
+            this.startTime = _data["startTime"]
+                ? new Date(_data["startTime"].toString())
+                : undefined;
+            this.endTime = _data["endTime"]
+                ? new Date(_data["endTime"].toString())
+                : undefined;
             this.eventType = _data["eventType"];
             this.unit = _data["unit"];
             this.eventLeader = _data["eventLeader"];
         }
     }
     static fromJS(data) {
-        data = typeof data === 'object' ? data : {};
+        data = typeof data === "object" ? data : {};
         let result = new NewUniEvent();
         result.init(data);
         return result;
     }
     toJSON(data) {
-        data = typeof data === 'object' ? data : {};
-        data["startTime"] = this.startTime ? this.startTime.toISOString() : undefined;
-        data["endTime"] = this.endTime ? this.endTime.toISOString() : undefined;
+        data = typeof data === "object" ? data : {};
+        data["startTime"] = this.startTime
+            ? this.startTime.toISOString()
+            : undefined;
+        data["endTime"] = this.endTime
+            ? this.endTime.toISOString()
+            : undefined;
         data["eventType"] = this.eventType;
         data["unit"] = this.unit;
         data["eventLeader"] = this.eventLeader;
@@ -1133,13 +1170,13 @@ export class KeyValue {
         }
     }
     static fromJS(data) {
-        data = typeof data === 'object' ? data : {};
+        data = typeof data === "object" ? data : {};
         let result = new KeyValue();
         result.init(data);
         return result;
     }
     toJSON(data) {
-        data = typeof data === 'object' ? data : {};
+        data = typeof data === "object" ? data : {};
         data["key"] = this.key;
         data["value"] = this.value;
         return data;
@@ -1161,13 +1198,13 @@ export class Coordinates {
         }
     }
     static fromJS(data) {
-        data = typeof data === 'object' ? data : {};
+        data = typeof data === "object" ? data : {};
         let result = new Coordinates();
         result.init(data);
         return result;
     }
     toJSON(data) {
-        data = typeof data === 'object' ? data : {};
+        data = typeof data === "object" ? data : {};
         data["longitude"] = this.longitude;
         data["latitude"] = this.latitude;
         return data;
@@ -1191,13 +1228,13 @@ export class Weather {
         }
     }
     static fromJS(data) {
-        data = typeof data === 'object' ? data : {};
+        data = typeof data === "object" ? data : {};
         let result = new Weather();
         result.init(data);
         return result;
     }
     toJSON(data) {
-        data = typeof data === 'object' ? data : {};
+        data = typeof data === "object" ? data : {};
         data["id"] = this.id;
         data["main"] = this.main;
         data["description"] = this.description;
@@ -1225,13 +1262,13 @@ export class Main {
         }
     }
     static fromJS(data) {
-        data = typeof data === 'object' ? data : {};
+        data = typeof data === "object" ? data : {};
         let result = new Main();
         result.init(data);
         return result;
     }
     toJSON(data) {
-        data = typeof data === 'object' ? data : {};
+        data = typeof data === "object" ? data : {};
         data["temperature"] = this.temperature;
         data["feelsLike"] = this.feelsLike;
         data["minimumTemperature"] = this.minimumTemperature;
@@ -1257,13 +1294,13 @@ export class Wind {
         }
     }
     static fromJS(data) {
-        data = typeof data === 'object' ? data : {};
+        data = typeof data === "object" ? data : {};
         let result = new Wind();
         result.init(data);
         return result;
     }
     toJSON(data) {
-        data = typeof data === 'object' ? data : {};
+        data = typeof data === "object" ? data : {};
         data["speed"] = this.speed;
         data["degrees"] = this.degrees;
         return data;
@@ -1284,13 +1321,13 @@ export class Clouds {
         }
     }
     static fromJS(data) {
-        data = typeof data === 'object' ? data : {};
+        data = typeof data === "object" ? data : {};
         let result = new Clouds();
         result.init(data);
         return result;
     }
     toJSON(data) {
-        data = typeof data === 'object' ? data : {};
+        data = typeof data === "object" ? data : {};
         data["all"] = this.all;
         return data;
     }
@@ -1314,13 +1351,13 @@ export class SysDto {
         }
     }
     static fromJS(data) {
-        data = typeof data === 'object' ? data : {};
+        data = typeof data === "object" ? data : {};
         let result = new SysDto();
         result.init(data);
         return result;
     }
     toJSON(data) {
-        data = typeof data === 'object' ? data : {};
+        data = typeof data === "object" ? data : {};
         data["type"] = this.type;
         data["id"] = this.id;
         data["country"] = this.country;
@@ -1340,7 +1377,9 @@ export class OpenWeatherCurrent {
     }
     init(_data) {
         if (_data) {
-            this.cordinates = _data["cordinates"] ? Coordinates.fromJS(_data["cordinates"]) : undefined;
+            this.cordinates = _data["cordinates"]
+                ? Coordinates.fromJS(_data["cordinates"])
+                : undefined;
             if (Array.isArray(_data["weather"])) {
                 this.weather = [];
                 for (let item of _data["weather"])
@@ -1350,7 +1389,9 @@ export class OpenWeatherCurrent {
             this.main = _data["main"] ? Main.fromJS(_data["main"]) : undefined;
             this.visibility = _data["visibility"];
             this.wind = _data["wind"] ? Wind.fromJS(_data["wind"]) : undefined;
-            this.clouds = _data["clouds"] ? Clouds.fromJS(_data["clouds"]) : undefined;
+            this.clouds = _data["clouds"]
+                ? Clouds.fromJS(_data["clouds"])
+                : undefined;
             this.dt = _data["dt"];
             this.sys = _data["sys"] ? SysDto.fromJS(_data["sys"]) : undefined;
             this.timeZone = _data["timeZone"];
@@ -1360,14 +1401,16 @@ export class OpenWeatherCurrent {
         }
     }
     static fromJS(data) {
-        data = typeof data === 'object' ? data : {};
+        data = typeof data === "object" ? data : {};
         let result = new OpenWeatherCurrent();
         result.init(data);
         return result;
     }
     toJSON(data) {
-        data = typeof data === 'object' ? data : {};
-        data["cordinates"] = this.cordinates ? this.cordinates.toJSON() : undefined;
+        data = typeof data === "object" ? data : {};
+        data["cordinates"] = this.cordinates
+            ? this.cordinates.toJSON()
+            : undefined;
         if (Array.isArray(this.weather)) {
             data["weather"] = [];
             for (let item of this.weather)

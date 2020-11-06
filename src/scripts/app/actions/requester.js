@@ -1,8 +1,8 @@
-import { Client } from "../client/client";
+import { api } from "../client/api";
 export const getRequiredAmount = () => {
-    return new Client("http://192.168.0.69:4433").amount();
+    return api().amount();
 };
 export const getActiveRequests = () => {
-    return new Client("http://192.168.0.69:4433").activeamount();
+    return api().activeamount();
 };
 //# sourceMappingURL=requester.js.map

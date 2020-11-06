@@ -1,10 +1,10 @@
 import * as React from "react";
-import ConfigContainer from "../../state/config";
+import { AppState } from "../../state/config";
 
 interface ISecurityCameraProps {}
 
 export const SecurityCamera: React.FC<ISecurityCameraProps> = () => {
-  const { config } = ConfigContainer.useContainer();
+  const { config } = AppState.useContainer();
 
   return (
     <img

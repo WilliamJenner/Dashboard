@@ -2,7 +2,8 @@ const path = require('path');
 const appRoot = require('app-root-path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const HappyPack = require('happypack');
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const webpack = require('webpack');
 
 const commonHtmlWebpackPluginConfig = () => {
     return {
@@ -11,7 +12,7 @@ const commonHtmlWebpackPluginConfig = () => {
     }
 }
 
-module.exports = (__dirname) => {
+module.exports = (__dirname, env) => {
     return {
         // Enable sourcemaps for debugging webpack's output.
         resolve: {
@@ -50,8 +51,9 @@ module.exports = (__dirname) => {
             ]
         },
         output: {
-            path: __dirname + "./wwwroot/dist",
-            filename: "app.bundle.js"
+            filename: "app.bundle.js",
+            path: __dirname + "/wwwroot/dist/",
+            publicPath: "/"
         },
         plugins: [
             new HtmlWebPackPlugin({
@@ -67,7 +69,6 @@ module.exports = (__dirname) => {
                 template: path.join(`${appRoot}`, "Views", "Templates", "_Layout_Template.cshtml"),
                 filename: path.join(`${appRoot}`, "Views", "Shared", "_Layout.cshtml"),
                 chunks: ["dist/vendor.bundle.js"],
-
             }),
             new HappyPack({
                 id: "ts",
@@ -77,7 +78,9 @@ module.exports = (__dirname) => {
             new ForkTsCheckerWebpackPlugin({
                 checkSyntacticErrors: true,
             }),
-
+            new webpack.DefinePlugin({
+                'global': {}
+            })
         ]
     }
 }
