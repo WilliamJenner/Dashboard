@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,7 +11,8 @@
 
     @await RenderSectionAsync("Styles", required: false)
 
-    </head>
+</head>
+
 <body>
     <div class="body-content">
         @RenderBody()
@@ -19,15 +21,16 @@
     <% for (var chunk in htmlWebpackPlugin.chunks) { %>
     <% var url = htmlWebpackPlugin.chunks[chunk]; %>
     <% if (htmlWebpackPlugin.options.devServer) { %>
-    <script src="@Url.Content("<%= url %>")" type="text/javascript"></script><%
+    <script type="module" src=" @Url.Content("<%= url %>")" type="text/javascript"></script><%
     } else { %>
-    <script src="@Url.Content("<%= url %>")"></script>
+    <script type="module" src="@Url.Content("<%= url %>")"></script>
     <% } %>
     <% } %>
 
     @await RenderSectionAsync("Scripts", required: false)
     <% if (htmlWebpackPlugin.options.devServer) { %>
-    <script src="<%= htmlWebpackPlugin.options.devServer %>/webpack-dev-server.js"></script>
+    <script type="module" src="<%= htmlWebpackPlugin.options.devServer %>/webpack-dev-server.js"></script>
     <% } %>
 </body>
+
 </html>

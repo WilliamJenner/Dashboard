@@ -1,67 +1,41 @@
 const path = require('path');
-const webpack = require('webpack');
 const appRoot = require('app-root-path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const HappyPack = require('happypack');
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
-const TsConfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const webpack = require('webpack');
 
-const commonHtmlWebpackPluginConfig = (devServer) => {
+const commonHtmlWebpackPluginConfig = () => {
     return {
-        minify: false,
         inject: true,
-        files: {
-            css: ["./src/styles/index.scss"]
-        },
-        dist: devServer ? 'https://localhost:8081' : 'dist',
+        minify: false,
     }
 }
 
-module.exports = (dev_server, dir_name) => {
+module.exports = (__dirname, env) => {
     return {
         // Enable sourcemaps for debugging webpack's output.
-        devtool: "source-map",
-        entry: {
-            app: ['./src/scripts/index.tsx'],
-        },
         resolve: {
-            // Add '.ts' and '.tsx' as resolvable extensions.
-            extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
-            plugins: [
-                new TsConfigPathsPlugin()
-            ]
+            extensions: ['.ts', '.tsx', '.js', '.json'],
+            mainFields: ['main', 'module', 'browser'],
         },
-        output: {
-            path: path.resolve(dir_name, 'wwwroot/dist'),
-            filename: '[name].bundle.js',
-        },
+        entry: __dirname + "/src/scripts/index.tsx",
+        devtool: 'inline-source-map',
         module: {
             rules: [
                 {
                     test: /\.(tsx|ts)?$/,
                     exclude: /node_modules/,
-                    loader: "happypack/loader?id=ts",
-                },
-                {
-                    test: /\.tsx?$/,
-                    loader: "ts-loader",
+                    use: {
+                        loader: "ts-loader"
+                    }
                 },
                 {
                     enforce: "pre",
                     test: /\.js$/,
                     loader: "source-map-loader"
                 },
-                {
-                    test: /\.m?js$/,
-                    exclude: /(node_modules|bower_components)/,
-                    use: {
-                        loader: 'babel-loader',
-                        options: {
-                            presets: ['@babel/preset-env']
-                        }
-                    },
-                    exclude: '/.node_modules'
-                },
+
                 {
                     test: /\.s[ac]ss$/i,
                     use: [
@@ -75,51 +49,37 @@ module.exports = (dev_server, dir_name) => {
                 },
             ]
         },
-        devServer: {
-            watchContentBase: true,
-            contentBase: path.resolve(dir_name, 'wwwroot/dist'),
-            publicPath: '/dist/',
-            port: 8081,
-            hot: true,
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
-                "Access-Control-Allow-Headers": "X-Requested-With, content-type",
-            },
+        output: {
+            filename: "app.bundle.js",
+            path: __dirname + "/wwwroot/dist/",
+            publicPath: "/"
         },
         plugins: [
             new HtmlWebPackPlugin({
-                ...commonHtmlWebpackPluginConfig(dev_server),
+                ...commonHtmlWebpackPluginConfig(),
                 title: "Index",
                 template: path.join(`${appRoot}`, "Views", "Templates", "_App_Template.cshtml"),
                 filename: path.join(`${appRoot}`, "Views", "Home", "Index.cshtml"),
-                chunks: ["app.bundle.js"],
+                chunks: ["dist/app.bundle.js"],
             }),
             new HtmlWebPackPlugin({
-                ...commonHtmlWebpackPluginConfig(dev_server),
+                ...commonHtmlWebpackPluginConfig(),
                 title: "Layout",
                 template: path.join(`${appRoot}`, "Views", "Templates", "_Layout_Template.cshtml"),
                 filename: path.join(`${appRoot}`, "Views", "Shared", "_Layout.cshtml"),
-                chunks: ["vendor.bundle.js"],
-
+                chunks: ["dist/vendor.bundle.js"],
             }),
             new HappyPack({
                 id: "ts",
                 threads: 4,
-                loaders: [
-                    {
-                        path: "ts-loader",
-                        query: {
-                            happyPackMode: true,
-                        },
-                    },
-                ],
+                loaders: ['ts-loader']
             }),
             new ForkTsCheckerWebpackPlugin({
                 checkSyntacticErrors: true,
             }),
-            new webpack.HotModuleReplacementPlugin({
-            }),
+            new webpack.DefinePlugin({
+                'global': {}
+            })
         ]
     }
 }

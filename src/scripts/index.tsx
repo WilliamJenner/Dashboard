@@ -1,25 +1,23 @@
 ﻿import * as React from "react";
 import * as ReactDOM from "react-dom";
-import "@styles/index.scss";
+import "../styles/index.scss";
 import App from "./app/app";
 import { BrowserRouter, HashRouter } from "react-router-dom";
-import Config from "./app/state/config";
-import Base from "./app/base";
+import { AppState } from "./app/state/config";
 
 let render = (): void => {
   ReactDOM.render(
     <BrowserRouter>
-      <Base />
+      <AppState.Provider>
+        <App />
+      </AppState.Provider>
     </BrowserRouter>,
     document.getElementById("app")
   );
 };
 
 if ((module as any).hot) {
-  console.log("is hot");
-
   (module as any).hot.accept(App, (): void => {
-    console.log("hot reloading");
     setTimeout(() => {
       render();
     });

@@ -47,8 +47,6 @@ const AlertTicker: React.FC<IAlertTicker> = () => {
     getAndSetAlerts();
   }, minutesToMilliseconds(0.2));
 
-  console.log({ alerts });
-
   if (alerts === undefined || alerts.length === 0) {
     return null;
   }

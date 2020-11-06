@@ -30,10 +30,4 @@
     <PackageReference Include="Scrutor" Version="3.2.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Update="wwwroot\dist\app.bundle.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
 </Project>

@@ -1,9 +1,10 @@
+import { api } from "../client/api";
 import { Client, RequestDto } from "../client/client";
 
 export const getRequiredAmount = (): Promise<number> => {
-  return new Client("http://192.168.0.69:4433").amount();
+  return api().amount();
 };
 
 export const getActiveRequests = (): Promise<Array<RequestDto>> => {
-  return new Client("http://192.168.0.69:4433").activeamount();
+  return api().activeamount();
 };
