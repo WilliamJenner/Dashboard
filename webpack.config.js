@@ -12,9 +12,11 @@ const webpackDev = require('./webpack/webpack.dev');
 const webpackProd = require('./webpack/webpack.prod');
 const { exception } = require('console');
 const { merge } = require('webpack-merge');
+const webpackElectron = require('./webpack/webpack.electron');
 
 function envConfig(env) {
-    switch (env.env) {
+    console.log(env)
+    switch (env) {
         case "prod":
             return webpackProd;
         case "dev":
@@ -26,6 +28,6 @@ function envConfig(env) {
 
 module.exports = (env) => {
     console.log(env);
-    return merge(webpackCommon(env.dev_server, __dirname), envConfig(env))
+    return merge(webpackCommon(__dirname), webpackElectron(), envConfig(env))
 };
 

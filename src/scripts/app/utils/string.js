@@ -1,4 +1,4 @@
-export const CapitaliseIndex = (str, index) => {
+export const capitaliseIndex = (str, index) => {
     if (index > 0) {
         return (str.slice(0, index - 1) +
             str.charAt(index).toUpperCase() +
@@ -8,10 +8,10 @@ export const CapitaliseIndex = (str, index) => {
         return str.charAt(index).toUpperCase() + str.slice(index + 1);
     }
 };
-export const CapitaliseFirst = (str) => {
-    return CapitaliseIndex(str, 0);
+export const capitaliseFirst = (str) => {
+    return capitaliseIndex(str, 0);
 };
-export const GetDisplayName = (key) => {
+export const getBinDisplayName = (key) => {
     switch (key) {
         case "rubbish":
             return "Rubbish";

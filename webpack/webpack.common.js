@@ -6,35 +6,26 @@ const HappyPack = require('happypack');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const TsConfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
-const commonHtmlWebpackPluginConfig = (devServer) => {
+const commonHtmlWebpackPluginConfig = () => {
     return {
         minify: false,
         inject: true,
         files: {
             css: ["./src/styles/index.scss"]
         },
-        dist: devServer ? 'https://localhost:8081' : 'dist',
     }
 }
 
-module.exports = (dev_server, dir_name) => {
+module.exports = (dir_name) => {
     return {
         // Enable sourcemaps for debugging webpack's output.
-        devtool: "source-map",
-        entry: {
-            app: ['./src/scripts/index.tsx'],
-        },
         resolve: {
-            // Add '.ts' and '.tsx' as resolvable extensions.
-            extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
-            plugins: [
-                new TsConfigPathsPlugin()
-            ]
+            extensions: ['.tsx', '.ts', '.js'],
+            mainFields: ['main', 'module', 'browser'],
         },
-        output: {
-            path: path.resolve(dir_name, 'wwwroot/dist'),
-            filename: '[name].bundle.js',
-        },
+        entry: './src/app.tsx',
+        target: 'electron-renderer',
+        devtool: 'source-map',
         module: {
             rules: [
                 {
@@ -76,31 +67,27 @@ module.exports = (dev_server, dir_name) => {
             ]
         },
         devServer: {
-            watchContentBase: true,
-            contentBase: path.resolve(dir_name, 'wwwroot/dist'),
-            publicPath: '/dist/',
-            port: 8081,
+            contentBase: path.join(__dirname, '../dist/renderer'),
+            historyApiFallback: true,
+            compress: true,
             hot: true,
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
-                "Access-Control-Allow-Headers": "X-Requested-With, content-type",
-            },
+            port: 4000,
+            publicPath: '/',
         },
         plugins: [
             new HtmlWebPackPlugin({
-                ...commonHtmlWebpackPluginConfig(dev_server),
+                ...commonHtmlWebpackPluginConfig(),
                 title: "Index",
                 template: path.join(`${appRoot}`, "Views", "Templates", "_App_Template.cshtml"),
                 filename: path.join(`${appRoot}`, "Views", "Home", "Index.cshtml"),
-                chunks: ["app.bundle.js"],
+                chunks: ["dist/app.bundle.js"],
             }),
             new HtmlWebPackPlugin({
-                ...commonHtmlWebpackPluginConfig(dev_server),
+                ...commonHtmlWebpackPluginConfig(),
                 title: "Layout",
                 template: path.join(`${appRoot}`, "Views", "Templates", "_Layout_Template.cshtml"),
                 filename: path.join(`${appRoot}`, "Views", "Shared", "_Layout.cshtml"),
-                chunks: ["vendor.bundle.js"],
+                chunks: ["dist/vendor.bundle.js"],
 
             }),
             new HappyPack({

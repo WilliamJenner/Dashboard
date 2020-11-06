@@ -1,22 +1,24 @@
+import dayjs from "dayjs";
 import React from "react";
-import { Table } from "react-bootstrap";
 import Ticker from "react-ticker";
-import { GetLatestAlerts } from "../../actions/alerts";
+import { getLatestAlerts } from "../../actions/alerts";
 import { useInterval } from "../../hooks/useInterval";
 import { minutesToMilliseconds } from "../../utils/number";
-const AlertTable = ({ alert }) => {
-    var _a;
-    return (React.createElement(Table, null,
-        React.createElement("tbody", null,
-            React.createElement("tr", null,
-                React.createElement("th", { scope: "row" }, alert.createdBy),
-                React.createElement("td", null, (_a = alert.dateCreated) === null || _a === void 0 ? void 0 : _a.toLocaleString()),
-                React.createElement("td", null, alert.message)))));
+import { capitaliseFirst } from "../../utils/string";
+const AlertMessage = ({ alert }) => {
+    const { message, createdBy, dateCreated } = alert;
+    return (React.createElement("div", { className: "ticker__content" },
+        React.createElement("div", null, message),
+        React.createElement("div", { className: "ticker__content__author" },
+            "Sent by ",
+            capitaliseFirst(createdBy),
+            " ",
+            React.createElement("span", { className: "ticker__content__author--time" }, dayjs(dateCreated).format("YYYY-MM-DD HH:mm")))));
 };
 const AlertTicker = () => {
     const [alerts, setAlerts] = React.useState([]);
     const getAndSetAlerts = () => {
-        GetLatestAlerts().then((result) => {
+        getLatestAlerts().then((result) => {
             setAlerts(result);
         });
     };
@@ -25,14 +27,14 @@ const AlertTicker = () => {
     }, []);
     useInterval(() => {
         getAndSetAlerts();
-    }, minutesToMilliseconds(1));
+    }, minutesToMilliseconds(0.2));
     console.log({ alerts });
     if (alerts === undefined || alerts.length === 0) {
         return null;
     }
     return (React.createElement("div", { className: "ticker" },
         React.createElement(Ticker, null, ({ index }) => alerts.map((alert) => {
-            return React.createElement(AlertTable, { alert: alert });
+            return React.createElement(AlertMessage, { alert: alert });
         }))));
 };
 export default AlertTicker;

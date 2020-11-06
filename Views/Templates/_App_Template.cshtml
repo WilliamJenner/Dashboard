@@ -2,7 +2,7 @@
 @section Scripts {
     <% for (var chunk in htmlWebpackPlugin.options.chunks) { %>
     <% var package = htmlWebpackPlugin.options.chunks[chunk]; %>
-        <script src="@Url.Content("<%= htmlWebpackPlugin.options.dist %>/<%= package %>")" type="text/javascript"></script>
+        <script type="module" src="@Url.Content("~<%= htmlWebpackPlugin.options.dist %>/<%= package %>")" type="text/javascript"></script>
     <% } %>
 }
 

@@ -2,7 +2,7 @@ export class Client {
     constructor(baseUrl, http) {
         this.jsonParseReviver = undefined;
         this.http = http ? http : window;
-        this.baseUrl = baseUrl ? baseUrl : "";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
     all() {
         let url_ = this.baseUrl + "/Alert/all";
@@ -392,6 +392,45 @@ export class Client {
                 let result200 = null;
                 let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
                 result200 = resultData200 !== undefined ? resultData200 : null;
+                return result200;
+            });
+        }
+        else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve(null);
+    }
+    activeamount() {
+        let url_ = this.baseUrl + "/request/activeamount";
+        url_ = url_.replace(/[?&]$/, "");
+        let options_ = {
+            method: "GET",
+            headers: {
+                "Accept": "text/plain"
+            }
+        };
+        return this.http.fetch(url_, options_).then((_response) => {
+            return this.processActiveamount(_response);
+        });
+    }
+    processActiveamount(response) {
+        const status = response.status;
+        let _headers = {};
+        if (response.headers && response.headers.forEach) {
+            response.headers.forEach((v, k) => _headers[k] = v);
+        }
+        ;
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+                let result200 = null;
+                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                if (Array.isArray(resultData200)) {
+                    result200 = [];
+                    for (let item of resultData200)
+                        result200.push(RequestDto.fromJS(item));
+                }
                 return result200;
             });
         }
@@ -960,6 +999,38 @@ export class BinLookup {
         return data;
     }
 }
+export class RequestDto {
+    constructor(data) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    this[property] = data[property];
+            }
+        }
+    }
+    init(_data) {
+        if (_data) {
+            this.id = _data["id"];
+            this.requester = _data["requester"];
+            this.requestedAmount = _data["requestedAmount"];
+            this.expired = _data["expired"];
+        }
+    }
+    static fromJS(data) {
+        data = typeof data === 'object' ? data : {};
+        let result = new RequestDto();
+        result.init(data);
+        return result;
+    }
+    toJSON(data) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["requester"] = this.requester;
+        data["requestedAmount"] = this.requestedAmount;
+        data["expired"] = this.expired;
+        return data;
+    }
+}
 export var UniEventType;
 (function (UniEventType) {
     UniEventType[UniEventType["_0"] = 0] = "_0";
@@ -1316,21 +1387,24 @@ export class OpenWeatherCurrent {
         return data;
     }
 }
-export class SwaggerException extends Error {
+export class ApiException extends Error {
     constructor(message, status, response, headers, result) {
         super();
-        this.isSwaggerException = true;
+        this.isApiException = true;
         this.message = message;
         this.status = status;
         this.response = response;
         this.headers = headers;
         this.result = result;
     }
-    static isSwaggerException(obj) {
-        return obj.isSwaggerException === true;
+    static isApiException(obj) {
+        return obj.isApiException === true;
     }
 }
 function throwException(message, status, response, headers, result) {
-    throw new SwaggerException(message, status, response, headers, result);
+    if (result !== null && result !== undefined)
+        throw result;
+    else
+        throw new ApiException(message, status, response, headers, null);
 }
 //# sourceMappingURL=client.js.map

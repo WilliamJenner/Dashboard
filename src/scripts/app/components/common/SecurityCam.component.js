@@ -6,4 +6,5 @@ export const SecurityCamera = () => {
             ? config.appState.securityCamUrl
             : "http://192.168.0.70:8081" }));
 };
+export default SecurityCamera;
 //# sourceMappingURL=SecurityCam.component.js.map

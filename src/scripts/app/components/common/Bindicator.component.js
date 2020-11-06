@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import moment from "moment";
-import { GetDisplayName } from "../../utils/string";
+import { getBinDisplayName } from "../../utils/string";
 import { useInterval } from "../../hooks/useInterval";
 import { hoursToMilliseconds } from "../../utils/number";
 import { GetBins } from "../../actions/bins";
@@ -10,7 +10,7 @@ const BinNotification = (props) => {
     return (React.createElement("div", { className: "bin-notification" },
         React.createElement("div", { className: "bin-notification__text" },
             React.createElement("h1", null,
-                React.createElement("span", { className: textClass }, GetDisplayName(name)),
+                React.createElement("span", { className: textClass }, getBinDisplayName(name)),
                 " ",
                 "next due on",
                 " ",
@@ -61,4 +61,5 @@ export const Bindicator = (props) => {
         return (React.createElement(BinNotification, { key: index, namedBin: b, callToAction: (b === null || b === void 0 ? void 0 : b.name) !== (lastBin === null || lastBin === void 0 ? void 0 : lastBin.name) }));
     })));
 };
+export default Bindicator;
 //# sourceMappingURL=Bindicator.component.js.map

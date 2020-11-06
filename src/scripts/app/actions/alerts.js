@@ -1,7 +1,7 @@
 import { Client } from "../client/client";
-export const GetLatestAlerts = () => {
+export const getLatestAlerts = () => {
     try {
-        return new Client("https://localhost:44359").getLatest();
+        return new Client("http://192.168.0.69:4433").getLatest();
     }
     catch (ex) {
         console.log(ex);
