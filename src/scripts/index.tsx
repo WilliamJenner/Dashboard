@@ -16,10 +16,7 @@ let render = (): void => {
 };
 
 if ((module as any).hot) {
-  console.log("is hot");
-
   (module as any).hot.accept(App, (): void => {
-    console.log("hot reloading");
     setTimeout(() => {
       render();
     });

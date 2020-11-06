@@ -9,9 +9,7 @@ let render = () => {
         React.createElement(Base, null)), document.getElementById("app"));
 };
 if (module.hot) {
-    console.log("is hot");
     module.hot.accept(App, () => {
-        console.log("hot reloading");
         setTimeout(() => {
             render();
         });

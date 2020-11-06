@@ -86,8 +86,6 @@ export const Bindicator: React.FunctionComponent<IBindicatorProps> = (
 
   const lastBin = orderedBins[orderedBins.length - 1];
 
-  console.log({ orderedBins });
-
   return (
     <div className={"bindicator"}>
       {orderedBins.map((b, index) => {

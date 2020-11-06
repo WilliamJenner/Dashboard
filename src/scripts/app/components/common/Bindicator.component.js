@@ -56,7 +56,6 @@ export const Bindicator = (props) => {
             return 1;
     });
     const lastBin = orderedBins[orderedBins.length - 1];
-    console.log({ orderedBins });
     return (React.createElement("div", { className: "bindicator" }, orderedBins.map((b, index) => {
         return (React.createElement(BinNotification, { key: index, namedBin: b, callToAction: (b === null || b === void 0 ? void 0 : b.name) !== (lastBin === null || lastBin === void 0 ? void 0 : lastBin.name) }));
     })));

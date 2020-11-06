@@ -10,7 +10,6 @@ const Clock: React.FC = () => {
   const night_time = 20;
   const is_night = time.hour() >= night_time;
 
-  console.log(is_night);
   useInterval(() => {
     setTime(dayjs());
   }, secondsToMilliseconds(1));

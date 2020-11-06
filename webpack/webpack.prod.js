@@ -1,5 +1,5 @@
 module.exports = webpackConfig => {
     return {
-        mode: "prod",
+        mode: "production",
     }
 }

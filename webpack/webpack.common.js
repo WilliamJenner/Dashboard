@@ -7,6 +7,7 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const commonHtmlWebpackPluginConfig = () => {
     return {
         inject: true,
+        minify: false,
     }
 }
 
