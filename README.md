@@ -1,10 +1,21 @@
 [![Build Status](http://86.11.71.191:82/buildStatus/icon?job=Dashboard)](http://86.11.71.191:82/job/Dashboard/)
-# The Dashboard 
-This is the front end for the house wallboard.
-# Getting her going
-You'll need to restore the node dependencies with 'npm install' and aquire the secrets or you'll be missing some key files and it will not build.
-Then npm run prod to package the typescript and output the app.js. Then just run through IIS in visual studio or dotnet run.
-# Pending TODO's
-- webpack dev server with hot reloading
-- putting the API url in config with corresponding dev urls
-- More tiles
+# Dashboard 
+Front end for the house wallboard.
+
+# Development
+Before development, you'll want to download the house [API](https://github.com/WilliamJenner/HouseAPI).
+The app is set up to use the real house api in development, but you may want to change some settings.
+
+1. Install the node_modules folder 
+    * ``npm install``
+2. Run the application through IIS
+3. Running the app
+    * Development 
+        * `npm run dev:server`
+    * Use Electron 
+        * `npm run dev:electron`
+    * Production 
+        * `npm run prod`
+
+# Roadmap
+- Add HMR so the dev doesn't need to reload
