@@ -4,17 +4,10 @@ import { AppState } from "../../state/appState";
 interface ISecurityCameraProps {}
 
 export const SecurityCamera: React.FC<ISecurityCameraProps> = () => {
-  const { config } = AppState.useContainer();
+  const { appState } = AppState.useContainer();
 
-  return (
-    <img
-      className={"security-camera"}
-      src={
-        config.appState
-          ? config.appState.securityCamUrl
-          : "http://192.168.0.70:8081"
-      }
-    />
+  return appState === undefined ? null : (
+    <img className={"security-camera"} src={appState.securityCamUrl} />
   );
 };
 

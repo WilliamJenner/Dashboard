@@ -11,13 +11,11 @@ const useAppState = (
     },
   }
 ) => {
-  const [config, setConfig] = React.useState<AppStateType>(initialState);
-
-  console.log(config);
+  const [appState, setAppState] = React.useState<AppStateType>(initialState);
 
   return {
-    config,
-    setConfig,
+    appState: appState.appState,
+    setAppState,
   };
 };
 
