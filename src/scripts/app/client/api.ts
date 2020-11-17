@@ -1,4 +1,4 @@
-import { AppState } from "../state/config";
+import { AppState } from "../state/appState";
 import { Client } from "./client";
 
 export const api = () => {

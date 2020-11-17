@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AppState } from "../../state/config";
+import { AppState } from "../../state/appState";
 
 interface ISecurityCameraProps {}
 

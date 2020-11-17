@@ -6,6 +6,7 @@ import { daysBetween, hoursToMilliseconds } from "../../utils/number";
 import { NamedBin } from "../../types/bins";
 import { BinLookup, IBinLookup, IBin } from "../../client/client";
 import { GetBins } from "../../actions/bins";
+import { AppState } from "../../state/appState";
 
 interface IBindicatorProps {}
 
@@ -13,7 +14,8 @@ interface IBinNotificationProps {
   namedBin: NamedBin;
 }
 
-const BinNotification: React.SFC<IBinNotificationProps> = (props) => {
+const BinNotification: React.FC<IBinNotificationProps> = (props) => {
+  const { config } = AppState.useContainer();
   const { bin, name } = props.namedBin;
 
   // Got to check to stop the compiler complaining
@@ -22,7 +24,9 @@ const BinNotification: React.SFC<IBinNotificationProps> = (props) => {
   }
 
   const textClass =
-    daysBetween(bin?.next, new Date()) < 1.5 ? "call-to-action" : "";
+    daysBetween(bin?.next, new Date()) < config.appState.binNoticePeriod
+      ? "call-to-action"
+      : "";
 
   return (
     <div className={"bin-notification"}>

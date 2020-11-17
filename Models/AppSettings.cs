@@ -9,6 +9,7 @@ namespace WebApp.Models
     {
         public string ApiUrl { get; set; }
         public string SecurityCamUrl { get; set; }
+        public decimal BinNoticePeriod { get; set; }
 
     }
 }

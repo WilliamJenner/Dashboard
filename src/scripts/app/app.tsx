@@ -7,7 +7,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import { routes, HomeRoute, FourOhFour } from "./routes/index";
-import { AppState } from "./state/config";
+import { AppState } from "./state/appState";
 
 const App: React.FC = () => {
   const appState = AppState.useContainer();
