@@ -16,9 +16,10 @@ const Clock: React.FC = () => {
 
   return (
     <div className={`clock`}>
-      <h1>{time.format("HH:mm:ss")}</h1>
-      <span>{is_night && <Moon />}</span>
-      <span>{!is_night && <Sun />}</span>
+      <h1>
+        {time.format("ddd, DD of MMM HH:mm:ss")}{" "}
+        <span className={"clock__icon"}>{is_night ? <Moon /> : <Sun />}</span>
+      </h1>
     </div>
   );
 };
