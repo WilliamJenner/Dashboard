@@ -25,7 +25,7 @@ const PieChart: React.FC<IPiechartProps> = (props) => {
               text-anchor="middle"
               fill={"white"}
               stroke={"black"}
-              strokeWidth={"0.3px"}
+              strokeWidth={"0.5px"}
               fontSize={"14px"}
               fontWeight={500}
             >
