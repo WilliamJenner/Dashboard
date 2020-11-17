@@ -27,6 +27,8 @@ const Weather: React.FC = () => {
     getAndSetWeather();
   }, minutesToMilliseconds(30));
 
+  const shutTheDoor = weather?.main?.feelsLike && weather.main.feelsLike < 8;
+
   return (
     <div className={`weather`}>
       <div className={"weather__info"}>
@@ -38,7 +40,7 @@ const Weather: React.FC = () => {
               weather?.main?.temperature && weather.main.temperature > 20,
           })}
         >
-          {weather?.main?.temperature}°C
+          {weather?.main?.temperature}°C {shutTheDoor && "SHUT THE DAMN DOOR"}
         </h1>
       </div>
       <div className={"weather__info"}>
@@ -46,9 +48,7 @@ const Weather: React.FC = () => {
         {weather?.weather?.map((x) => {
           return <span>{capitaliseFirst(x.description as string)}</span>;
         })}
-        {weather?.main?.feelsLike && weather.main.feelsLike < 8 && (
-          <span>Shut the damn door</span>
-        )}
+
         <span>
           {weather?.main?.humidity && weather.main.humidity}% humidity
         </span>
