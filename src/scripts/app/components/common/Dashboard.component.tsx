@@ -6,6 +6,7 @@ import Weather from "./Weather.comonent";
 import Clock from "./Clock.component";
 import Requester from "./Requester.component";
 import SecurityCamera from "./SecurityCam.component";
+import PieChart from "./Piechart";
 
 interface IDashboardProps {}
 
@@ -18,7 +19,9 @@ export const Dashboard: React.FC<IDashboardProps> = () => {
         </Col>
       </Row>
       <Row className={"dash-row"}>
-        <Col className={"dash-item"}></Col>
+        <Col className={"dash-item"}>
+          <PieChart />
+        </Col>
         <Col className={"dash-item"}>
           <SecurityCamera />
         </Col>
