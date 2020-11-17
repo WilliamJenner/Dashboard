@@ -1,3 +1,9 @@
 .clock {
   color: $primary-text-color;
+
+  &__icon {
+    svg {
+      vertical-align: baseline;
+    }
+  }
 }
