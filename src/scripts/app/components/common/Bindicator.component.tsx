@@ -15,16 +15,16 @@ interface IBinNotificationProps {
 }
 
 const BinNotification: React.FC<IBinNotificationProps> = (props) => {
-  const { config } = AppState.useContainer();
+  const { appState } = AppState.useContainer();
   const { bin, name } = props.namedBin;
 
   // Got to check to stop the compiler complaining
-  if (bin?.next === undefined) {
+  if (bin?.next === undefined || appState === undefined) {
     return null;
   }
 
   const textClass =
-    daysBetween(bin?.next, new Date()) < config.appState.binNoticePeriod
+    daysBetween(bin?.next, new Date()) < appState.binNoticePeriod
       ? "call-to-action"
       : "";
 

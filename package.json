@@ -59,6 +59,7 @@
     "react-bootstrap": "^1.4.0",
     "react-dom": "^16.14.0",
     "react-feather": "^2.0.8",
+    "react-minimal-pie-chart": "^8.1.0",
     "react-router-dom": "^5.2.0",
     "react-ticker": "^1.2.2",
     "tmp": "^0.2.1",

@@ -4,20 +4,16 @@ import { AppState as AppStateType } from "../types/config";
 
 const useAppState = (
   initialState: AppStateType = {
-    appState: {
-      apiUrl: "",
-      securityCamUrl: "",
-      binNoticePeriod: 0,
-    },
+    apiUrl: "",
+    securityCamUrl: "",
+    binNoticePeriod: 0,
   }
 ) => {
-  const [config, setConfig] = React.useState<AppStateType>(initialState);
-
-  console.log(config);
+  const [appState, setAppState] = React.useState<AppStateType>(initialState);
 
   return {
-    config,
-    setConfig,
+    appState: appState,
+    setAppState,
   };
 };
 

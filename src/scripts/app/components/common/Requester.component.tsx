@@ -1,11 +1,12 @@
 import React from "react";
 import { getActiveRequests, getRequiredAmount } from "../../actions/requester";
-import { hoursToMilliseconds, minutesToMilliseconds } from "../../utils/number";
+import { getRandomIndex, minutesToMilliseconds } from "../../utils/number";
 import { useInterval } from "../../hooks/useInterval";
 import { RequestDto } from "../../client/client";
-import Ticker from "react-ticker";
 import { capitaliseFirst } from "../../utils/string";
-import dayjs from "dayjs";
+import PieChart from "./Piechart";
+import { Data } from "react-minimal-pie-chart/types/commonTypes";
+import { colours } from "../../resources/colours";
 
 interface IRequestMessage {
   request: RequestDto;
@@ -33,8 +34,8 @@ export const Requester: React.FC = () => {
       setRequestAmount(result);
     });
     getActiveRequests().then((result) => {
-      setRequests(result)
-    })
+      setRequests(result);
+    });
   };
 
   // Lookup bins on startup
@@ -51,20 +52,19 @@ export const Requester: React.FC = () => {
     return <div>Client not found</div>;
   }
 
+  const requestData: Data = requests.map((r: RequestDto) => {
+    return {
+      title: `${r.requester}: ${r.requestedAmount}`,
+      value: r.requestedAmount ? r.requestedAmount : 0, // even though we've checked for undefined, still have to put a default in
+      color: colours[getRandomIndex(colours.length)].hexString,
+    };
+  });
+
   return (
     <div className={"requester"}>
-      <div className={"requester__text"}>
-        <h2>Amount Required:</h2>
-        <h1 className={"requester__amount"}>{requestedAmount}</h1>
-      </div>
-      <div className={"requester__requesters"}> 
-        <Ticker> 
-          {
-            ({index}) => requests.map(request => {
-              return <RequestMessage request={request}/>
-            })
-          }
-        </Ticker>
+      <h1 className={"requester__total"}>Total: {requestedAmount}</h1>
+      <div className={"requester__pie"}>
+        <PieChart data={requestData} />
       </div>
     </div>
   );

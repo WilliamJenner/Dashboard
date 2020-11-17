@@ -16,3 +16,7 @@ export const secondsToMilliseconds = (seconds: number): number => {
 export const daysBetween = (dateOne: Date, dateTwo: Date): number => {
   return (dateOne.getTime() - dateTwo.getTime()) / (1000 * 60 * 60 * 24.0);
 };
+
+export const getRandomIndex = (length: number) => {
+  return Math.floor(Math.random() * length);
+};

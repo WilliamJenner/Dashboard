@@ -10,13 +10,14 @@ import { routes, HomeRoute, FourOhFour } from "./routes/index";
 import { AppState } from "./state/appState";
 
 const App: React.FC = () => {
-  const appState = AppState.useContainer();
+  const { appState, setAppState } = AppState.useContainer();
 
   React.useEffect(() => {
-    appState.setConfig(
-      JSON.parse(document.getElementById("config")?.innerHTML!)
-    );
+    setAppState(JSON.parse(document.getElementById("config")?.innerHTML!));
   }, []);
+
+  console.log(JSON.parse(document.getElementById("config")?.innerHTML!));
+  console.log(appState);
 
   return (
     <Container bsPrefix={"container-xl"}>
