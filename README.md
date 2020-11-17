@@ -8,14 +8,13 @@ The app is set up to use the real house api in development, but you may want to 
 
 1. Install the node_modules folder 
     * ``npm install``
-2. Run the application through IIS
-3. Running the app
+2. Running the app
     * Development 
         * `npm run dev:server`
     * Use Electron 
         * `npm run dev:electron`
     * Production 
         * `npm run prod`
-
+3. Run the application through IIS
 # Roadmap
 - Add HMR so the dev doesn't need to reload
