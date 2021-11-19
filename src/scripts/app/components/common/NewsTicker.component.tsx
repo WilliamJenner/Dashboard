@@ -2,20 +2,20 @@ import dayjs from "dayjs";
 import React from "react";
 import { Row, Table } from "react-bootstrap";
 import Ticker from "react-ticker";
-import { getLatestAlerts } from "../../actions/alerts";
-import { Alert } from "../../client/client";
+import { getLatestAlerts as getLatestNews } from "../../actions/news";
+import { NewsMessage } from "../../client/client";
 import { useInterval } from "../../hooks/useInterval";
 import { minutesToMilliseconds } from "../../utils/number";
 import { capitaliseFirst } from "../../utils/string";
 
-interface IAlertTicker {}
+interface INewsTicker {}
 
 interface IAlert {
-  alert: Alert;
+  news: NewsMessage;
 }
 
-const AlertMessage: React.FC<IAlert> = ({ alert }) => {
-  const { message, createdBy, dateCreated } = alert;
+const NewsMessageBar: React.FC<IAlert> = ({ news }) => {
+  const { message, createdBy, dateCreated  } = news;
 
   return (
     <div className={"ticker__content"}>
@@ -30,24 +30,24 @@ const AlertMessage: React.FC<IAlert> = ({ alert }) => {
   );
 };
 
-const AlertTicker: React.FC<IAlertTicker> = () => {
-  const [alerts, setAlerts] = React.useState<Alert[]>([]);
+const NewsTicker: React.FC<INewsTicker> = () => {
+  const [news, setNews] = React.useState<NewsMessage[]>([]);
 
-  const getAndSetAlerts = () => {
-    getLatestAlerts().then((result) => {
-      setAlerts(result);
+  const getAndSetNews = () => {
+    getLatestNews().then((result) => {
+      setNews(result);
     });
   };
 
   React.useEffect(() => {
-    getAndSetAlerts();
+    getAndSetNews();
   }, []);
 
   useInterval(() => {
-    getAndSetAlerts();
+    getAndSetNews();
   }, minutesToMilliseconds(0.2));
 
-  if (alerts === undefined || alerts.length === 0) {
+  if (news === undefined || news.length === 0) {
     return null;
   }
 
@@ -55,8 +55,8 @@ const AlertTicker: React.FC<IAlertTicker> = () => {
     <div className="ticker">
       <Ticker>
         {({ index }) =>
-          alerts.map((alert) => {
-            return <AlertMessage alert={alert} />;
+          news.map((alert) => {
+            return <NewsMessageBar news={alert} />;
           })
         }
       </Ticker>
@@ -64,4 +64,4 @@ const AlertTicker: React.FC<IAlertTicker> = () => {
   );
 };
 
-export default AlertTicker;
+export default NewsTicker;

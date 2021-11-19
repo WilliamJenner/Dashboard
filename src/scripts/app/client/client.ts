@@ -839,6 +839,7 @@ export interface IBinLookup {
 export class NewsMessage implements INewsMessage {
     message?: string | undefined;
     createdBy?: string | undefined;
+    dateCreated?: Date;
 
     constructor(data?: INewsMessage) {
         if (data) {
@@ -853,6 +854,7 @@ export class NewsMessage implements INewsMessage {
         if (_data) {
             this.message = _data["message"];
             this.createdBy = _data["createdBy"];
+            this.dateCreated = _data["dateCreated"] ? new Date(_data["dateCreated"].toString()) : <any>undefined;
         }
     }
 
@@ -867,6 +869,7 @@ export class NewsMessage implements INewsMessage {
         data = typeof data === 'object' ? data : {};
         data["message"] = this.message;
         data["createdBy"] = this.createdBy;
+        data["dateCreated"] = this.dateCreated ? this.dateCreated.toISOString() : <any>undefined;
         return data; 
     }
 }
@@ -874,6 +877,7 @@ export class NewsMessage implements INewsMessage {
 export interface INewsMessage {
     message?: string | undefined;
     createdBy?: string | undefined;
+    dateCreated?: Date;
 }
 
 export class Coordinates implements ICoordinates {
