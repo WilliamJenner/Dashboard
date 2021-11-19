@@ -3,7 +3,6 @@ import { Row, Col } from "react-bootstrap";
 import AlertTicker from "./AlertTicker.component";
 import Bindicator from "./Bindicator.component";
 import Clock from "./Clock.component";
-import Requester from "./Requester.component";
 import SecurityCamera from "./SecurityCam.component";
 import Weather from "./Weather.component";
 interface IDashboardProps {}
@@ -13,7 +12,6 @@ export const Dashboard: React.FC<IDashboardProps> = () => {
     <div className={"dashboard"}>
       <Row className={"dash-row"}>
         <Col className={"dash-item"}>
-          <Requester />
         </Col>
         <Col className={"dash-item"}>
           <Clock />
