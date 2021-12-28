@@ -3,7 +3,7 @@ import { Client, OpenWeatherCurrent } from "../client/client";
 
 export const getWeather = (): Promise<OpenWeatherCurrent> => {
   try {
-    return api().weatherForecast();
+    return api().weatherForecast_Get();
   } catch (ex) {
     console.log(ex);
     throw ex;

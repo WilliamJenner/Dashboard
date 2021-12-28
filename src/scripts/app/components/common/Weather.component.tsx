@@ -43,7 +43,7 @@ const Weather: React.FC = () => {
           {weather?.main?.temperature}°C {shutTheDoor && "SHUT THE DAMN DOOR"}
         </h1>
       </div>
-      <div className={"weather__info"}>
+      <div className={"weather__info "}>
         <span>Feels like {weather?.main?.feelsLike}°C</span>
         {weather?.weather?.map((x) => {
           return <span>{capitaliseFirst(x.description as string)}</span>;

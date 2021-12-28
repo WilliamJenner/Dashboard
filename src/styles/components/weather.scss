@@ -9,11 +9,14 @@
     font-weight: bold;
   }
   &__info {
+   span{
+     max-width: 80px;
+   }
     display: flex;
     flex-direction: row;
     align-items: center;
+    margin: $medium-spacing;
     justify-content: space-between;
-    padding: $medium-spacing;
   }
   &--cold {
     color: aqua;

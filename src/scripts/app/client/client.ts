@@ -8,49 +8,17 @@
 // ReSharper disable InconsistentNaming
 
 export interface IClient {
-    /**
-     * @return Success
-     */
-    all(): Promise<Alert[]>;
-    /**
-     * @return Success
-     */
-    getLatest(): Promise<Alert[]>;
-    /**
-     * @return Success
-     */
-    alertAll(id: number): Promise<Alert[]>;
-    /**
-     * @param body (optional) 
-     * @return Success
-     */
-    alert(id: number, body: NewAlert | undefined): Promise<void>;
-    /**
-     * @return Success
-     */
-    alert2(id: number): Promise<void>;
-    /**
-     * @param body (optional) 
-     * @return Success
-     */
-    getMultiple(body: number[] | null | undefined): Promise<Alert[]>;
-    /**
-     * @param body (optional) 
-     * @return Success
-     */
-    newAlert(body: NewAlert | undefined): Promise<void>;
-    /**
-     * @return Success
-     */
-    bindicator(): Promise<BinLookup>;
-    /**
-     * @return Success
-     */
-    news(): Promise<NewsMessage[]>;
-    /**
-     * @return Success
-     */
-    weatherForecast(): Promise<OpenWeatherCurrent>;
+    alert_GetGET(): Promise<Alert[]>;
+    alert_GetLatestAlerts(): Promise<Alert[]>;
+    alert_GetGET2(id: number): Promise<Alert[]>;
+    alert_Put(id: number, newAlert: NewAlert): Promise<void>;
+    alert_Delete(id: number): Promise<void>;
+    alert_GetPOST(ids: number[]): Promise<Alert[]>;
+    alert_Post(newAlert: NewAlert): Promise<void>;
+    bindicator_Get(): Promise<BinLookup>;
+    news_GetNews(): Promise<NewsMessage[]>;
+    status_GetStats(): Promise<Status[]>;
+    weatherForecast_Get(): Promise<OpenWeatherCurrent>;
 }
 
 export class Client implements IClient {
@@ -60,29 +28,26 @@ export class Client implements IClient {
 
     constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
         this.http = http ? http : <any>window;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://192.168.1.69:84";
     }
 
-    /**
-     * @return Success
-     */
-    all(): Promise<Alert[]> {
+    alert_GetGET(): Promise<Alert[]> {
         let url_ = this.baseUrl + "/Alert/all";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
             method: "GET",
             headers: {
-                "Accept": "text/plain"
+                "Accept": "application/json"
             }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processAll(_response);
+            return this.processAlert_GetGET(_response);
         });
     }
 
-    protected processAll(response: Response): Promise<Alert[]> {
+    protected processAlert_GetGET(response: Response): Promise<Alert[]> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 500) {
@@ -90,7 +55,7 @@ export class Client implements IClient {
             let result500: any = null;
             let resultData500 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
             result500 = ProblemDetails.fromJS(resultData500);
-            return throwException("Server Error", status, _responseText, _headers, result500);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result500);
             });
         } else if (status === 200) {
             return response.text().then((_responseText) => {
@@ -111,26 +76,23 @@ export class Client implements IClient {
         return Promise.resolve<Alert[]>(<any>null);
     }
 
-    /**
-     * @return Success
-     */
-    getLatest(): Promise<Alert[]> {
-        let url_ = this.baseUrl + "/Alert/GetLatest";
+    alert_GetLatestAlerts(): Promise<Alert[]> {
+        let url_ = this.baseUrl + "/Alert/Latest";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
             method: "GET",
             headers: {
-                "Accept": "text/plain"
+                "Accept": "application/json"
             }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processGetLatest(_response);
+            return this.processAlert_GetLatestAlerts(_response);
         });
     }
 
-    protected processGetLatest(response: Response): Promise<Alert[]> {
+    protected processAlert_GetLatestAlerts(response: Response): Promise<Alert[]> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 500) {
@@ -138,7 +100,7 @@ export class Client implements IClient {
             let result500: any = null;
             let resultData500 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
             result500 = ProblemDetails.fromJS(resultData500);
-            return throwException("Server Error", status, _responseText, _headers, result500);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result500);
             });
         } else if (status === 200) {
             return response.text().then((_responseText) => {
@@ -159,10 +121,7 @@ export class Client implements IClient {
         return Promise.resolve<Alert[]>(<any>null);
     }
 
-    /**
-     * @return Success
-     */
-    alertAll(id: number): Promise<Alert[]> {
+    alert_GetGET2(id: number): Promise<Alert[]> {
         let url_ = this.baseUrl + "/Alert/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -172,16 +131,16 @@ export class Client implements IClient {
         let options_ = <RequestInit>{
             method: "GET",
             headers: {
-                "Accept": "text/plain"
+                "Accept": "application/json"
             }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processAlertAll(_response);
+            return this.processAlert_GetGET2(_response);
         });
     }
 
-    protected processAlertAll(response: Response): Promise<Alert[]> {
+    protected processAlert_GetGET2(response: Response): Promise<Alert[]> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 500) {
@@ -189,7 +148,7 @@ export class Client implements IClient {
             let result500: any = null;
             let resultData500 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
             result500 = ProblemDetails.fromJS(resultData500);
-            return throwException("Server Error", status, _responseText, _headers, result500);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result500);
             });
         } else if (status === 200) {
             return response.text().then((_responseText) => {
@@ -210,18 +169,14 @@ export class Client implements IClient {
         return Promise.resolve<Alert[]>(<any>null);
     }
 
-    /**
-     * @param body (optional) 
-     * @return Success
-     */
-    alert(id: number, body: NewAlert | undefined): Promise<void> {
+    alert_Put(id: number, newAlert: NewAlert): Promise<void> {
         let url_ = this.baseUrl + "/Alert/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
         url_ = url_.replace("{id}", encodeURIComponent("" + id));
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(body);
+        const content_ = JSON.stringify(newAlert);
 
         let options_ = <RequestInit>{
             body: content_,
@@ -232,11 +187,11 @@ export class Client implements IClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processAlert(_response);
+            return this.processAlert_Put(_response);
         });
     }
 
-    protected processAlert(response: Response): Promise<void> {
+    protected processAlert_Put(response: Response): Promise<void> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 500) {
@@ -244,7 +199,7 @@ export class Client implements IClient {
             let result500: any = null;
             let resultData500 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
             result500 = ProblemDetails.fromJS(resultData500);
-            return throwException("Server Error", status, _responseText, _headers, result500);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result500);
             });
         } else if (status === 200) {
             return response.text().then((_responseText) => {
@@ -258,10 +213,7 @@ export class Client implements IClient {
         return Promise.resolve<void>(<any>null);
     }
 
-    /**
-     * @return Success
-     */
-    alert2(id: number): Promise<void> {
+    alert_Delete(id: number): Promise<void> {
         let url_ = this.baseUrl + "/Alert/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -275,11 +227,11 @@ export class Client implements IClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processAlert2(_response);
+            return this.processAlert_Delete(_response);
         });
     }
 
-    protected processAlert2(response: Response): Promise<void> {
+    protected processAlert_Delete(response: Response): Promise<void> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 500) {
@@ -287,7 +239,7 @@ export class Client implements IClient {
             let result500: any = null;
             let resultData500 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
             result500 = ProblemDetails.fromJS(resultData500);
-            return throwException("Server Error", status, _responseText, _headers, result500);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result500);
             });
         } else if (status === 200) {
             return response.text().then((_responseText) => {
@@ -301,31 +253,27 @@ export class Client implements IClient {
         return Promise.resolve<void>(<any>null);
     }
 
-    /**
-     * @param body (optional) 
-     * @return Success
-     */
-    getMultiple(body: number[] | null | undefined): Promise<Alert[]> {
+    alert_GetPOST(ids: number[]): Promise<Alert[]> {
         let url_ = this.baseUrl + "/Alert/GetMultiple";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(body);
+        const content_ = JSON.stringify(ids);
 
         let options_ = <RequestInit>{
             body: content_,
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Accept": "text/plain"
+                "Accept": "application/json"
             }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processGetMultiple(_response);
+            return this.processAlert_GetPOST(_response);
         });
     }
 
-    protected processGetMultiple(response: Response): Promise<Alert[]> {
+    protected processAlert_GetPOST(response: Response): Promise<Alert[]> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 500) {
@@ -333,7 +281,7 @@ export class Client implements IClient {
             let result500: any = null;
             let resultData500 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
             result500 = ProblemDetails.fromJS(resultData500);
-            return throwException("Server Error", status, _responseText, _headers, result500);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result500);
             });
         } else if (status === 200) {
             return response.text().then((_responseText) => {
@@ -354,15 +302,11 @@ export class Client implements IClient {
         return Promise.resolve<Alert[]>(<any>null);
     }
 
-    /**
-     * @param body (optional) 
-     * @return Success
-     */
-    newAlert(body: NewAlert | undefined): Promise<void> {
+    alert_Post(newAlert: NewAlert): Promise<void> {
         let url_ = this.baseUrl + "/Alert/NewAlert";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(body);
+        const content_ = JSON.stringify(newAlert);
 
         let options_ = <RequestInit>{
             body: content_,
@@ -373,11 +317,11 @@ export class Client implements IClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processNewAlert(_response);
+            return this.processAlert_Post(_response);
         });
     }
 
-    protected processNewAlert(response: Response): Promise<void> {
+    protected processAlert_Post(response: Response): Promise<void> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 500) {
@@ -385,7 +329,7 @@ export class Client implements IClient {
             let result500: any = null;
             let resultData500 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
             result500 = ProblemDetails.fromJS(resultData500);
-            return throwException("Server Error", status, _responseText, _headers, result500);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result500);
             });
         } else if (status === 200) {
             return response.text().then((_responseText) => {
@@ -399,26 +343,23 @@ export class Client implements IClient {
         return Promise.resolve<void>(<any>null);
     }
 
-    /**
-     * @return Success
-     */
-    bindicator(): Promise<BinLookup> {
+    bindicator_Get(): Promise<BinLookup> {
         let url_ = this.baseUrl + "/Bindicator";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
             method: "GET",
             headers: {
-                "Accept": "text/plain"
+                "Accept": "application/json"
             }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processBindicator(_response);
+            return this.processBindicator_Get(_response);
         });
     }
 
-    protected processBindicator(response: Response): Promise<BinLookup> {
+    protected processBindicator_Get(response: Response): Promise<BinLookup> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 500) {
@@ -426,7 +367,7 @@ export class Client implements IClient {
             let result500: any = null;
             let resultData500 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
             result500 = ProblemDetails.fromJS(resultData500);
-            return throwException("Server Error", status, _responseText, _headers, result500);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result500);
             });
         } else if (status === 200) {
             return response.text().then((_responseText) => {
@@ -443,26 +384,23 @@ export class Client implements IClient {
         return Promise.resolve<BinLookup>(<any>null);
     }
 
-    /**
-     * @return Success
-     */
-    news(): Promise<NewsMessage[]> {
+    news_GetNews(): Promise<NewsMessage[]> {
         let url_ = this.baseUrl + "/news";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
             method: "GET",
             headers: {
-                "Accept": "text/plain"
+                "Accept": "application/json"
             }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processNews(_response);
+            return this.processNews_GetNews(_response);
         });
     }
 
-    protected processNews(response: Response): Promise<NewsMessage[]> {
+    protected processNews_GetNews(response: Response): Promise<NewsMessage[]> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 500) {
@@ -470,7 +408,7 @@ export class Client implements IClient {
             let result500: any = null;
             let resultData500 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
             result500 = ProblemDetails.fromJS(resultData500);
-            return throwException("Server Error", status, _responseText, _headers, result500);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result500);
             });
         } else if (status === 200) {
             return response.text().then((_responseText) => {
@@ -491,26 +429,23 @@ export class Client implements IClient {
         return Promise.resolve<NewsMessage[]>(<any>null);
     }
 
-    /**
-     * @return Success
-     */
-    weatherForecast(): Promise<OpenWeatherCurrent> {
-        let url_ = this.baseUrl + "/WeatherForecast";
+    status_GetStats(): Promise<Status[]> {
+        let url_ = this.baseUrl + "/status";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
             method: "GET",
             headers: {
-                "Accept": "text/plain"
+                "Accept": "application/json"
             }
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processWeatherForecast(_response);
+            return this.processStatus_GetStats(_response);
         });
     }
 
-    protected processWeatherForecast(response: Response): Promise<OpenWeatherCurrent> {
+    protected processStatus_GetStats(response: Response): Promise<Status[]> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 500) {
@@ -518,7 +453,52 @@ export class Client implements IClient {
             let result500: any = null;
             let resultData500 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
             result500 = ProblemDetails.fromJS(resultData500);
-            return throwException("Server Error", status, _responseText, _headers, result500);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result500);
+            });
+        } else if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(Status.fromJS(item));
+            }
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<Status[]>(<any>null);
+    }
+
+    weatherForecast_Get(): Promise<OpenWeatherCurrent> {
+        let url_ = this.baseUrl + "/WeatherForecast";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ = <RequestInit>{
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processWeatherForecast_Get(_response);
+        });
+    }
+
+    protected processWeatherForecast_Get(response: Response): Promise<OpenWeatherCurrent> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 500) {
+            return response.text().then((_responseText) => {
+            let result500: any = null;
+            let resultData500 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result500 = ProblemDetails.fromJS(resultData500);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result500);
             });
         } else if (status === 200) {
             return response.text().then((_responseText) => {
@@ -586,74 +566,6 @@ export interface IProblemDetails {
     status?: number | undefined;
     detail?: string | undefined;
     instance?: string | undefined;
-}
-
-export class ValidationProblemDetails implements IValidationProblemDetails {
-    type?: string | undefined;
-    title?: string | undefined;
-    status?: number | undefined;
-    detail?: string | undefined;
-    instance?: string | undefined;
-    readonly errors?: { [key: string]: string[]; } | undefined;
-
-    constructor(data?: IValidationProblemDetails) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.type = _data["type"];
-            this.title = _data["title"];
-            this.status = _data["status"];
-            this.detail = _data["detail"];
-            this.instance = _data["instance"];
-            if (_data["errors"]) {
-                (<any>this).errors = {} as any;
-                for (let key in _data["errors"]) {
-                    if (_data["errors"].hasOwnProperty(key))
-                        (<any>this).errors![key] = _data["errors"][key] !== undefined ? _data["errors"][key] : [];
-                }
-            }
-        }
-    }
-
-    static fromJS(data: any): ValidationProblemDetails {
-        data = typeof data === 'object' ? data : {};
-        let result = new ValidationProblemDetails();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["type"] = this.type;
-        data["title"] = this.title;
-        data["status"] = this.status;
-        data["detail"] = this.detail;
-        data["instance"] = this.instance;
-        if (this.errors) {
-            data["errors"] = {};
-            for (let key in this.errors) {
-                if (this.errors.hasOwnProperty(key))
-                    data["errors"][key] = this.errors[key];
-            }
-        }
-        return data; 
-    }
-}
-
-export interface IValidationProblemDetails {
-    type?: string | undefined;
-    title?: string | undefined;
-    status?: number | undefined;
-    detail?: string | undefined;
-    instance?: string | undefined;
-    errors?: { [key: string]: string[]; } | undefined;
 }
 
 export class Alert implements IAlert {
@@ -744,6 +656,50 @@ export interface INewAlert {
     createdBy?: string | undefined;
 }
 
+export class BinLookup implements IBinLookup {
+    rubbish?: Bin | undefined;
+    recycling?: Bin | undefined;
+    foodWaste?: Bin | undefined;
+
+    constructor(data?: IBinLookup) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.rubbish = _data["rubbish"] ? Bin.fromJS(_data["rubbish"]) : <any>undefined;
+            this.recycling = _data["recycling"] ? Bin.fromJS(_data["recycling"]) : <any>undefined;
+            this.foodWaste = _data["foodWaste"] ? Bin.fromJS(_data["foodWaste"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): BinLookup {
+        data = typeof data === 'object' ? data : {};
+        let result = new BinLookup();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["rubbish"] = this.rubbish ? this.rubbish.toJSON() : <any>undefined;
+        data["recycling"] = this.recycling ? this.recycling.toJSON() : <any>undefined;
+        data["foodWaste"] = this.foodWaste ? this.foodWaste.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IBinLookup {
+    rubbish?: Bin | undefined;
+    recycling?: Bin | undefined;
+    foodWaste?: Bin | undefined;
+}
+
 export class Bin implements IBin {
     subsequent?: Date;
     next?: Date;
@@ -792,54 +748,9 @@ export interface IBin {
     communal?: boolean;
 }
 
-export class BinLookup implements IBinLookup {
-    rubbish?: Bin;
-    recycling?: Bin;
-    foodWaste?: Bin;
-
-    constructor(data?: IBinLookup) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.rubbish = _data["rubbish"] ? Bin.fromJS(_data["rubbish"]) : <any>undefined;
-            this.recycling = _data["recycling"] ? Bin.fromJS(_data["recycling"]) : <any>undefined;
-            this.foodWaste = _data["foodWaste"] ? Bin.fromJS(_data["foodWaste"]) : <any>undefined;
-        }
-    }
-
-    static fromJS(data: any): BinLookup {
-        data = typeof data === 'object' ? data : {};
-        let result = new BinLookup();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["rubbish"] = this.rubbish ? this.rubbish.toJSON() : <any>undefined;
-        data["recycling"] = this.recycling ? this.recycling.toJSON() : <any>undefined;
-        data["foodWaste"] = this.foodWaste ? this.foodWaste.toJSON() : <any>undefined;
-        return data; 
-    }
-}
-
-export interface IBinLookup {
-    rubbish?: Bin;
-    recycling?: Bin;
-    foodWaste?: Bin;
-}
-
 export class NewsMessage implements INewsMessage {
     message?: string | undefined;
     createdBy?: string | undefined;
-    dateCreated?: Date;
 
     constructor(data?: INewsMessage) {
         if (data) {
@@ -854,7 +765,6 @@ export class NewsMessage implements INewsMessage {
         if (_data) {
             this.message = _data["message"];
             this.createdBy = _data["createdBy"];
-            this.dateCreated = _data["dateCreated"] ? new Date(_data["dateCreated"].toString()) : <any>undefined;
         }
     }
 
@@ -869,7 +779,6 @@ export class NewsMessage implements INewsMessage {
         data = typeof data === 'object' ? data : {};
         data["message"] = this.message;
         data["createdBy"] = this.createdBy;
-        data["dateCreated"] = this.dateCreated ? this.dateCreated.toISOString() : <any>undefined;
         return data; 
     }
 }
@@ -877,7 +786,142 @@ export class NewsMessage implements INewsMessage {
 export interface INewsMessage {
     message?: string | undefined;
     createdBy?: string | undefined;
-    dateCreated?: Date;
+}
+
+export class Status implements IStatus {
+    totalMb?: number;
+    freeMb?: number;
+    usedMb?: number;
+
+    constructor(data?: IStatus) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalMb = _data["totalMb"];
+            this.freeMb = _data["freeMb"];
+            this.usedMb = _data["usedMb"];
+        }
+    }
+
+    static fromJS(data: any): Status {
+        data = typeof data === 'object' ? data : {};
+        let result = new Status();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalMb"] = this.totalMb;
+        data["freeMb"] = this.freeMb;
+        data["usedMb"] = this.usedMb;
+        return data; 
+    }
+}
+
+export interface IStatus {
+    totalMb?: number;
+    freeMb?: number;
+    usedMb?: number;
+}
+
+export class OpenWeatherCurrent implements IOpenWeatherCurrent {
+    cordinates?: Coordinates | undefined;
+    weather?: Weather[] | undefined;
+    base?: string | undefined;
+    main?: Main | undefined;
+    visibility?: string | undefined;
+    wind?: Wind | undefined;
+    clouds?: Clouds | undefined;
+    dt?: number;
+    sys?: SysDto | undefined;
+    timeZone?: number;
+    id?: number;
+    name?: string | undefined;
+    cod?: number;
+
+    constructor(data?: IOpenWeatherCurrent) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.cordinates = _data["cordinates"] ? Coordinates.fromJS(_data["cordinates"]) : <any>undefined;
+            if (Array.isArray(_data["weather"])) {
+                this.weather = [] as any;
+                for (let item of _data["weather"])
+                    this.weather!.push(Weather.fromJS(item));
+            }
+            this.base = _data["base"];
+            this.main = _data["main"] ? Main.fromJS(_data["main"]) : <any>undefined;
+            this.visibility = _data["visibility"];
+            this.wind = _data["wind"] ? Wind.fromJS(_data["wind"]) : <any>undefined;
+            this.clouds = _data["clouds"] ? Clouds.fromJS(_data["clouds"]) : <any>undefined;
+            this.dt = _data["dt"];
+            this.sys = _data["sys"] ? SysDto.fromJS(_data["sys"]) : <any>undefined;
+            this.timeZone = _data["timeZone"];
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.cod = _data["cod"];
+        }
+    }
+
+    static fromJS(data: any): OpenWeatherCurrent {
+        data = typeof data === 'object' ? data : {};
+        let result = new OpenWeatherCurrent();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["cordinates"] = this.cordinates ? this.cordinates.toJSON() : <any>undefined;
+        if (Array.isArray(this.weather)) {
+            data["weather"] = [];
+            for (let item of this.weather)
+                data["weather"].push(item.toJSON());
+        }
+        data["base"] = this.base;
+        data["main"] = this.main ? this.main.toJSON() : <any>undefined;
+        data["visibility"] = this.visibility;
+        data["wind"] = this.wind ? this.wind.toJSON() : <any>undefined;
+        data["clouds"] = this.clouds ? this.clouds.toJSON() : <any>undefined;
+        data["dt"] = this.dt;
+        data["sys"] = this.sys ? this.sys.toJSON() : <any>undefined;
+        data["timeZone"] = this.timeZone;
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["cod"] = this.cod;
+        return data; 
+    }
+}
+
+export interface IOpenWeatherCurrent {
+    cordinates?: Coordinates | undefined;
+    weather?: Weather[] | undefined;
+    base?: string | undefined;
+    main?: Main | undefined;
+    visibility?: string | undefined;
+    wind?: Wind | undefined;
+    clouds?: Clouds | undefined;
+    dt?: number;
+    sys?: SysDto | undefined;
+    timeZone?: number;
+    id?: number;
+    name?: string | undefined;
+    cod?: number;
 }
 
 export class Coordinates implements ICoordinates {
@@ -1150,98 +1194,6 @@ export interface ISysDto {
     country?: string | undefined;
     sunrise?: number;
     sunset?: number;
-}
-
-export class OpenWeatherCurrent implements IOpenWeatherCurrent {
-    cordinates?: Coordinates;
-    weather?: Weather[] | undefined;
-    base?: string | undefined;
-    main?: Main;
-    visibility?: string | undefined;
-    wind?: Wind;
-    clouds?: Clouds;
-    dt?: number;
-    sys?: SysDto;
-    timeZone?: number;
-    id?: number;
-    name?: string | undefined;
-    cod?: number;
-
-    constructor(data?: IOpenWeatherCurrent) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.cordinates = _data["cordinates"] ? Coordinates.fromJS(_data["cordinates"]) : <any>undefined;
-            if (Array.isArray(_data["weather"])) {
-                this.weather = [] as any;
-                for (let item of _data["weather"])
-                    this.weather!.push(Weather.fromJS(item));
-            }
-            this.base = _data["base"];
-            this.main = _data["main"] ? Main.fromJS(_data["main"]) : <any>undefined;
-            this.visibility = _data["visibility"];
-            this.wind = _data["wind"] ? Wind.fromJS(_data["wind"]) : <any>undefined;
-            this.clouds = _data["clouds"] ? Clouds.fromJS(_data["clouds"]) : <any>undefined;
-            this.dt = _data["dt"];
-            this.sys = _data["sys"] ? SysDto.fromJS(_data["sys"]) : <any>undefined;
-            this.timeZone = _data["timeZone"];
-            this.id = _data["id"];
-            this.name = _data["name"];
-            this.cod = _data["cod"];
-        }
-    }
-
-    static fromJS(data: any): OpenWeatherCurrent {
-        data = typeof data === 'object' ? data : {};
-        let result = new OpenWeatherCurrent();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["cordinates"] = this.cordinates ? this.cordinates.toJSON() : <any>undefined;
-        if (Array.isArray(this.weather)) {
-            data["weather"] = [];
-            for (let item of this.weather)
-                data["weather"].push(item.toJSON());
-        }
-        data["base"] = this.base;
-        data["main"] = this.main ? this.main.toJSON() : <any>undefined;
-        data["visibility"] = this.visibility;
-        data["wind"] = this.wind ? this.wind.toJSON() : <any>undefined;
-        data["clouds"] = this.clouds ? this.clouds.toJSON() : <any>undefined;
-        data["dt"] = this.dt;
-        data["sys"] = this.sys ? this.sys.toJSON() : <any>undefined;
-        data["timeZone"] = this.timeZone;
-        data["id"] = this.id;
-        data["name"] = this.name;
-        data["cod"] = this.cod;
-        return data; 
-    }
-}
-
-export interface IOpenWeatherCurrent {
-    cordinates?: Coordinates;
-    weather?: Weather[] | undefined;
-    base?: string | undefined;
-    main?: Main;
-    visibility?: string | undefined;
-    wind?: Wind;
-    clouds?: Clouds;
-    dt?: number;
-    sys?: SysDto;
-    timeZone?: number;
-    id?: number;
-    name?: string | undefined;
-    cod?: number;
 }
 
 export class SwaggerException extends Error {
