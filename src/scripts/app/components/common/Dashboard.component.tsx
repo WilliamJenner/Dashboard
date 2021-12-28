@@ -16,16 +16,11 @@ export const Dashboard: React.FC<IDashboardProps> = () => {
           <Clock />
           <Weather />
         </Col>
-        <Col className={"dash-item dash-item--grow"}>
+        <Col className={"dash-item"}>
           <Bindicator />
         </Col>
-      </Row>
-      <Row className="dash-row">
-        <Col></Col>
         <Col className="dash-item">
-          <ServerStatus />
-        </Col>
-        <Col>
+        <ServerStatus />
         </Col>
       </Row>
       <Row className={"dash-row"}>
