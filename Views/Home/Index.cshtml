@@ -1,10 +1,9 @@
 @model AppState
 @section Scripts {
-    
-        <script type="module" src="http://localhost:4000/dev/app.bundle.js" type="text/javascript"></script>
-    
-}
 
-<div id="config" style="display: none">@Json.Serialize(@Model.AppSettings)</div>
-<div id="app"></div>
+    <script type="module" src="http://localhost:4000/dev/app.bundle.js" type="text/javascript"></script>
+    
+                        }
 
+                        <div id="config" style="display: none">@Json.Serialize(@Model.AppSettings)</div>
+                        <div id="app"></div>

@@ -15,13 +15,14 @@ interface IAlert {
 }
 
 const NewsMessageBar: React.FC<IAlert> = ({ news }) => {
-  const { message, createdBy  } = news;
+  const { message, createdBy, publishedAt } = news;
 
   return (
     <div className={"ticker__content"}>
       <div>{message}</div>
       <div className={"ticker__content__author"}>
-        Sent by {capitaliseFirst(createdBy as string)}{" "}
+        Sent by {capitaliseFirst(createdBy as string)} at{" "}
+        {dayjs(publishedAt).format("HH:mm:ss")}
       </div>
     </div>
   );
