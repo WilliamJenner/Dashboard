@@ -16,9 +16,6 @@ const App: React.FC = () => {
     setAppState(JSON.parse(document.getElementById("config")?.innerHTML!));
   }, []);
 
-  console.log(JSON.parse(document.getElementById("config")?.innerHTML!));
-  console.log(appState);
-
   return (
     <Container bsPrefix={"container-xl"}>
       <Router>

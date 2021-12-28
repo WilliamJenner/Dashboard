@@ -13,10 +13,8 @@ export const ServerStatus: React.FunctionComponent<{}> = () => {
         try {
             setState({ loading: true })
             const result = await GetStatus();
-            console.log(result)
             setState({ status: result, loading: false, error: false });
         } catch (error) {
-            console.log(error)
             setState({ error: true, loading: false })
         }
 
