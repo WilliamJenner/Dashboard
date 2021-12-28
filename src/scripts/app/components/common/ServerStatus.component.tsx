@@ -7,23 +7,30 @@ import { minutesToMilliseconds } from "../../../app/utils/number"
 import { GetStatus } from "../../../app/actions/status"
 import { Status } from "../../../app/client/client"
 
+interface IStatusState {
+    status: Status;
+    error: boolean;
+    loading: boolean;
+}
+
 export const ServerStatus: React.FunctionComponent<{}> = () => {
-    const [{ error, status, loading }, setState] = useSetState<{ status: Status, error: boolean, loading: boolean }>();
+    const [{ error, status, loading }, setState] = useSetState<IStatusState>();
     const getAndSetStatus = async () => {
         try {
             setState({ loading: true })
             const result = await GetStatus();
             setState({ status: result, loading: false, error: false });
         } catch (error) {
-            setState({ error: true, loading: false })
+            setState({ error: true, loading: false, status: undefined })
         }
-
     }
+
     React.useEffect(() => {
         getAndSetStatus();
     }, [])
 
-    useInterval(() => { getAndSetStatus() }, minutesToMilliseconds(0.5))
+    useInterval(() => { getAndSetStatus() }
+        , minutesToMilliseconds(0.5))
 
 
     if (loading === true) {
