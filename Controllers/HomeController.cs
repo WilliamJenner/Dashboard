@@ -32,6 +32,8 @@ namespace WebApp.Controllers
                 AppSettings = _appSettings
             };
 
+            HttpContext.Response.Headers.Add("Refresh", "6000;");
+
             return View(appState);
         }
 
