@@ -6,7 +6,7 @@ import Clock from "./Clock.component";
 import SecurityCamera from "./SecurityCam.component";
 import Weather from "./Weather.component";
 import { ServerStatus } from "./ServerStatus.component";
-interface IDashboardProps { }
+interface IDashboardProps {}
 
 export const Dashboard: React.FC<IDashboardProps> = () => {
   return (
@@ -20,7 +20,12 @@ export const Dashboard: React.FC<IDashboardProps> = () => {
           <Bindicator />
         </Col>
         <Col className="dash-item">
-        <ServerStatus />
+          <ServerStatus />
+        </Col>
+      </Row>
+      <Row className={"dash-row"}>
+        <Col className={"dash-item"}>
+          <SecurityCamera />
         </Col>
       </Row>
       <Row className={"dash-row"}>
