@@ -1,4 +1,4 @@
-import { useInterval } from "@hooks/useInterval";
+import { useInterval } from "../../hooks/useInterval";
 import * as React from "react";
 import { Spinner } from "react-bootstrap";
 import { secondsToMilliseconds } from "../../../app/utils/number";
