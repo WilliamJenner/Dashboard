@@ -35,7 +35,7 @@ const NewsTicker: React.FC<INewsTicker> = () => {
     try {
       const result = await getLatestNews();
       setNews(result);
-    } catch (Error e) {
+    } catch (e) {
       console.log("Error getting news");
     }
   };
