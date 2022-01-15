@@ -6,6 +6,7 @@ import Clock from "./Clock.component";
 import SecurityCamera from "./SecurityCam.component";
 import Weather from "./Weather.component";
 import { ServerStatus } from "./ServerStatus.component";
+import Cat from "./Cat.component";
 interface IDashboardProps {}
 
 export const Dashboard: React.FC<IDashboardProps> = () => {
