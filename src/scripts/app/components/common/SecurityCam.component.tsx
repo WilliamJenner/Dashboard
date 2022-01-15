@@ -23,7 +23,7 @@ export const SecurityCamera: React.FC<ISecurityCameraProps> = () => {
   }
 
   return appState === undefined ? null : (
-    <img className={"security-camera"} src={appState.securityCamUrl} />
+    <iframe className={"security-camera"} src={appState.securityCamUrl} />
   );
 };
 

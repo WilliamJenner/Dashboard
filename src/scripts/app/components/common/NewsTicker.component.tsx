@@ -31,10 +31,13 @@ const NewsMessageBar: React.FC<IAlert> = ({ news }) => {
 const NewsTicker: React.FC<INewsTicker> = () => {
   const [news, setNews] = React.useState<NewsMessage[]>([]);
 
-  const getAndSetNews = () => {
-    getLatestNews().then((result) => {
+  const getAndSetNews = async () => {
+    try {
+      const result = await getLatestNews();
       setNews(result);
-    });
+    } catch (e) {
+      console.log("Error getting news");
+    }
   };
 
   React.useEffect(() => {
@@ -43,10 +46,11 @@ const NewsTicker: React.FC<INewsTicker> = () => {
 
   useInterval(() => {
     getAndSetNews();
-  }, minutesToMilliseconds(0.2));
+    //Rate limit allows 100 per 24 hours
+  }, minutesToMilliseconds(144));
 
   if (news === undefined || news.length === 0) {
-    return null;
+    return <p>No news, we probably hit the rate limit...</p>;
   }
 
   return (
