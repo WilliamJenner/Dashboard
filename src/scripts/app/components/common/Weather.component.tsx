@@ -40,7 +40,7 @@ const Weather: React.FC = () => {
               weather?.main?.temperature && weather.main.temperature > 20,
           })}
         >
-          {weather?.main?.temperature}°C {shutTheDoor && "SHUT THE DAMN DOOR"}
+          {weather?.main?.temperature}°C {shutTheDoor && "SHUT JONS DAMN DOOR"}
         </h1>
       </div>
       <div className={"weather__info "}>

@@ -9,9 +9,9 @@
     font-weight: bold;
   }
   &__info {
-   span{
-     max-width: 80px;
-   }
+    span {
+      padding: 1em;
+    }
     display: flex;
     flex-direction: row;
     align-items: center;
