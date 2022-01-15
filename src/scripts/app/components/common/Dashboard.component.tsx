@@ -27,6 +27,7 @@ export const Dashboard: React.FC<IDashboardProps> = () => {
         <Col className={"dash-item"}>
           <SecurityCamera />
         </Col>
+        <Col className={"dash-item"}></Col>
       </Row>
       <Row className={"dash-row"}>
         <Col className={"dash-item"}>
