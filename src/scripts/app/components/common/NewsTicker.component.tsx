@@ -31,10 +31,13 @@ const NewsMessageBar: React.FC<IAlert> = ({ news }) => {
 const NewsTicker: React.FC<INewsTicker> = () => {
   const [news, setNews] = React.useState<NewsMessage[]>([]);
 
-  const getAndSetNews = () => {
-    getLatestNews().then((result) => {
+  const getAndSetNews = async () => {
+    try {
+      const result = await getLatestNews();
       setNews(result);
-    });
+    } catch (Error e) {
+      console.log("Error getting news");
+    }
   };
 
   React.useEffect(() => {
