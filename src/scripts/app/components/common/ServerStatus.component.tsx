@@ -40,19 +40,19 @@ export const ServerStatus: React.FunctionComponent<{}> = () => {
 
     return error && (!status || !processes) ? <p>Error getting server status</p> :
         <>
-            <h4>Server Memory Usage (MB)</h4>
+            <h4>Server Memory Usage</h4>
             <ListGroup className="bg-dash-item" variant="flush">
                 <ListGroup.Item className="bg-dash-item d-flex justify-content-between pt-0 pb-0">
                     <span>Total:</span>
-                    <span>{status?.totalMb?.toFixed(0)}</span>
+                    <span>{status?.totalMb?.toFixed(0)} MB</span>
                 </ListGroup.Item>
                 <ListGroup.Item className="bg-dash-item d-flex justify-content-between pt-0 pb-0">
                     <span>Free:</span>
-                    <span>{status?.freeMb?.toFixed(0)}</span>
+                    <span>{status?.freeMb?.toFixed(0)} MB</span>
                 </ListGroup.Item>
                 <ListGroup.Item className="bg-dash-item d-flex justify-content-between pt-0 pb-0">
                     <span>Used:</span>
-                    <span>{status?.usedMb?.toFixed(0)}</span>
+                    <span>{status?.usedMb?.toFixed(0)} MB</span>
                 </ListGroup.Item>
             </ListGroup>
             <h4 className="mt-2 mb-2">Top 10 Processes</h4>
