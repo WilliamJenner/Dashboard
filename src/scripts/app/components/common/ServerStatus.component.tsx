@@ -42,15 +42,15 @@ export const ServerStatus: React.FunctionComponent<{}> = () => {
         <>
             <h4>Server Memory Usage (MB)</h4>
             <ListGroup className="bg-dash-item" variant="flush">
-                <ListGroup.Item className="bg-dash-item d-flex justify-content-between">
+                <ListGroup.Item className="bg-dash-item d-flex justify-content-between pt-0 pb-0">
                     <span>Total:</span>
                     <span>{status?.totalMb?.toFixed(0)}</span>
                 </ListGroup.Item>
-                <ListGroup.Item className="bg-dash-item d-flex justify-content-between">
+                <ListGroup.Item className="bg-dash-item d-flex justify-content-between pt-0 pb-0">
                     <span>Free:</span>
                     <span>{status?.freeMb?.toFixed(0)}</span>
                 </ListGroup.Item>
-                <ListGroup.Item className="bg-dash-item d-flex justify-content-between">
+                <ListGroup.Item className="bg-dash-item d-flex justify-content-between pt-0 pb-0">
                     <span>Used:</span>
                     <span>{status?.usedMb?.toFixed(0)}</span>
                 </ListGroup.Item>
