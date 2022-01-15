@@ -56,8 +56,8 @@ export const ServerStatus: React.FunctionComponent<{}> = () => {
                 </ListGroup.Item>
             </ListGroup>
             <h4 className="mt-2 mb-2">Top 10 Processes</h4>
-            <ListGroup className="bg-dash-item">
-                {processes?.map(proc => <ListGroup.Item className="bg-dash-item d-flex justify-content-between">
+            <ListGroup className="bg-dash-item mb-2">
+                {processes?.map(proc => <ListGroup.Item className="bg-dash-item d-flex justify-content-between pt-0 pb-0">
                     <span>{proc?.name}</span>
                     <span>{proc?.memoryMbUsed?.toFixed(0)} MB</span>
                     </ListGroup.Item>)}
