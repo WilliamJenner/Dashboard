@@ -5,21 +5,22 @@ import { ListGroup, Spinner } from "react-bootstrap"
 import useSetState from "react-use/lib/useSetState"
 import { minutesToMilliseconds } from "../../../app/utils/number"
 import { GetStatus } from "../../../app/actions/status"
-import { Status } from "../../../app/client/client"
+import { ProcessInfoResult, Status } from "../../../app/client/client"
 
 interface IStatusState {
     status: Status;
+    processes: ProcessInfoResult[];
     error: boolean;
     loading: boolean;
 }
 
 export const ServerStatus: React.FunctionComponent<{}> = () => {
-    const [{ error, status, loading }, setState] = useSetState<IStatusState>();
+    const [{ error, status, loading, processes }, setState] = useSetState<IStatusState>();
     const getAndSetStatus = async () => {
         try {
             setState({ loading: true })
-            const result = await GetStatus();
-            setState({ status: result, loading: false, error: false });
+            const { status, processes } = await GetStatus();
+            setState({ status: status, loading: false, error: false, processes: processes });
         } catch (error) {
             setState({ error: true, loading: false, status: undefined })
         }
@@ -37,7 +38,7 @@ export const ServerStatus: React.FunctionComponent<{}> = () => {
         return <Spinner animation="border" />
     }
 
-    return error && !status ? <p>Error getting server status</p> :
+    return error && (!status || !process) ? <p>Error getting server status</p> :
         <>
             <h4>Server Memory Usage (MB)</h4>
             <ListGroup className="bg-dash-item" variant="flush">
@@ -53,6 +54,13 @@ export const ServerStatus: React.FunctionComponent<{}> = () => {
                     <span>Used:</span>
                     <span>{status?.usedMb?.toFixed(0)}</span>
                 </ListGroup.Item>
+            </ListGroup>
+            <h4 className="mt-2 mb-2">Top 10 Processes</h4>
+            <ListGroup className="bg-dash-item">
+                {processes.map(proc => <ListGroup.Item className="bg-dash-item d-flex justify-content-between">
+                    <span>{proc?.name}</span>
+                    <span>{proc?.memoryMbUsed?.toFixed(0)} MB</span>
+                    </ListGroup.Item>)}
             </ListGroup>
         </>
 }
