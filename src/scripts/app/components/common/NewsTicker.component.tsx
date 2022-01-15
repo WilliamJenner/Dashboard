@@ -43,10 +43,11 @@ const NewsTicker: React.FC<INewsTicker> = () => {
 
   useInterval(() => {
     getAndSetNews();
-  }, minutesToMilliseconds(0.2));
+    //Rate limit allows 100 per 24 hours
+  }, minutesToMilliseconds(144));
 
   if (news === undefined || news.length === 0) {
-    return null;
+    return <p>No news, we probably hit the rate limit...</p>;
   }
 
   return (
