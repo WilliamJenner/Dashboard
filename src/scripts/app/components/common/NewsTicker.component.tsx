@@ -1,6 +1,5 @@
 import dayjs from "dayjs";
 import React from "react";
-import { Row, Table } from "react-bootstrap";
 import Ticker from "react-ticker";
 import { getLatestAlerts as getLatestNews } from "../../actions/news";
 import { NewsMessage } from "../../client/client";
@@ -15,14 +14,14 @@ interface IAlert {
 }
 
 const NewsMessageBar: React.FC<IAlert> = ({ news }) => {
-  const { message, createdBy, publishedAt } = news;
+  const { message, createdBy } = news;
 
   return (
     <div className={"ticker__content"}>
       <div>{message}</div>
       <div className={"ticker__content__author"}>
         Sent by {capitaliseFirst(createdBy as string)} at{" "}
-        {dayjs(publishedAt).format("HH:mm:ss")}
+        {dayjs(new Date(Date.now())).format("HH:mm:ss")}
       </div>
     </div>
   );
