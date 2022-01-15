@@ -38,7 +38,7 @@ export const ServerStatus: React.FunctionComponent<{}> = () => {
         return <Spinner animation="border" />
     }
 
-    return error && (!status || !process) ? <p>Error getting server status</p> :
+    return error && (!status || !processes) ? <p>Error getting server status</p> :
         <>
             <h4>Server Memory Usage (MB)</h4>
             <ListGroup className="bg-dash-item" variant="flush">
@@ -57,7 +57,7 @@ export const ServerStatus: React.FunctionComponent<{}> = () => {
             </ListGroup>
             <h4 className="mt-2 mb-2">Top 10 Processes</h4>
             <ListGroup className="bg-dash-item">
-                {processes.map(proc => <ListGroup.Item className="bg-dash-item d-flex justify-content-between">
+                {processes?.map(proc => <ListGroup.Item className="bg-dash-item d-flex justify-content-between">
                     <span>{proc?.name}</span>
                     <span>{proc?.memoryMbUsed?.toFixed(0)} MB</span>
                     </ListGroup.Item>)}
