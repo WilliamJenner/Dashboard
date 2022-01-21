@@ -19,6 +19,11 @@ export const Cat: React.FC<ICatProps> = () => {
   const [catCount, setCatCount] = React.useState<number>(0);
   const [start, setStart] = React.useState<Date>();
 
+  // only set on initial render
+  React.useEffect(() => {
+    setStart(new Date());
+  }, []);
+
   useInterval(() => {
     setCatCount(catCount + 1);
     (async () => {
@@ -26,11 +31,6 @@ export const Cat: React.FC<ICatProps> = () => {
       setCatUrl(result);
     })();
   }, minutesToMilliseconds(1));
-
-  useInterval(() => {
-    setCatCount(0);
-    setStart(new Date());
-  }, hoursToMilliseconds(12));
 
   return (
     <div>
