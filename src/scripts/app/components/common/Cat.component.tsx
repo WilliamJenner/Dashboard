@@ -15,14 +15,17 @@ interface ICatState {
 }
 
 export const Cat: React.FC<ICatProps> = () => {
-  const [{ url1: catUrl1, url2, catUrl2, count: catCount, start }, setState] =
-    useSetState<ICatState>();
+  const [
+    { urlOne: catUrlOne, urlTwo, catUrlTwo, count: catCount, start },
+    setState,
+  ] = useSetState<ICatState>();
 
   // only set on initial render
   useEffectOnce(() => {
     setState({
       start: new Date(),
-      url: "https://cataas.com/cat/gif",
+      catUrlOne: "https://cataas.com/cat/gif",
+      catUrlTwo: "https://cataas.com/cat/gif",
       count: 1,
     });
   });
@@ -30,16 +33,16 @@ export const Cat: React.FC<ICatProps> = () => {
   useInterval(() => {
     setState({ count: catCount + 2 });
     (async () => {
-      const result1 = await GetCatUrl();
-      const result2 = await GetCatUrl();
-      setState({ url1: result1, url2: result2 });
+      const resultOne = await GetCatUrl();
+      const resultTwo = await GetCatUrl();
+      setState({ urlOne: resultOne, urlTwo: resultTwo });
     })();
   }, minutesToMilliseconds(1));
 
   return (
     <div>
-      <img className="cat" src={catUrl1} />
-      <img className="cat" src={catUrl1} />
+      <img className="cat" src={catUrlOne} />
+      <img className="cat" src={catUrlTwo} />
       <p>
         There has been {catCount} cats since {dayjs(start).format("HH:mm")}
       </p>
