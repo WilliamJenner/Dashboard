@@ -7,6 +7,7 @@ import SecurityCamera from "./SecurityCam.component";
 import Weather from "./Weather.component";
 import { ServerStatus } from "./ServerStatus.component";
 import Cat from "./Cat.component";
+import BlueMap from "./BlueMap.component";
 interface IDashboardProps {}
 
 export const Dashboard: React.FC<IDashboardProps> = () => {
@@ -31,7 +32,9 @@ export const Dashboard: React.FC<IDashboardProps> = () => {
         <Col className={"dash-item"}>
           <SecurityCamera />
         </Col>
-        <Col className={"dash-item"}></Col>
+        <Col className={"dash-item"}>
+          <BlueMap />
+        </Col>
       </Row>
       <Row className={"dash-row"}>
         <Col className={"dash-item"}>

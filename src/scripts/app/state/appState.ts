@@ -6,6 +6,7 @@ const useAppState = (
   initialState: AppStateType = {
     apiUrl: "",
     securityCamUrl: "",
+    blueMapUrl: "",
     binNoticePeriod: 0,
   }
 ) => {
