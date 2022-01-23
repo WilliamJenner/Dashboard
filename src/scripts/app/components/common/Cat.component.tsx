@@ -34,7 +34,10 @@ export const Cat: React.FC<ICatProps> = () => {
 
   return (
     <div>
-      <img src={catUrl} style={{ maxHeight: "380px" }} />
+      <img
+        src={catUrl}
+        style={{ maxHeight: "380px", maxWidth: "370px", objectFit: "fill" }}
+      />
       <p>
         There has been {catCount} cats since {dayjs(start).format("HH:mm")}
       </p>
