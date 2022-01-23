@@ -27,10 +27,10 @@ export const Dashboard: React.FC<IDashboardProps> = () => {
       </Row>
       <Row className={"dash-row"}>
         <Col className={"dash-item"}>
-          <Cat />
+          <SecurityCamera />
         </Col>
         <Col className={"dash-item"}>
-          <SecurityCamera />
+          <Cat />
         </Col>
         <Col className={"dash-item"}>
           <BlueMap />
