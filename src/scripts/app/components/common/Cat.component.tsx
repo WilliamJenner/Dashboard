@@ -9,14 +9,15 @@ import useSetState from "react-use/lib/useSetState";
 interface ICatProps {}
 
 interface ICatState {
-  url: string;
+  urlOne: string;
+  urlTwo: string;
   count: number;
   start: Date;
 }
 
 export const Cat: React.FC<ICatProps> = () => {
   const [
-    { urlOne: catUrlOne, urlTwo, catUrlTwo, count: catCount, start },
+    { urlOne: catUrlOne, urlTwo: catUrlTwo, count: catCount, start },
     setState,
   ] = useSetState<ICatState>();
 
@@ -24,8 +25,8 @@ export const Cat: React.FC<ICatProps> = () => {
   useEffectOnce(() => {
     setState({
       start: new Date(),
-      catUrlOne: "https://cataas.com/cat/gif",
-      catUrlTwo: "https://cataas.com/cat/gif",
+      urlOne: "https://cataas.com/cat/gif",
+      urlTwo: "https://cataas.com/cat/gif",
       count: 1,
     });
   });
