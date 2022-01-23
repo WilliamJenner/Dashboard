@@ -1,34 +1,33 @@
 import { useInterval } from "../../hooks/useInterval";
 import * as React from "react";
-import { Spinner } from "react-bootstrap";
-import {
-  minutesToMilliseconds,
-  hoursToMilliseconds,
-} from "../../../app/utils/number";
-import { AppState } from "../../state/appState";
+import { minutesToMilliseconds } from "../../../app/utils/number";
 import dayjs from "dayjs";
 import { GetCatUrl } from "../../../app/actions/cat";
+import useEffectOnce from "react-use/lib/useEffectOnce";
+import useSetState from "react-use/lib/useSetState";
 
 interface ICatProps {}
 
+interface ICatState {
+  url: string;
+  count: number;
+  start: Date;
+}
+
 export const Cat: React.FC<ICatProps> = () => {
-  const { appState } = AppState.useContainer();
-  const [catUrl, setCatUrl] = React.useState<string>(
-    "https://cataas.com/cat/gif"
-  );
-  const [catCount, setCatCount] = React.useState<number>(0);
-  const [start, setStart] = React.useState<Date>();
+  const [{ url: catUrl, count: catCount, start }, setState] =
+    useSetState<ICatState>();
 
   // only set on initial render
-  React.useEffect(() => {
-    setStart(new Date());
-  }, []);
+  useEffectOnce(() => {
+    setState({ start: new Date(), url: "https://cataas.com/cat/gif" });
+  });
 
   useInterval(() => {
-    setCatCount(catCount + 1);
+    setState({ count: catCount + 1 });
     (async () => {
       const result = await GetCatUrl();
-      setCatUrl(result);
+      setState({ url: result });
     })();
   }, minutesToMilliseconds(1));
 

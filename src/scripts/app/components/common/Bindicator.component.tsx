@@ -1,12 +1,13 @@
-import React, { Component, useEffect } from "react";
+import React from "react";
 import moment from "moment";
-import { capitaliseFirst, getBinDisplayName } from "../../utils/string";
+import { getBinDisplayName } from "../../utils/string";
 import { useInterval } from "../../hooks/useInterval";
 import { daysBetween, hoursToMilliseconds } from "../../utils/number";
 import { NamedBin } from "../../types/bins";
-import { BinLookup, IBinLookup, IBin } from "../../client/client";
+import { BinLookup, IBinLookup } from "../../client/client";
 import { GetBins } from "../../actions/bins";
 import { AppState } from "../../state/appState";
+import useEffectOnce from "react-use/lib/useEffectOnce";
 
 interface IBindicatorProps {}
 
@@ -56,9 +57,9 @@ export const Bindicator: React.FunctionComponent<IBindicatorProps> = (
   };
 
   // Lookup bins on startup
-  useEffect(() => {
+  useEffectOnce(() => {
     getAndSetLookup();
-  }, []);
+  });
 
   // Then poll every X time
   useInterval(() => {
@@ -70,14 +71,12 @@ export const Bindicator: React.FunctionComponent<IBindicatorProps> = (
   }
 
   const orderedBins: NamedBin[] = Object.keys(binLookup)
-    .map(
-      (key): NamedBin => {
-        return {
-          bin: binLookup[key as keyof IBinLookup],
-          name: key,
-        };
-      }
-    )
+    .map((key): NamedBin => {
+      return {
+        bin: binLookup[key as keyof IBinLookup],
+        name: key,
+      };
+    })
     .sort((a: NamedBin, b: NamedBin): number => {
       // defaults if undefined
       let firstDate = a!.bin!.next ? a!.bin!.next : new Date();

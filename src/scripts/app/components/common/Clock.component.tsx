@@ -2,7 +2,6 @@ import dayjs, { Dayjs } from "dayjs";
 import React from "react";
 import { useInterval } from "../../hooks/useInterval";
 import { secondsToMilliseconds } from "../../utils/number";
-import classNames from "classnames";
 import { Moon, Sun } from "react-feather";
 
 const Clock: React.FC = () => {
