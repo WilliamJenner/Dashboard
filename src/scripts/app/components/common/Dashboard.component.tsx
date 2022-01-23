@@ -15,14 +15,20 @@ export const Dashboard: React.FC<IDashboardProps> = () => {
     <div className={"dashboard"}>
       <Row className={"dash-row"}>
         <Col className={"dash-item"}>
-          <Clock />
-          <Weather />
+          <div className={"d-flex justify-content-center"}>
+            <Clock />
+            <Weather />
+          </div>
         </Col>
         <Col className={"dash-item"}>
-          <Bindicator />
+          <div className={"d-flex justify-content-center"}>
+            <Bindicator />
+          </div>
         </Col>
         <Col className="dash-item">
-          <ServerStatus />
+          <div className={"d-flex justify-content-center"}>
+            <ServerStatus />
+          </div>
         </Col>
       </Row>
       <Row className={"dash-row"}>
