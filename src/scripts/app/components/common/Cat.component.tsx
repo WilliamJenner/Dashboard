@@ -20,7 +20,11 @@ export const Cat: React.FC<ICatProps> = () => {
 
   // only set on initial render
   useEffectOnce(() => {
-    setState({ start: new Date(), url: "https://cataas.com/cat/gif" });
+    setState({
+      start: new Date(),
+      url: "https://cataas.com/cat/gif",
+      count: 1,
+    });
   });
 
   useInterval(() => {
@@ -33,10 +37,7 @@ export const Cat: React.FC<ICatProps> = () => {
 
   return (
     <div>
-      <img
-        src={catUrl}
-        style={{ maxHeight: "380px", maxWidth: "370px", objectFit: "fill" }}
-      />
+      <img className="cat" src={catUrl} />
       <p>
         There has been {catCount} cats since {dayjs(start).format("HH:mm")}
       </p>

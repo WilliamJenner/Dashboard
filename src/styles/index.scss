@@ -3,3 +3,9 @@
 @import "base/index.scss";
 @import "components/index.scss";
 @import "helpers/index.scss";
+
+.cat {
+  max-height: "380px";
+  max-width: "370px";
+  object-fit: "fill";
+}
