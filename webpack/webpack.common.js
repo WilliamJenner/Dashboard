@@ -28,6 +28,9 @@ module.exports = (__dirname, env) => {
           exclude: /node_modules/,
           use: {
             loader: "ts-loader",
+            options: {
+              happyPackMode: true
+            }
           },
         },
         {
@@ -87,6 +90,7 @@ module.exports = (__dirname, env) => {
       }),
       new ForkTsCheckerWebpackPlugin({
         checkSyntacticErrors: true,
+
       }),
       new webpack.DefinePlugin({
         global: {},
