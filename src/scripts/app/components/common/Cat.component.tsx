@@ -34,9 +34,13 @@ export const Cat: React.FC<ICatProps> = () => {
   useInterval(() => {
     setState({ count: catCount + 2 });
     (async () => {
-      const resultOne = await GetCatUrl();
-      const resultTwo = await GetCatUrl();
-      setState({ urlOne: resultOne, urlTwo: resultTwo });
+      let [one, two] = [await GetCatUrl(), await GetCatUrl()];
+
+      do {
+        two = await GetCatUrl();
+      } while (one === two);
+
+      setState({ urlOne: one, urlTwo: two });
     })();
   }, minutesToMilliseconds(1));
 
