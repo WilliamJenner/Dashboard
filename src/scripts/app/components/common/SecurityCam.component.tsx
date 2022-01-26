@@ -29,20 +29,22 @@ export const SecurityCamera: React.FC<ISecurityCameraProps> = () => {
   }, secondsToMilliseconds(30));
 
   const frameRef = React.useRef<HTMLIFrameElement>(null);
-  
+
   const checkError = () => {
-    frameRef.current?.contentDocument?.querySelector(".neterror") && setError(true);
-  }
+    frameRef.current?.contentWindow?.document.body?.querySelector(".neterror")
+      ? setError(true)
+      : setError(false);
+  };
 
   if (loading === true) {
     return <Spinner animation="border" />;
   }
 
-  return (!appState || error) ? (
+  return !appState || error ? (
     <p>Security Camera is not accessible.</p>
   ) : (
     <iframe
-    ref={frameRef}
+      ref={frameRef}
       className={"security-camera"}
       src={appState.securityCamUrl}
       onLoad={(evt) => checkError()}

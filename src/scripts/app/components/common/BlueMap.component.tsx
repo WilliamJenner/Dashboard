@@ -34,8 +34,9 @@ export const BlueMap: React.FC<IBlueMapProps> = () => {
   const frameRef = React.useRef<HTMLIFrameElement>(null);
 
   const checkError = () => {
-    frameRef.current?.contentDocument?.querySelector(".neterror") &&
-      setError(true);
+    frameRef.current?.contentWindow?.document.body?.querySelector(".neterror")
+      ? setError(true)
+      : setError(false);
   };
 
   if (loading === true) {
