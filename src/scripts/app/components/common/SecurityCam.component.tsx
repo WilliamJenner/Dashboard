@@ -3,12 +3,21 @@ import * as React from "react";
 import { Spinner } from "react-bootstrap";
 import { secondsToMilliseconds } from "../../../app/utils/number";
 import { AppState } from "../../state/appState";
+import useSetState from "react-use/lib/useSetState";
 
 interface ISecurityCameraProps {}
 
+interface ISecurityCameraState {
+  loading: boolean;
+  error: boolean;
+}
+
 export const SecurityCamera: React.FC<ISecurityCameraProps> = () => {
   const { appState } = AppState.useContainer();
-  const [loading, setLoading] = React.useState<boolean>(false);
+  const [{ loading, error }, setState] = useSetState<ISecurityCameraState>();
+
+  const setLoading = (loading: boolean) => setState({ loading: loading });
+  const setError = (error: boolean) => setState({ error: error });
 
   useInterval(() => {
     setLoading(true);
@@ -22,8 +31,14 @@ export const SecurityCamera: React.FC<ISecurityCameraProps> = () => {
     return <Spinner animation="border" />;
   }
 
-  return appState === undefined ? null : (
-    <iframe className={"security-camera"} src={appState.securityCamUrl} />
+  return (!appState || error) ? (
+    <p>Security Camera is not accessible.</p>
+  ) : (
+    <iframe
+      className={"security-camera"}
+      src={appState.securityCamUrl}
+      onError={() => setError(true)}
+    />
   );
 };
 
