@@ -31,17 +31,25 @@ export const BlueMap: React.FC<IBlueMapProps> = () => {
     }
   }, [error, loading]);
 
+  const frameRef = React.useRef<HTMLIFrameElement>(null);
+
+  const checkError = () => {
+    frameRef.current?.contentDocument?.querySelector(".neterror") &&
+      setError(true);
+  };
+
   if (loading === true) {
     return <Spinner animation="border" />;
   }
 
-  return (!appState || error) ? (
+  return !appState || error ? (
     <p>Minecraft Map is not accessible.</p>
   ) : (
     <iframe
+      ref={frameRef}
       className={"security-camera"}
       src={appState.blueMapUrl}
-      onError={() => setError(true)}
+      onLoad={() => checkError()}
     />
   );
 };

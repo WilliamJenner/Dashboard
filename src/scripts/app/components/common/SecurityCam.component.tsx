@@ -10,6 +10,7 @@ interface ISecurityCameraProps {}
 interface ISecurityCameraState {
   loading: boolean;
   error: boolean;
+  content: string;
 }
 
 export const SecurityCamera: React.FC<ISecurityCameraProps> = () => {
@@ -27,6 +28,12 @@ export const SecurityCamera: React.FC<ISecurityCameraProps> = () => {
     }, 1000);
   }, secondsToMilliseconds(30));
 
+  const frameRef = React.useRef<HTMLIFrameElement>(null);
+  
+  const checkError = () => {
+    frameRef.current?.contentDocument?.querySelector(".neterror") && setError(true);
+  }
+
   if (loading === true) {
     return <Spinner animation="border" />;
   }
@@ -35,9 +42,10 @@ export const SecurityCamera: React.FC<ISecurityCameraProps> = () => {
     <p>Security Camera is not accessible.</p>
   ) : (
     <iframe
+    ref={frameRef}
       className={"security-camera"}
       src={appState.securityCamUrl}
-      onError={() => setError(true)}
+      onLoad={(evt) => checkError()}
     />
   );
 };
