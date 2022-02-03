@@ -45,7 +45,7 @@ export const Cat: React.FC<ICatProps> = () => {
 
   return (
     <div>
-      <Row>
+      <Row className="ml-1 mr-1">
         <Col className="m-0 p-0">
           <img className="cat" src={catUrl} />
         </Col>
@@ -54,9 +54,11 @@ export const Cat: React.FC<ICatProps> = () => {
         </Col>
       </Row>
       <Row className="mt-2">
-      <p>
-        There has been {catCount} cats since {dayjs(start).format("HH:mm")}
-      </p>
+        <Col>
+          <p>
+            There has been {catCount} {catCount <= 1 ? "cat" : "cats"} since {dayjs(start).format("HH:mm")}
+          </p>
+        </Col>
       </Row>
     </div>
   );
