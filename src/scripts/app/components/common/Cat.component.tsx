@@ -2,55 +2,62 @@ import { useInterval } from "../../hooks/useInterval";
 import * as React from "react";
 import { minutesToMilliseconds } from "../../../app/utils/number";
 import dayjs from "dayjs";
-import { GetCatUrl } from "../../../app/actions/cat";
+import { GetCatUrl, GetRandomUserImage } from "../../../app/actions/cat";
 import useEffectOnce from "react-use/lib/useEffectOnce";
 import useSetState from "react-use/lib/useSetState";
+import { Col, Row } from "react-bootstrap";
 
 interface ICatProps {}
 
 interface ICatState {
-  urlOne: string;
-  urlTwo: string;
+  catUrl: string;
+  userImageDataUri: string;
   count: number;
   start: Date;
 }
 
 export const Cat: React.FC<ICatProps> = () => {
-  const [
-    { urlOne: catUrlOne, urlTwo: catUrlTwo, count: catCount, start },
-    setState,
-  ] = useSetState<ICatState>();
+  const [{ catUrl, userImageDataUri, count: catCount, start }, setState] =
+    useSetState<ICatState>();
 
   // only set on initial render
   useEffectOnce(() => {
-    setState({
-      start: new Date(),
-      urlOne: "https://cataas.com/cat/gif",
-      urlTwo: "https://cataas.com/cat/gif",
-      count: 1,
-    });
+    (async () => {
+      const randomDataUri = await GetRandomUserImage();
+      setState({
+        start: new Date(),
+        catUrl: "https://cataas.com/cat/gif",
+        userImageDataUri: randomDataUri,
+        count: 1,
+      });
+    })();
   });
 
   useInterval(() => {
     setState({ count: catCount + 2 });
     (async () => {
-      let [one, two] = [await GetCatUrl(), await GetCatUrl()];
-
-      do {
-        two = await GetCatUrl();
-      } while (one === two);
-
-      setState({ urlOne: one, urlTwo: two });
+      setState({
+        catUrl: await GetCatUrl(),
+        userImageDataUri: await GetRandomUserImage(),
+      });
     })();
   }, minutesToMilliseconds(1));
 
   return (
     <div>
-      <img className="cat" src={catUrlOne} />
-      <img className="cat" src={catUrlTwo} />
+      <Row>
+        <Col className="m-0 p-0">
+          <img className="cat" src={catUrl} />
+        </Col>
+        <Col className="m-0 p-0">
+          <img className="cat" src={userImageDataUri} />
+        </Col>
+      </Row>
+      <Row className="mt-2">
       <p>
         There has been {catCount} cats since {dayjs(start).format("HH:mm")}
       </p>
+      </Row>
     </div>
   );
 };
