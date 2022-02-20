@@ -37,6 +37,7 @@ export const SecurityCamera: React.FC<ISecurityCameraProps> = () => {
   ) : (
     <IFrame
       loadingElement={<Spinner animation="border" />}
+      useLoadingWrapper={false}
       iframeClassName={"security-camera"}
       src={appState.securityCamUrl}
     />

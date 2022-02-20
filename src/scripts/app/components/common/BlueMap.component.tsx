@@ -36,6 +36,7 @@ export const BlueMap: React.FC<IBlueMapProps> = () => {
   ) : (
     <IFrame
       loadingElement={<Spinner animation="border" />}
+      useLoadingWrapper={true}
       iframeClassName={"security-camera"}
       src={appState.blueMapUrl}
     />

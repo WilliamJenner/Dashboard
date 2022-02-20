@@ -6,12 +6,14 @@ interface IIFrameProps extends React.HTMLAttributes<HTMLIFrameElement> {
   className?: string;
   iframeClassName?: string;
   loadingElement?: React.ReactElement<any>;
+  useLoadingWrapper: boolean;
 }
 
 const IFrame: React.SFC<IIFrameProps> = ({
   className,
   loadingElement,
   iframeClassName,
+  useLoadingWrapper,
   ...iframeProps
 }) => {
   let iframeRef = React.useRef<HTMLIFrameElement>(null);
@@ -19,26 +21,27 @@ const IFrame: React.SFC<IIFrameProps> = ({
 
   const onIframeLoad = () => setLoading(false);
 
-  React.useEffect(() => {
-    if (iframeRef != null) {
-      const iframe = iframeRef.current as unknown as HTMLIFrameElement;
-      setLoading(true);
-      iframe.addEventListener("load", onIframeLoad);
+  if (useLoadingWrapper) {
+    React.useEffect(() => {
+      if (iframeRef != null) {
+        const iframe = iframeRef.current!;
+        setLoading(true);
+        iframe.addEventListener("load", onIframeLoad);
 
-      return () => {
-        iframe.removeEventListener("load", onIframeLoad);
-      };
-    }
-  }, []);
+        return () => {
+          iframe.removeEventListener("load", onIframeLoad);
+        };
+      }
+    }, []);
+  }
 
   return (
     <div className={classNames("iframe", className)}>
-      {isLoading && <div className="iframe-loading">{loadingElement}</div>}
-      <iframe
-        {...iframeProps}
-        className={iframeClassName}
-        ref={iframeRef}
-      />
+      {isLoading ? (
+        loadingElement
+      ) : (
+        <iframe {...iframeProps} className={iframeClassName} ref={iframeRef} />
+      )}
     </div>
   );
 };
