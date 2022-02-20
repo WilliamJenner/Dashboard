@@ -37,11 +37,8 @@ const IFrame: React.SFC<IIFrameProps> = ({
 
   return (
     <div className={classNames("iframe", className)}>
-      {isLoading ? (
-        loadingElement
-      ) : (
-        <iframe {...iframeProps} className={iframeClassName} ref={iframeRef} />
-      )}
+      {isLoading && loadingElement}
+      <iframe {...iframeProps} className={classNames(iframeClassName, isLoading && "hide")} ref={iframeRef} />
     </div>
   );
 };
