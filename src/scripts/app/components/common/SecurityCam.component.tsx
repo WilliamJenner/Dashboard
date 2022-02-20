@@ -4,6 +4,7 @@ import { Spinner } from "react-bootstrap";
 import { secondsToMilliseconds } from "../../../app/utils/number";
 import { AppState } from "../../state/appState";
 import useSetState from "react-use/lib/useSetState";
+import IFrame from "./IFrame";
 
 interface ISecurityCameraProps {}
 
@@ -18,7 +19,6 @@ export const SecurityCamera: React.FC<ISecurityCameraProps> = () => {
   const [{ loading, error }, setState] = useSetState<ISecurityCameraState>();
 
   const setLoading = (loading: boolean) => setState({ loading: loading });
-  const setError = (error: boolean) => setState({ error: error });
 
   useInterval(() => {
     setLoading(true);
@@ -28,14 +28,6 @@ export const SecurityCamera: React.FC<ISecurityCameraProps> = () => {
     }, 1000);
   }, secondsToMilliseconds(30));
 
-  const frameRef = React.useRef<HTMLIFrameElement>(null);
-
-  const checkError = () => {
-    frameRef.current?.contentWindow?.document.body?.querySelector(".neterror")
-      ? setError(true)
-      : setError(false);
-  };
-
   if (loading === true) {
     return <Spinner animation="border" />;
   }
@@ -43,11 +35,10 @@ export const SecurityCamera: React.FC<ISecurityCameraProps> = () => {
   return !appState || error ? (
     <p>Security Camera is not accessible.</p>
   ) : (
-    <iframe
-      ref={frameRef}
+    <IFrame
+      loadingElement={<Spinner animation="border" />}
       className={"security-camera"}
       src={appState.securityCamUrl}
-      onLoad={(evt) => checkError()}
     />
   );
 };

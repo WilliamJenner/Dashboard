@@ -2,8 +2,9 @@ import { useInterval } from "../../hooks/useInterval";
 import * as React from "react";
 import { Spinner } from "react-bootstrap";
 import useSetState from "react-use/lib/useSetState";
-import { secondsToMilliseconds } from "../../../../scripts/app/utils/number";
+import { minutesToMilliseconds } from "../../../../scripts/app/utils/number";
 import { AppState } from "../../state/appState";
+import IFrame from "./IFrame";
 
 interface IBlueMapProps {}
 
@@ -17,27 +18,14 @@ export const BlueMap: React.FC<IBlueMapProps> = () => {
   const [{ loading, error }, setState] = useSetState<IBlueMapState>();
 
   const setLoading = (loading: boolean) => setState({ loading: loading });
-  const setError = (error: boolean) => setState({ error: error });
 
-  React.useEffect(() => {
-    if (error) {
-      useInterval(() => {
-        setLoading(true);
+  useInterval(() => {
+    setLoading(true);
 
-        setTimeout(() => {
-          setLoading(false);
-        }, 1000);
-      }, secondsToMilliseconds(30));
-    }
-  }, [error, loading]);
-
-  const frameRef = React.useRef<HTMLIFrameElement>(null);
-
-  const checkError = () => {
-    frameRef.current?.contentWindow?.document.body?.querySelector(".neterror")
-      ? setError(true)
-      : setError(false);
-  };
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, minutesToMilliseconds(60));
 
   if (loading === true) {
     return <Spinner animation="border" />;
@@ -46,11 +34,10 @@ export const BlueMap: React.FC<IBlueMapProps> = () => {
   return !appState || error ? (
     <p>Minecraft Map is not accessible.</p>
   ) : (
-    <iframe
-      ref={frameRef}
+    <IFrame
+      loadingElement={<Spinner animation="border" />}
       className={"security-camera"}
       src={appState.blueMapUrl}
-      onLoad={() => checkError()}
     />
   );
 };
