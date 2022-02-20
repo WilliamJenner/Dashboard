@@ -23,8 +23,8 @@ const IFrame: React.SFC<IIFrameProps> = ({
 
   if (useLoadingWrapper) {
     React.useEffect(() => {
-      if (iframeRef != null) {
-        const iframe = iframeRef.current!;
+      if (iframeRef != null && iframeRef.current) {
+        const iframe = iframeRef.current as HTMLIFrameElement;
         setLoading(true);
         iframe.addEventListener("load", onIframeLoad);
 
