@@ -6,15 +6,22 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
+import useEffectOnce from "react-use/lib/useEffectOnce";
+import { WallboardInfo } from "./client/client";
 import { routes, HomeRoute, FourOhFour } from "./routes/index";
 import { AppState } from "./state/appState";
 
 const App: React.FC = () => {
   const { appState, setAppState } = AppState.useContainer();
 
-  React.useEffect(() => {
-    setAppState(JSON.parse(document.getElementById("config")?.innerHTML!));
-  }, []);
+  useEffectOnce(() => {
+    appState.connection &&
+      appState.connection!.on("Broadcast", (info: WallboardInfo) => {
+        setAppState({ wallboardInfo: info });
+      });
+
+    return () => appState.connection?.off("Broadcast");
+  });
 
   return (
     <Container bsPrefix={"container-xl"}>

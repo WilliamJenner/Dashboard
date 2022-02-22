@@ -56,8 +56,8 @@ const NewsTicker: React.FC<INewsTicker> = () => {
     <div className="ticker">
       <Ticker>
         {({ index }) =>
-          news.map((alert) => {
-            return <NewsMessageBar news={alert} />;
+          news.map((alert, i) => {
+            return <NewsMessageBar key={"newsMessage" + i} news={alert} />;
           })
         }
       </Ticker>
