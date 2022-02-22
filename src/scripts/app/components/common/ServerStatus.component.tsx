@@ -1,11 +1,15 @@
 import { useInterval } from "../../hooks/useInterval";
 import React from "react";
 import { ListGroup, Spinner } from "react-bootstrap";
-import { minutesToMilliseconds } from "../../../app/utils/number";
+import {
+  minutesToMilliseconds,
+  secondsToMilliseconds,
+} from "../../../app/utils/number";
 import { GetStatus } from "../../../app/actions/status";
 import { ProcessInfoResult, Status } from "../../../app/client/client";
 import useEffectOnce from "react-use/lib/useEffectOnce";
 import useSetState from "react-use/lib/useSetState";
+import { AppState } from "../../state/appState";
 
 interface IStatusState {
   status: Status;
@@ -15,6 +19,7 @@ interface IStatusState {
 }
 
 export const ServerStatus: React.FunctionComponent<{}> = () => {
+  const { appState } = AppState.useContainer();
   const [{ error, status, loading, processes }, setState] =
     useSetState<IStatusState>();
   const getAndSetStatus = async () => {
@@ -37,8 +42,14 @@ export const ServerStatus: React.FunctionComponent<{}> = () => {
   });
 
   useInterval(() => {
-    getAndSetStatus();
-  }, minutesToMilliseconds(0.5));
+    appState.wallboardInfo &&
+      appState.wallboardInfo.serverStatus &&
+      appState.wallboardInfo.processes &&
+      setState({
+        processes: appState.wallboardInfo?.processes.filter((_, i) => i < 5),
+        status: appState.wallboardInfo?.serverStatus[0],
+      });
+  }, secondsToMilliseconds(10));
 
   if (loading === true) {
     return <Spinner animation="border" />;
@@ -65,8 +76,11 @@ export const ServerStatus: React.FunctionComponent<{}> = () => {
       </ListGroup>
       <h4 className="mt-2 mb-2">Top 5 Processes</h4>
       <ListGroup className="bg-dash-item mb-2">
-        {processes?.map((proc) => (
-          <ListGroup.Item className="bg-dash-item d-flex justify-content-between pt-0 pb-0">
+        {processes?.map((proc, i) => (
+          <ListGroup.Item
+            key={`${i}_listItem`}
+            className="bg-dash-item d-flex justify-content-between pt-0 pb-0"
+          >
             <span>{proc?.name}</span>
             <span>{proc?.memoryMbUsed?.toFixed(0)} MB</span>
           </ListGroup.Item>

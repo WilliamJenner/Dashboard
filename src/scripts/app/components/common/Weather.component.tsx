@@ -45,8 +45,12 @@ const Weather: React.FC = () => {
       </div>
       <div className={"weather__info "}>
         <span>Feels like {weather?.main?.feelsLike}°C</span>
-        {weather?.weather?.map((x) => {
-          return <span>{capitaliseFirst(x.description as string)}</span>;
+        {weather?.weather?.map((x, i) => {
+          return (
+            <span key={`${i}_span`}>
+              {capitaliseFirst(x.description as string)}
+            </span>
+          );
         })}
 
         <span>

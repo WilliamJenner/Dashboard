@@ -21,6 +21,9 @@ export interface IClient {
     news_GetNews(): Promise<NewsMessage[]>;
     status_GetStats(): Promise<Status[]>;
     status_GetProcessInfo(): Promise<ProcessInfoResult[]>;
+    terraria_Start(): Promise<boolean>;
+    terraria_GetLogsTail(secondsToWait: number): Promise<string[]>;
+    terraria_Command(command: string): Promise<void>;
     weatherForecast_Get(): Promise<OpenWeatherCurrent>;
 }
 
@@ -31,7 +34,7 @@ export class Client implements IClient {
 
     constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
         this.http = http ? http : <any>window;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://192.168.1.69:84";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://localhost:44359";
     }
 
     alert_GetGET(): Promise<Alert[]> {
@@ -604,6 +607,136 @@ export class Client implements IClient {
         return Promise.resolve<ProcessInfoResult[]>(<any>null);
     }
 
+    terraria_Start(): Promise<boolean> {
+        let url_ = this.baseUrl + "/Terraria/Start";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ = <RequestInit>{
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processTerraria_Start(_response);
+        });
+    }
+
+    protected processTerraria_Start(response: Response): Promise<boolean> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 500) {
+            return response.text().then((_responseText) => {
+            let result500: any = null;
+            let resultData500 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result500 = ProblemDetails.fromJS(resultData500);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result500);
+            });
+        } else if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<boolean>(<any>null);
+    }
+
+    terraria_GetLogsTail(secondsToWait: number): Promise<string[]> {
+        let url_ = this.baseUrl + "/Terraria/GetLogsTail/{secondsToWait}";
+        if (secondsToWait === undefined || secondsToWait === null)
+            throw new Error("The parameter 'secondsToWait' must be defined.");
+        url_ = url_.replace("{secondsToWait}", encodeURIComponent("" + secondsToWait));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ = <RequestInit>{
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processTerraria_GetLogsTail(_response);
+        });
+    }
+
+    protected processTerraria_GetLogsTail(response: Response): Promise<string[]> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 500) {
+            return response.text().then((_responseText) => {
+            let result500: any = null;
+            let resultData500 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result500 = ProblemDetails.fromJS(resultData500);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result500);
+            });
+        } else if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(item);
+            }
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<string[]>(<any>null);
+    }
+
+    terraria_Command(command: string): Promise<void> {
+        let url_ = this.baseUrl + "/Terraria/Command";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(command);
+
+        let options_ = <RequestInit>{
+            body: content_,
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processTerraria_Command(_response);
+        });
+    }
+
+    protected processTerraria_Command(response: Response): Promise<void> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 500) {
+            return response.text().then((_responseText) => {
+            let result500: any = null;
+            let resultData500 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result500 = ProblemDetails.fromJS(resultData500);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result500);
+            });
+        } else if (status === 200) {
+            return response.text().then((_responseText) => {
+            return;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<void>(<any>null);
+    }
+
     weatherForecast_Get(): Promise<OpenWeatherCurrent> {
         let url_ = this.baseUrl + "/WeatherForecast";
         url_ = url_.replace(/[?&]$/, "");
@@ -646,11 +779,22 @@ export class Client implements IClient {
     }
 }
 
+/** A machine-readable format for specifying errors in HTTP API responses based on https://tools.ietf.org/html/rfc7807. */
 export class ProblemDetails implements IProblemDetails {
+    /** A URI reference [RFC3986] that identifies the problem type. This specification encourages that, when
+dereferenced, it provide human-readable documentation for the problem type
+(e.g., using HTML [W3C.REC-html5-20141028]).  When this member is not present, its value is assumed to be
+"about:blank". */
     type?: string | undefined;
+    /** A short, human-readable summary of the problem type.It SHOULD NOT change from occurrence to occurrence
+of the problem, except for purposes of localization(e.g., using proactive content negotiation;
+see[RFC7231], Section 3.4). */
     title?: string | undefined;
+    /** The HTTP status code([RFC7231], Section 6) generated by the origin server for this occurrence of the problem. */
     status?: number | undefined;
+    /** A human-readable explanation specific to this occurrence of the problem. */
     detail?: string | undefined;
+    /** A URI reference that identifies the specific occurrence of the problem.It may or may not yield further information if dereferenced. */
     instance?: string | undefined;
 
     constructor(data?: IProblemDetails) {
@@ -690,11 +834,22 @@ export class ProblemDetails implements IProblemDetails {
     }
 }
 
+/** A machine-readable format for specifying errors in HTTP API responses based on https://tools.ietf.org/html/rfc7807. */
 export interface IProblemDetails {
+    /** A URI reference [RFC3986] that identifies the problem type. This specification encourages that, when
+dereferenced, it provide human-readable documentation for the problem type
+(e.g., using HTML [W3C.REC-html5-20141028]).  When this member is not present, its value is assumed to be
+"about:blank". */
     type?: string | undefined;
+    /** A short, human-readable summary of the problem type.It SHOULD NOT change from occurrence to occurrence
+of the problem, except for purposes of localization(e.g., using proactive content negotiation;
+see[RFC7231], Section 3.4). */
     title?: string | undefined;
+    /** The HTTP status code([RFC7231], Section 6) generated by the origin server for this occurrence of the problem. */
     status?: number | undefined;
+    /** A human-readable explanation specific to this occurrence of the problem. */
     detail?: string | undefined;
+    /** A URI reference that identifies the specific occurrence of the problem.It may or may not yield further information if dereferenced. */
     instance?: string | undefined;
 }
 
@@ -1368,6 +1523,70 @@ export interface ISysDto {
     country?: string | undefined;
     sunrise?: number;
     sunset?: number;
+}
+
+export class WallboardInfo implements IWallboardInfo {
+    catUrl?: string | undefined;
+    randomImageUri?: string | undefined;
+    serverStatus?: Status[] | undefined;
+    processes?: ProcessInfoResult[] | undefined;
+
+    constructor(data?: IWallboardInfo) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.catUrl = _data["catUrl"];
+            this.randomImageUri = _data["randomImageUri"];
+            if (Array.isArray(_data["serverStatus"])) {
+                this.serverStatus = [] as any;
+                for (let item of _data["serverStatus"])
+                    this.serverStatus!.push(Status.fromJS(item));
+            }
+            if (Array.isArray(_data["processes"])) {
+                this.processes = [] as any;
+                for (let item of _data["processes"])
+                    this.processes!.push(ProcessInfoResult.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): WallboardInfo {
+        data = typeof data === 'object' ? data : {};
+        let result = new WallboardInfo();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["catUrl"] = this.catUrl;
+        data["randomImageUri"] = this.randomImageUri;
+        if (Array.isArray(this.serverStatus)) {
+            data["serverStatus"] = [];
+            for (let item of this.serverStatus)
+                data["serverStatus"].push(item.toJSON());
+        }
+        if (Array.isArray(this.processes)) {
+            data["processes"] = [];
+            for (let item of this.processes)
+                data["processes"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IWallboardInfo {
+    catUrl?: string | undefined;
+    randomImageUri?: string | undefined;
+    serverStatus?: Status[] | undefined;
+    processes?: ProcessInfoResult[] | undefined;
 }
 
 export class SwaggerException extends Error {

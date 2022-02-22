@@ -1,11 +1,12 @@
 import { useInterval } from "../../hooks/useInterval";
 import * as React from "react";
-import { minutesToMilliseconds } from "../../../app/utils/number";
+import { secondsToMilliseconds } from "../../../app/utils/number";
 import dayjs from "dayjs";
-import { GetCatUrl, GetRandomUserImage } from "../../../app/actions/cat";
+import { GetRandomUserImage } from "../../../app/actions/cat";
 import useEffectOnce from "react-use/lib/useEffectOnce";
 import useSetState from "react-use/lib/useSetState";
 import { Col, Row } from "react-bootstrap";
+import { AppState } from "../../state/appState";
 
 interface ICatProps {}
 
@@ -17,6 +18,7 @@ interface ICatState {
 }
 
 export const Cat: React.FC<ICatProps> = () => {
+  const { appState } = AppState.useContainer();
   const [{ catUrl, userImageDataUri, count: catCount, start }, setState] =
     useSetState<ICatState>();
 
@@ -34,14 +36,14 @@ export const Cat: React.FC<ICatProps> = () => {
   });
 
   useInterval(() => {
-    setState({ count: catCount + 2 });
-    (async () => {
+    appState.wallboardInfo &&
+      appState.wallboardInfo.catUrl &&
+      appState.wallboardInfo.randomImageUri &&
       setState({
-        catUrl: await GetCatUrl(),
-        userImageDataUri: await GetRandomUserImage(),
+        catUrl: appState.wallboardInfo.catUrl,
+        userImageDataUri: appState.wallboardInfo.randomImageUri,
       });
-    })();
-  }, minutesToMilliseconds(1));
+  }, secondsToMilliseconds(10));
 
   return (
     <div>
@@ -56,7 +58,8 @@ export const Cat: React.FC<ICatProps> = () => {
       <Row className="mt-2">
         <Col>
           <p>
-            There has been {catCount} {catCount <= 1 ? "cat" : "cats"} since {dayjs(start).format("HH:mm")}
+            There has been {catCount} {catCount <= 1 ? "cat" : "cats"} since{" "}
+            {dayjs(start).format("HH:mm")}
           </p>
         </Col>
       </Row>
