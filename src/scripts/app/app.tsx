@@ -17,7 +17,6 @@ const App: React.FC = () => {
   useEffectOnce(() => {
     appState.connection &&
       appState.connection!.on("Broadcast", (info: WallboardInfo) => {
-        console.log(info);
         setAppState({ wallboardInfo: info });
       });
 
