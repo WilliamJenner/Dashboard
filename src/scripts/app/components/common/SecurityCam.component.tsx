@@ -5,6 +5,7 @@ import { secondsToMilliseconds } from "../../../app/utils/number";
 import { AppState } from "../../state/appState";
 import useSetState from "react-use/lib/useSetState";
 import IFrame from "./IFrame";
+import useEffectOnce from "react-use/lib/useEffectOnce";
 
 interface ISecurityCameraProps {}
 
@@ -19,14 +20,22 @@ export const SecurityCamera: React.FC<ISecurityCameraProps> = () => {
   const [{ loading, error }, setState] = useSetState<ISecurityCameraState>();
 
   const setLoading = (loading: boolean) => setState({ loading: loading });
-
-  useInterval(() => {
-    setLoading(true);
+  const checkIframeLoadable = () =>
     fetch(appState.securityCamUrl)
       .then((_) => {
         setState({ error: false });
       })
       .catch((_) => setState({ error: true }));
+
+  useEffectOnce(() => {
+    checkIframeLoadable();
+  });
+
+  useInterval(() => {
+    setLoading(true);
+
+    checkIframeLoadable();
+    
     setTimeout(() => {
       setLoading(false);
     }, 1000);
