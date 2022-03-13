@@ -22,7 +22,11 @@ export const SecurityCamera: React.FC<ISecurityCameraProps> = () => {
 
   useInterval(() => {
     setLoading(true);
-
+    fetch(appState.securityCamUrl)
+      .then((_) => {
+        setState({ error: false });
+      })
+      .catch((_) => setState({ error: true }));
     setTimeout(() => {
       setLoading(false);
     }, 1000);
