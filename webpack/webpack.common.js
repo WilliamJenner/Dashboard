@@ -1,100 +1,45 @@
-const path = require("path");
-const appRoot = require("app-root-path");
-const HtmlWebPackPlugin = require("html-webpack-plugin");
-const HappyPack = require("happypack");
+const TsConfigPathsPlugin = require("tsconfig-paths-webpack-plugin").default;
+const config = require("./config");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
-const webpack = require("webpack");
 
-const commonHtmlWebpackPluginConfig = () => {
-  return {
-    inject: true,
-    minify: false,
-  };
-};
-
-module.exports = (__dirname, env) => {
-  return {
-    // Enable sourcemaps for debugging webpack's output.
-    resolve: {
-      extensions: [".ts", ".tsx", ".js", ".json"],
-      mainFields: ["main", "module", "browser"],
-    },
-    entry: __dirname + "/src/scripts/index.tsx",
-    devtool: "inline-source-map",
-    module: {
-      rules: [
-        {
-          test: /\.(tsx|ts)?$/,
-          exclude: /node_modules/,
-          use: {
-            loader: "ts-loader",
-            options: {
-              happyPackMode: true
-            }
+module.exports = {
+  target: "web",
+  entry: {
+    app: config.app,
+    vendors: config.vendors,
+  },
+  resolve: {
+    plugins: [new TsConfigPathsPlugin({ extensions: config.extensions })],
+    extensions: config.extensions,
+  },
+  plugins: [new ForkTsCheckerWebpackPlugin()],
+  module: {
+    rules: [
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: "asset",
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf)$/,
+        type: "asset/resource",
+      },
+      {
+        test: /\.(ts|js)x?$/i,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: [
+              "@babel/preset-env",
+              "@babel/preset-react",
+              "@babel/preset-typescript",
+            ],
           },
         },
-        {
-          enforce: "pre",
-          test: /\.js$/,
-          loader: "source-map-loader",
-        },
-
-        {
-          test: /\.s[ac]ss$/i,
-          use: [
-            // Creates `style` nodes from JS strings
-            "style-loader",
-            // Translates CSS into CommonJS
-            "css-loader",
-            // Compiles Sass to CSS
-            "sass-loader",
-          ],
-        },
-      ],
-    },
-    output: {
-      filename: "app.bundle.js",
-      path: __dirname + "/wwwroot/dist/",
-      publicPath: "/",
-    },
-    plugins: [
-      new HtmlWebPackPlugin({
-        ...commonHtmlWebpackPluginConfig(),
-        title: "Index",
-        template: path.join(
-          `${appRoot}`,
-          "Views",
-          "Templates",
-          "_App_Template.cshtml"
-        ),
-        filename: path.join(`${appRoot}`, "Views", "Home", "Index.cshtml"),
-        chunks: ["dist/app.bundle.js"],
-        devServer: env.development !== undefined,
-      }),
-      new HtmlWebPackPlugin({
-        ...commonHtmlWebpackPluginConfig(),
-        title: "Layout",
-        template: path.join(
-          `${appRoot}`,
-          "Views",
-          "Templates",
-          "_Layout_Template.cshtml"
-        ),
-        filename: path.join(`${appRoot}`, "Views", "Shared", "_Layout.cshtml"),
-        chunks: ["dist/vendor.bundle.js"],
-      }),
-      new HappyPack({
-        id: "ts",
-        threads: 4,
-        loaders: ["ts-loader"],
-      }),
-      new ForkTsCheckerWebpackPlugin({
-        checkSyntacticErrors: true,
-
-      }),
-      new webpack.DefinePlugin({
-        global: {},
-      }),
+      },
     ],
-  };
+  },
+  output: {
+    assetModuleFilename: "static/[name].[hash:8][ext]",
+  },
 };

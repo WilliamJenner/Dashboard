@@ -1,27 +1,33 @@
-@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
-
 <!DOCTYPE html>
 <html>
 
-<head>
+<!head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Test App</title>
-    <meta name="app-root" content="@Url.Content("~/")" />
+    <title>
+        DEV - Net6SpaTemplate
+    </title>
 
-    @await RenderSectionAsync("Styles", required: false)
+    
 
-</head>
+    
+        
+        
+        <script defer src=' @Url.Content("https://localhost:8080/js/app.bundle.js")' type="text/javascript"></script>
+        
+    
+        
+        
+        <script defer src=' @Url.Content("https://localhost:8080/js/vendors.bundle.js")' type="text/javascript"></script>
+        
+    
+
+</!head>
 
 <body>
     <div class="body-content">
         @RenderBody()
     </div>
-
-    
-
-    @await RenderSectionAsync("Scripts", required: false)
-    
 </body>
 
 </html>

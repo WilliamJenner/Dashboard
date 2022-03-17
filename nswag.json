@@ -1,9 +1,9 @@
 {
-  "runtime": "WinX64",
+  "runtime": "Net60",
   "defaultVariables": null,
   "documentGenerator": {
     "fromDocument": {
-      "url": "https://localhost:44359/swagger/v1/swagger.json",
+      "url": "https://localhost:44348/swagger/v1/swagger.json",
       "output": null,
       "newLineBehavior": "Auto"
     }
@@ -53,7 +53,7 @@
       "excludedParameterNames": [],
       "handleReferences": false,
       "generateConstructorInterface": true,
-      "convertConstructorInterfaceData": false,
+      "convertConstructorInterfaceData": true,
       "importRequiredTypes": true,
       "useGetBaseUrlMethod": false,
       "baseUrlTokenName": "API_BASE_URL",
@@ -66,7 +66,7 @@
       "enumNameGeneratorType": null,
       "serviceHost": null,
       "serviceSchemes": null,
-      "output": "src/scripts/app/client/client.ts",
+      "output": "src/scripts/client/client.ts",
       "newLineBehavior": "Auto"
     }
   }

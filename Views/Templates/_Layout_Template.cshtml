@@ -1,36 +1,37 @@
-﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
-<head>
+<!head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Test App</title>
-    <meta name="app-root" content="@Url.Content("~/")" />
+    <title>
+        <%= htmlWebpackPlugin.options.title %>
+    </title>
 
-    @await RenderSectionAsync("Styles", required: false)
+    <% for (var css in htmlWebpackPlugin.files.css) { %>
+        <% var url=htmlWebpackPlugin.files.css[css]; %>
+        <% if (htmlWebpackPlugin.options.devServer) { %>
+        <link href='@Url.Content("<%= url %>")' rel="stylesheet" />
+        <% } else { %>
+        <link href='@Url.Content("~<%= url %>")'' rel="stylesheet">
+        <% } %>
+    <% } %>
 
-</head>
+    <% for (var file in htmlWebpackPlugin.files.js) { %>
+        <% var url=htmlWebpackPlugin.files.js[file]; %>
+        <% if (htmlWebpackPlugin.options.devServer) { %>
+        <script defer src=' @Url.Content("<%= url %>")' type="text/javascript"></script>
+        <% } else { %>
+        <script defer src='@Url.Content("~<%= url %>")'></script>
+        <% } %>
+    <% } %>
+
+</!head>
 
 <body>
     <div class="body-content">
         @RenderBody()
     </div>
-
-    <% for (var chunk in htmlWebpackPlugin.chunks) { %>
-    <% var url = htmlWebpackPlugin.chunks[chunk]; %>
-    <% if (htmlWebpackPlugin.options.devServer) { %>
-    <script type="module" src=" @Url.Content("<%= url %>")" type="text/javascript"></script><%
-    } else { %>
-    <script type="module" src="@Url.Content("<%= url %>")"></script>
-    <% } %>
-    <% } %>
-
-    @await RenderSectionAsync("Scripts", required: false)
-    <% if (htmlWebpackPlugin.options.devServer) { %>
-    <script type="module" src="<%= htmlWebpackPlugin.options.devServer %>/webpack-dev-server.js"></script>
-    <% } %>
 </body>
 
 </html>

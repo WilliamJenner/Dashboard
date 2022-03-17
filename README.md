@@ -1,20 +1,31 @@
-[![Build Status](http://86.11.71.191:82/buildStatus/icon?job=Dashboard)](http://86.11.71.191:82/job/Dashboard/)
-# Dashboard 
-Front end for the house wallboard.
+# .NET 6 SPA Template
 
-# Development
-Before development, you'll want to download the house [API](https://github.com/WilliamJenner/HouseAPI).
-The app is set up to use the real house api in development, but you may want to change some settings.
+A barebones SPA Template
 
-1. Install the node_modules folder 
-    * ``npm install``
-2. Running the app
-    * Development 
-        * `npm run dev:server`
-    * Use Electron 
-        * `npm run dev:electron`
-    * Production 
-        * `npm run prod`
-3. Run the application through IIS
-# Roadmap
-- Add HMR so the dev doesn't need to reload
+### Backend
+- .NET 6 MVC
+
+### Frontend
+- React
+- Webpack
+- Typescript
+- Prettier/ESLint/Husky/Stylelint
+- SASS
+- .NET SpaServices for running a managed webpack dev-server
+ 
+## Prerequisites
+1.    NodeJS v16.13.0 or later
+2.    .NET 6 SDK
+
+## FAQ
+
+### I'm getting a certificate invalid issue when running `npm run dev`
+
+This is an issue because `webpack-dev-server` generates a cert which, according to Chrome, is invalid. There are two approaches, either generate a self-cert or allow invalid certs for localhost:
+
+1. Go to chrome://flags
+2. Enable 'Allow invalid certificates for resources loaded from localhost.'
+
+## Contributors
+- [@WilliamJenner](https://github.com/WilliamJenner)
+- @me
