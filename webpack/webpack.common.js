@@ -1,5 +1,7 @@
 const TsConfigPathsPlugin = require("tsconfig-paths-webpack-plugin").default;
+const CopyPlugin = require("copy-webpack-plugin");
 const config = require("./config");
+const path = require("path");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 module.exports = {
@@ -12,7 +14,12 @@ module.exports = {
     plugins: [new TsConfigPathsPlugin({ extensions: config.extensions })],
     extensions: config.extensions,
   },
-  plugins: [new ForkTsCheckerWebpackPlugin()],
+  plugins: [
+    new ForkTsCheckerWebpackPlugin(),
+    new CopyPlugin({
+      patterns: [{ from: config.faviconPath, to: path.join(config.distPath, "favicon/[name][ext]") }],
+    }),
+  ],
   module: {
     rules: [
       {

@@ -14,11 +14,11 @@ module.exports = async ({ dev_server }) => {
   return merge(webpackCommon, {
     mode: "development",
     plugins: [
-      !dev_server && new CleanWebpackPlugin({ verbose: true }),
+      !dev_server && new CleanWebpackPlugin({ ...config.cleanWebpackOptions }),
       new HtmlWebpackHarddiskPlugin(),
       new HtmlWebpackPlugin({
         ...config.commonHtmlWebpackPlugin,
-        title: "DEV - Net6SpaTemplate",
+        title: "DEV - Wallboard",
         devServer: dev_server
          ? `${config.devServerUrl}:${config.devServerPort}/`
          : false,

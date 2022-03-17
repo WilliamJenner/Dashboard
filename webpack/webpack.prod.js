@@ -20,11 +20,11 @@ module.exports = merge(webpackCommon, {
       filename: "css/[name].[contenthash:8].min.css",
     }),
     new CleanWebpackPlugin({
-      verbose: true,
+      ...config.cleanWebpackOptions,
     }),
     new HtmlWebpackPlugin({
       ...config.commonHtmlWebpackPlugin,
-      title: "Net6SpaTemplate",
+      title: "Wallboard",
     }),
   ],
   devtool: false,
@@ -66,7 +66,6 @@ module.exports = merge(webpackCommon, {
   output: {
     path: config.distPath,
     filename: "js/[name].[contenthash:8].js",
-    clean: true,
     publicPath: config.siteRoot,
   },
 });

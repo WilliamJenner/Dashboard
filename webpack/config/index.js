@@ -6,6 +6,8 @@ module.exports = {
 
   app: "./src/scripts/app/index.tsx",
 
+  faviconPath: "./src/icons/favicon/*",
+
   vendors: [
     "react",
     "react-dom",
@@ -22,6 +24,11 @@ module.exports = {
   siteRoot: "/",
 
   extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
+
+  cleanWebpackOptions: {
+    cleanOnceBeforeBuildPatterns: ["**/*", `!favicon/**`],
+    verbose: true,
+  },
 
   commonHtmlWebpackPlugin: {
     filename: path.join(`${appRoot}`, "Views", "Shared", "_Layout.cshtml"),

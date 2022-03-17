@@ -4,27 +4,32 @@
 <!head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="apple-touch-icon" sizes="180x180" href="~/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/favicon/favicon-16x16.png">
+    <link rel="manifest" href="~/favicon/site.webmanifest">
     <title>
         <%= htmlWebpackPlugin.options.title %>
     </title>
 
     <% for (var css in htmlWebpackPlugin.files.css) { %>
         <% var url=htmlWebpackPlugin.files.css[css]; %>
-        <% if (htmlWebpackPlugin.options.devServer) { %>
-        <link href='@Url.Content("<%= url %>")' rel="stylesheet" />
-        <% } else { %>
-        <link href='@Url.Content("~<%= url %>")'' rel="stylesheet">
+            <% if (htmlWebpackPlugin.options.devServer) { %>
+                <link href='@Url.Content("<%= url %>")' rel="stylesheet" />
+                <% } else { %>
+                    <link href='@Url.Content("~<%= url %>")'' rel="stylesheet">
         <% } %>
     <% } %>
 
     <% for (var file in htmlWebpackPlugin.files.js) { %>
         <% var url=htmlWebpackPlugin.files.js[file]; %>
         <% if (htmlWebpackPlugin.options.devServer) { %>
-        <script defer src=' @Url.Content("<%= url %>")' type="text/javascript"></script>
-        <% } else { %>
-        <script defer src='@Url.Content("~<%= url %>")'></script>
-        <% } %>
-    <% } %>
+        <script defer src=' @Url.Content("<%= url %>")' type="text/javascript">
+        </script>
+                    <% } else { %>
+                        <script defer src='@Url.Content("~<%= url %>")'></script>
+                        <% } %>
+                            <% } %>
 
 </!head>
 
