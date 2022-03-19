@@ -9,6 +9,11 @@ let render = (): void => {
   ReactDOM.render(
     <BrowserRouter>
       <AppState.Provider>
+        <div className="wrap">
+          {Array.from(Array(144).keys()).map((_, i) => (
+            <div className="c" key={`animate_${i}`}></div>
+          ))}
+        </div>
         <App />
       </AppState.Provider>
     </BrowserRouter>,
