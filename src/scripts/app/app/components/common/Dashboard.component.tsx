@@ -1,8 +1,6 @@
 import * as React from "react";
 import { Row, Col, Spinner } from "react-bootstrap";
-import Clock from "./Clock.component";
 import Loadable from "react-loadable";
-import Weather from "./Weather.component";
 interface IDashboardProps {}
 
 export const Dashboard: React.FC<IDashboardProps> = () => {
@@ -49,13 +47,23 @@ export const Dashboard: React.FC<IDashboardProps> = () => {
       return <Spinner animation="border" />;
     },
   });
+  const ClockWithWeather = Loadable({
+    loader: () => {
+      return import(
+        /* webpackChunkName: 'clockweather' */ "./ClockAndWeather.component"
+      );
+    },
+    loading() {
+      return <Spinner animation="border" />;
+    },
+  });
+
   return (
     <div className={"dashboard"}>
       <Row className={"dash-row"}>
         <Col className={"dash-item"}>
           <div className={"d-flex justify-content-center h-100 flex-column"}>
-            <Clock />
-            <Weather />
+            <ClockWithWeather />
           </div>
         </Col>
         <Col className={"dash-item"}>

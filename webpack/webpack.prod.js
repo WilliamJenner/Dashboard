@@ -34,6 +34,8 @@ module.exports = merge(webpackCommon, {
     splitChunks: {
       cacheGroups: {
         default: false,
+        commons: false,
+        defaultVendors: false,
         vendors: {
           test: /[\\/]node_modules[\\/]/,
           chunks(chunk) {
@@ -45,7 +47,7 @@ module.exports = merge(webpackCommon, {
             const packageName = module.context.match(
               /[\\/]node_modules[\\/](.*?)([\\/]|$)/
             )[1];
-
+            console.log(packageName);
             // npm package names are URL-safe, but some servers don't like @ symbols
             return packageName.replace("@", "");
           },
