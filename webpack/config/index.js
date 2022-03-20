@@ -1,4 +1,5 @@
 const path = require("path");
+const process = require("process")
 const appRoot = require("app-root-path");
 
 module.exports = {
@@ -26,7 +27,7 @@ module.exports = {
   extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
 
   cleanWebpackOptions: {
-    cleanOnceBeforeBuildPatterns: ["**/*", `!favicon/**`],
+    cleanOnceBeforeBuildPatterns: ["**/*", path.join(process.cwd(), 'Views', "Shared", "_Layout.cshtml")],
     verbose: true,
   },
 

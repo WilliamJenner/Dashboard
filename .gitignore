@@ -77,6 +77,8 @@ wwwroot/css/*
 wwwroot/**
 wwwroot/static/*
 
+Views/Shared/*
+
 # Visual Studio 2017 auto generated files
 Generated\ Files/
 
