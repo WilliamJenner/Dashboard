@@ -49,4 +49,7 @@ module.exports = {
   output: {
     assetModuleFilename: "static/[name].[hash:8][ext]",
   },
+  optimization: {
+    runtimeChunk: "single"
+  }
 };

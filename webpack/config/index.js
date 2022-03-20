@@ -5,7 +5,7 @@ const appRoot = require("app-root-path");
 module.exports = {
   devServerPort: 8080,
 
-  app: "./src/scripts/app/index.tsx",
+  app: {import: "./src/scripts/app/index.tsx", dependOn: "vendors"},
 
   faviconPath: "./src/icons/favicon/*",
 

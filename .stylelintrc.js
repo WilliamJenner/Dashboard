@@ -7,5 +7,6 @@ module.exports = {
     "scss/at-rule-no-unknown": true,
     "no-descending-specificity": null,
     "font-family-no-missing-generic-family-keyword": null,
+    "function-no-unknown": null
   },
 };
