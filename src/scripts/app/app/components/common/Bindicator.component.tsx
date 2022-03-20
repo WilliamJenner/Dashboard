@@ -1,5 +1,7 @@
 import React from "react";
-import moment from "moment";
+import dayjs from "dayjs";
+import weekOfYear from "dayjs/plugin/weekOfYear";
+import advancedFormat from "dayjs/plugin/advancedFormat";
 import { getBinDisplayName } from "../../utils/string";
 import { useInterval } from "../../hooks/useInterval";
 import { daysBetween, hoursToMilliseconds } from "../../utils/number";
@@ -8,6 +10,9 @@ import { BinLookup, IBinLookup } from "../../client/client";
 import { GetBins } from "../../actions/bins";
 import { AppState } from "../../state/appState";
 import useEffectOnce from "react-use/lib/useEffectOnce";
+
+dayjs.extend(weekOfYear);
+dayjs.extend(advancedFormat);
 
 interface IBindicatorProps {}
 
@@ -37,7 +42,7 @@ const BinNotification: React.FC<IBinNotificationProps> = (props) => {
         </span>{" "}
         next due on{" "}
         <span className={textClass}>
-          {moment(bin?.next).format("dddd, MMMM Do YYYY")}
+          {dayjs(bin?.next).format("dddd, MMMM Do")}
         </span>
         .
       </h1>

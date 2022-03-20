@@ -33,11 +33,8 @@ module.exports = merge(webpackCommon, {
     minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
     splitChunks: {
       cacheGroups: {
-        commons: {
-          name: "commons",
-          chunks: "all",
-          minChunks: 2,
-        },
+        default: false,
+        vendors: false,
       },
     },
   },

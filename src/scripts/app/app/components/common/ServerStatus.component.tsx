@@ -18,7 +18,7 @@ interface IStatusState {
   loading: boolean;
 }
 
-export const ServerStatus: React.FunctionComponent<{}> = () => {
+export const ServerStatus: React.FunctionComponent = () => {
   const { appState } = AppState.useContainer();
   const [{ error, status, loading, processes }, setState] =
     useSetState<IStatusState>();
@@ -89,3 +89,5 @@ export const ServerStatus: React.FunctionComponent<{}> = () => {
     </>
   );
 };
+
+export default ServerStatus;
