@@ -40,17 +40,9 @@
 		</ItemGroup>
 	</Target>
 
-	<ItemGroup>
-    <Content Remove="Views\Home\Index.cshtml" />
-  </ItemGroup>
-
- <ItemGroup>
-    <Content Include="Views\Home\Index.cshtml" />
-  </ItemGroup>
-
  <ItemGroup>
     <Folder Include="Views\Shared\" />
-    <Folder Include="wwwroot\dist\" />
+    <Content Include="wwwroot\*" />
   </ItemGroup>
 
 
