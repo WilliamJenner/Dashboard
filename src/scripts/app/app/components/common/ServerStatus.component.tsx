@@ -1,10 +1,7 @@
 import { useInterval } from "../../hooks/useInterval";
 import React from "react";
 import { ListGroup, Spinner } from "react-bootstrap";
-import {
-  minutesToMilliseconds,
-  secondsToMilliseconds,
-} from "../../../app/utils/number";
+import { secondsToMilliseconds } from "../../../app/utils/number";
 import { GetStatus } from "../../../app/actions/status";
 import { ProcessInfoResult, Status } from "../../../app/client/client";
 import useEffectOnce from "react-use/lib/useEffectOnce";
@@ -19,7 +16,7 @@ interface IStatusState {
 }
 
 export const ServerStatus: React.FunctionComponent = () => {
-  const { appState } = AppState.useContainer();
+  const { wallboardInfo } = AppState.useContainer();
   const [{ error, status, loading, processes }, setState] =
     useSetState<IStatusState>();
   const getAndSetStatus = async () => {
@@ -42,12 +39,12 @@ export const ServerStatus: React.FunctionComponent = () => {
   });
 
   useInterval(() => {
-    appState.wallboardInfo &&
-      appState.wallboardInfo.serverStatus &&
-      appState.wallboardInfo.processes &&
+    wallboardInfo &&
+      wallboardInfo.serverStatus &&
+      wallboardInfo.processes &&
       setState({
-        processes: appState.wallboardInfo?.processes.filter((_, i) => i < 5),
-        status: appState.wallboardInfo?.serverStatus[0],
+        processes: wallboardInfo?.processes.filter((_, i) => i < 5),
+        status: wallboardInfo?.serverStatus[0],
       });
   }, secondsToMilliseconds(10));
 

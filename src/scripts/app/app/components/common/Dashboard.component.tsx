@@ -1,69 +1,21 @@
 import * as React from "react";
-import { Row, Col, Spinner } from "react-bootstrap";
-import Loadable from "react-loadable";
+import { Row, Col } from "react-bootstrap";
+import Bindicator from "./Bindicator.component";
+import { BlueMap } from "./BlueMap.component";
+import SecurityCamera from "./SecurityCam.component";
+import Cat from "./Cat.component";
+import ClockAndWeather from "./ClockAndWeather.component";
+import NewsTicker from "./NewsTicker.component";
+import ServerStatus from "./ServerStatus.component";
 interface IDashboardProps {}
 
 export const Dashboard: React.FC<IDashboardProps> = () => {
-  const Bindicator = Loadable({
-    loader: () =>
-      import(/* webpackChunkName: 'bindicator' */ "./Bindicator.component"),
-    loading() {
-      return <Spinner animation="border" />;
-    },
-  });
-  const SecurityCamera = Loadable({
-    loader: () =>
-      import(/* webpackChunkName: 'security-cam' */ "./SecurityCam.component"),
-    loading() {
-      return <Spinner animation="border" />;
-    },
-  });
-  const BlueMap = Loadable({
-    loader: () =>
-      import(/* webpackChunkName: 'bluemap' */ "./BlueMap.component"),
-    loading() {
-      return <Spinner animation="border" />;
-    },
-  });
-  const News = Loadable({
-    loader: () =>
-      import(/* webpackChunkName: 'news' */ "./NewsTicker.component"),
-    loading() {
-      return <Spinner animation="border" />;
-    },
-  });
-  const Status = Loadable({
-    loader: () =>
-      import(
-        /* webpackChunkName: 'server-status' */ "./ServerStatus.component"
-      ),
-    loading() {
-      return <Spinner animation="border" />;
-    },
-  });
-  const CatPics = Loadable({
-    loader: () => import(/* webpackChunkName: 'cat' */ "./Cat.component"),
-    loading() {
-      return <Spinner animation="border" />;
-    },
-  });
-  const ClockWithWeather = Loadable({
-    loader: () => {
-      return import(
-        /* webpackChunkName: 'clockweather' */ "./ClockAndWeather.component"
-      );
-    },
-    loading() {
-      return <Spinner animation="border" />;
-    },
-  });
-
   return (
     <div className={"dashboard"}>
       <Row className={"dash-row"}>
         <Col className={"dash-item"}>
           <div className={"d-flex justify-content-center h-100 flex-column"}>
-            <ClockWithWeather />
+            <ClockAndWeather />
           </div>
         </Col>
         <Col className={"dash-item"}>
@@ -73,7 +25,7 @@ export const Dashboard: React.FC<IDashboardProps> = () => {
         </Col>
         <Col className="dash-item">
           <div className={"d-flex justify-content-center h-100 flex-column"}>
-            <Status />
+            <ServerStatus />
           </div>
         </Col>
       </Row>
@@ -82,7 +34,7 @@ export const Dashboard: React.FC<IDashboardProps> = () => {
           <SecurityCamera />
         </Col>
         <Col className={"dash-item"}>
-          <CatPics />
+          <Cat />
         </Col>
         <Col className={"dash-item"}>
           <BlueMap />
@@ -90,7 +42,7 @@ export const Dashboard: React.FC<IDashboardProps> = () => {
       </Row>
       <Row className={"dash-row"}>
         <Col className={"dash-item"}>
-          <News />
+          <NewsTicker />
         </Col>
       </Row>
     </div>

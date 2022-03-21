@@ -1,13 +1,8 @@
-import dayjs, { Dayjs } from "dayjs";
 import React from "react";
-import { CloudRain, Umbrella } from "react-feather";
 import { getWeather } from "../../actions/weather";
 import { OpenWeatherCurrent } from "../../client/client";
 import { useInterval } from "../../hooks/useInterval";
-import {
-  minutesToMilliseconds,
-  secondsToMilliseconds,
-} from "../../utils/number";
+import { minutesToMilliseconds } from "../../utils/number";
 import { capitaliseFirst } from "../../utils/string";
 import classNames from "classnames";
 

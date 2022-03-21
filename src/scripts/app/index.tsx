@@ -9,7 +9,6 @@ let render = (): void => {
   ReactDOM.render(
     <BrowserRouter>
       <AppState.Provider>
-        <div className="snow" />
         <App />
       </AppState.Provider>
     </BrowserRouter>,
