@@ -20,12 +20,13 @@ export const SecurityCamera: React.FC<ISecurityCameraProps> = () => {
   const [{ loading, error }, setState] = useSetState<ISecurityCameraState>();
 
   const setLoading = (loading: boolean) => setState({ loading: loading });
-  const checkIframeLoadable = () =>
-    fetch(appState.securityCamUrl)
-      .then((_) => {
-        setState({ error: false });
-      })
-      .catch((_) => setState({ error: true }));
+  const checkIframeLoadable = () => {
+    fetch(appState.securityCamUrl).then((_) => {
+      console.log(_);
+      setState({ error: false });
+    });
+    // .catch((_) => setState({ error: true }));
+  };
 
   useEffectOnce(() => {
     checkIframeLoadable();
