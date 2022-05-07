@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin").CleanWebpackPlugin;
 const HtmlWebpackHarddiskPlugin = require("html-webpack-harddisk-plugin");
 const webpackCommon = require("./webpack.common.js");
+const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 
 module.exports = async ({ dev_server }) => {
   dev_server = dev_server === "true";
@@ -15,6 +16,7 @@ module.exports = async ({ dev_server }) => {
     mode: "development",
     plugins: [
       !dev_server && new CleanWebpackPlugin({ ...config.cleanWebpackOptions }),
+      dev_server && new ReactRefreshWebpackPlugin(),
       new HtmlWebpackHarddiskPlugin(),
       new HtmlWebpackPlugin({
         ...config.commonHtmlWebpackPlugin,
@@ -50,6 +52,23 @@ module.exports = async ({ dev_server }) => {
             // Compiles Sass to CSS
             { loader: "sass-loader" },
           ],
+        },
+        {
+          test: /\.(ts|js)x?$/i,
+          exclude: /node_modules/,
+          use: {
+            loader: "babel-loader",
+            options: {
+              presets: [
+                "@babel/preset-env",
+                "@babel/preset-react",
+                "@babel/preset-typescript",
+              ],
+              plugins: [
+                dev_server && require.resolve("react-refresh/babel"),
+              ].filter(Boolean)
+            },
+          },
         },
       ],
     },

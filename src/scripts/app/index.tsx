@@ -1,27 +1,18 @@
 ﻿import * as React from "react";
-import * as ReactDOM from "react-dom";
 import "../../styles/index.scss";
 import App from "./app/app";
-import { BrowserRouter, HashRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
+import { createRoot } from "react-dom/client";
 import { AppState } from "./app/state/appState";
 
-let render = (): void => {
-  ReactDOM.render(
-    <BrowserRouter>
-      <AppState.Provider>
-        <App />
-      </AppState.Provider>
-    </BrowserRouter>,
-    document.getElementById("root")
-  );
-};
+const container = document.getElementById("root");
+const root = createRoot(container);
+const Root = (): React.ReactElement => (
+  <BrowserRouter>
+    <AppState.Provider>
+      <App />
+    </AppState.Provider>
+  </BrowserRouter>
+);
 
-if ((module as any).hot) {
-  (module as any).hot.accept(App, (): void => {
-    setTimeout(() => {
-      render();
-    });
-  });
-}
-
-render();
+root.render(<Root />);

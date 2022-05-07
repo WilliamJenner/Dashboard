@@ -6,6 +6,7 @@ import { AppState } from "../../state/appState";
 import useSetState from "react-use/lib/useSetState";
 import IFrame from "./IFrame";
 import useEffectOnce from "react-use/lib/useEffectOnce";
+import useComponentRefresh from "app/hooks/useComponentRefresh";
 
 interface ISecurityCameraProps {}
 
@@ -24,34 +25,19 @@ export const SecurityCamera: React.FC<ISecurityCameraProps> = () => {
     [loading]
   );
 
-  const checkIframeLoadable = () => {
-    fetch(appState.securityCamUrl, { mode: "no-cors" })
-      .then((_) => {
-        setState({ error: false });
-      })
-      .catch((_) => setState({ error: true }));
-  };
+  const setError = React.useCallback(
+    (err: boolean) => setState({ error: err }),
+    [error]
+  );
 
-  useEffectOnce(() => {
-    checkIframeLoadable();
-  });
-
-  useInterval(() => {
-    setLoading(true);
-
-    checkIframeLoadable();
-
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  }, secondsToMilliseconds(30));
+  useComponentRefresh(appState.securityCamUrl, setLoading, setError);
 
   if (loading === true) {
     return <Spinner animation="border" />;
   }
 
   return !appState || error ? (
-    <p>Security Camera is not accessible.</p>
+    <p>Security Camera is not accessible...</p>
   ) : (
     <IFrame
       loadingElement={<Spinner animation="border" />}
