@@ -1,11 +1,23 @@
 import { secondsToMilliseconds } from "app/utils/number";
-import { useEffectOnce, useInterval } from "react-use";
+import React from "react";
+import { useEffectOnce, useInterval, useSetState } from "react-use";
 
-const useComponentRefresh = (
-  urlToCheck: string,
-  setLoading: (loading) => void,
-  setError: (error) => void
-) => {
+interface IRefreshState {
+  loading: boolean;
+  error: boolean;
+}
+const useComponentRefresh = (urlToCheck: string) => {
+  const [{ loading, error }, setState] = useSetState<IRefreshState>();
+
+  const setLoading = React.useCallback(
+    (loading: boolean) => setState({ loading: loading }),
+    [loading]
+  );
+
+  const setError = React.useCallback(
+    (err: boolean) => setState({ error: err }),
+    [error]
+  );
   const checkIframeLoadable = () => {
     fetch(urlToCheck, { mode: "no-cors" })
       .then((_) => {
@@ -27,6 +39,8 @@ const useComponentRefresh = (
       setLoading(false);
     }, 1000);
   }, secondsToMilliseconds(30));
+
+  return { loading, error };
 };
 
 export default useComponentRefresh;

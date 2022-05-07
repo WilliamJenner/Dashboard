@@ -10,27 +10,9 @@ import useComponentRefresh from "app/hooks/useComponentRefresh";
 
 interface ISecurityCameraProps {}
 
-interface ISecurityCameraState {
-  loading: boolean;
-  error: boolean;
-  content: string;
-}
-
 export const SecurityCamera: React.FC<ISecurityCameraProps> = () => {
   const { appState } = AppState.useContainer();
-  const [{ loading, error }, setState] = useSetState<ISecurityCameraState>();
-
-  const setLoading = React.useCallback(
-    (loading: boolean) => setState({ loading: loading }),
-    [loading]
-  );
-
-  const setError = React.useCallback(
-    (err: boolean) => setState({ error: err }),
-    [error]
-  );
-
-  useComponentRefresh(appState.securityCamUrl, setLoading, setError);
+  const { loading, error } = useComponentRefresh(appState.securityCamUrl);
 
   if (loading === true) {
     return <Spinner animation="border" />;
