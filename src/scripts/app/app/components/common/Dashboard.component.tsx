@@ -11,7 +11,7 @@ interface IDashboardProps {}
 
 export const Dashboard: React.FC<IDashboardProps> = () => {
   return (
-    <div className={"dashboard"}>
+    <div className={"dashboard flex flex-col align-middle"}>
       <Row className={"dash-row"}>
         <Col className={"dash-item"}>
           <div className={"d-flex justify-content-center h-100 flex-column"}>

@@ -1,5 +1,7 @@
 .cat {
-  max-height: 245px;
-  max-width: 370px;
+  @apply rounded-xl mt-auto mb-auto;
+
+  max-height: 100%;
+  max-width: 100%;
   object-fit: fill;
 }

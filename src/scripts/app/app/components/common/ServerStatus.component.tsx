@@ -49,7 +49,12 @@ export const ServerStatus: React.FunctionComponent = () => {
   }, secondsToMilliseconds(10));
 
   if (loading === true) {
-    return <Spinner animation="border" />;
+    return (
+      <div className="flex justify-center">
+        {" "}
+        <Spinner animation="border" />
+      </div>
+    );
   }
 
   return error && (!status || !processes) ? (

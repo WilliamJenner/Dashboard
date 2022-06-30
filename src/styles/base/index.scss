@@ -1,4 +1,4 @@
-﻿body {
+body {
   background-color: $background-color;
   color: $primary-text-color;
 }
@@ -18,4 +18,8 @@ h3 {
 p,
 span {
   font-size: $small-font-size;
+}
+
+*{
+  font-family: aeonik;
 }

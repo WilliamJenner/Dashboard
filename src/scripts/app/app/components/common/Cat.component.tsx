@@ -40,12 +40,12 @@ export const Cat: React.FC<ICatProps> = () => {
   }, secondsToMilliseconds(10));
 
   return (
-    <div>
-      <Row className="ml-1 mr-1">
-        <Col className="m-0 p-0">
+    <div className="min-h-full flex flex-col">
+      <Row className="ml-1 mr-1 min-h-full mt-auto mb-auto">
+        <Col className="m-0 p-0 mr-1 flex flex-col">
           <img className="cat" src={catUrl} />
         </Col>
-        <Col className="m-0 p-0">
+        <Col className="m-0 p-0 ml-1 flex flex-col">
           <img className="cat" src={userImageDataUri} />
         </Col>
       </Row>

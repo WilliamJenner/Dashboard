@@ -8,6 +8,8 @@
     justify-content: space-between;
 
     .dash-item {
+      @apply rounded-xl;
+
       padding: $medium-spacing;
       background-color: #1d1d1d;
       box-shadow: 10px 10px #0f0f0f;

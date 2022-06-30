@@ -1,11 +1,11 @@
 const path = require("path");
-const process = require("process")
+const process = require("process");
 const appRoot = require("app-root-path");
 
 module.exports = {
   devServerPort: 8080,
 
-  app: {import: "./src/scripts/app/index.tsx", dependOn: "vendors"},
+  app: { import: "./src/scripts/app/index.tsx", dependOn: "vendors" },
 
   faviconPath: "./src/icons/favicon/*",
 
@@ -16,6 +16,8 @@ module.exports = {
     "react-router-dom",
     "react-feather",
     "dayjs",
+    "@microsoft/signalr",
+    "react-bootstrap"
   ],
 
   distPath: path.resolve(appRoot.toString(), "wwwroot"),
@@ -27,7 +29,7 @@ module.exports = {
   extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
 
   cleanWebpackOptions: {
-    cleanOnceBeforeBuildPatterns: ["**/*", path.join(process.cwd(), 'Views', "Shared", "_Layout.cshtml")],
+    cleanOnceBeforeBuildPatterns: ["js/**/*", "css/**/*"],
     verbose: true,
   },
 
