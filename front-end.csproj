@@ -26,7 +26,7 @@
 	<Target Name="PublishRunWebpack" BeforeTargets="BeforeBuild" Condition=" '$(Configuration)' == 'Release' ">
 		<!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
 		<Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
-		<Exec Command="npm ci" />
+		<Exec Command="npm install --legacy-peer-deps" />
 		<Exec Command="npm run prod" />
 
 		<ItemGroup>
