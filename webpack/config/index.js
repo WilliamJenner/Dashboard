@@ -29,7 +29,7 @@ module.exports = {
   extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
 
   cleanWebpackOptions: {
-    cleanOnceBeforeBuildPatterns: ["js/**/*", "css/**/*"],
+    cleanOnceBeforeBuildPatterns: ["js/**/*", "css/**/*",  path.join(`${appRoot}`, "Views", "Shared", "_Layout.cshtml")],
     verbose: true,
   },
 
