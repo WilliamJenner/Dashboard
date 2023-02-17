@@ -6,7 +6,7 @@ import IFrame from "./IFrame";
 
 interface IBlueMapProps {}
 
-export const BlueMap: React.SFC<IBlueMapProps> = () => {
+export const BlueMap: React.FC<IBlueMapProps> = () => {
   const { appState } = AppState.useContainer();
   const { loading, error } = useComponentRefresh(appState.blueMapUrl);
 

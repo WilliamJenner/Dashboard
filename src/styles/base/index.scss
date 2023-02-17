@@ -1,6 +1,8 @@
-body {
+﻿body,
+#root {
   background-color: $background-color;
   color: $primary-text-color;
+  height: 100%;
 }
 
 h1 {

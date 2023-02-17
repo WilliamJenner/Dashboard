@@ -9,7 +9,7 @@ interface IIFrameProps extends React.HTMLAttributes<HTMLIFrameElement> {
   useLoadingWrapper: boolean;
 }
 
-const IFrame: React.SFC<IIFrameProps> = ({
+const IFrame: React.FC<IIFrameProps> = ({
   className,
   loadingElement,
   iframeClassName,
