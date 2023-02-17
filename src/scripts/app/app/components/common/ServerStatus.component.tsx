@@ -63,15 +63,15 @@ export const ServerStatus: React.FunctionComponent = () => {
     <>
       <h4>Server Memory Usage</h4>
       <ListGroup className="bg-dash-item" variant="flush">
-        <ListGroup.Item className="bg-dash-item d-flex justify-content-between pt-0 pb-0">
+        <ListGroup.Item className="bg-dash-item d-flex justify-content-between pt-0 pb-0 text-white">
           <span>Total:</span>
           <span>{status?.totalMb?.toFixed(0)} MB</span>
         </ListGroup.Item>
-        <ListGroup.Item className="bg-dash-item d-flex justify-content-between pt-0 pb-0">
+        <ListGroup.Item className="bg-dash-item d-flex justify-content-between pt-0 pb-0 text-white">
           <span>Free:</span>
           <span>{status?.freeMb?.toFixed(0)} MB</span>
         </ListGroup.Item>
-        <ListGroup.Item className="bg-dash-item d-flex justify-content-between pt-0 pb-0">
+        <ListGroup.Item className="bg-dash-item d-flex justify-content-between pt-0 pb-0 text-white">
           <span>Used:</span>
           <span>{status?.usedMb?.toFixed(0)} MB</span>
         </ListGroup.Item>
@@ -81,7 +81,7 @@ export const ServerStatus: React.FunctionComponent = () => {
         {processes?.map((proc, i) => (
           <ListGroup.Item
             key={`${i}_listItem`}
-            className="bg-dash-item d-flex justify-content-between pt-0 pb-0"
+            className="bg-dash-item d-flex justify-content-between pt-0 pb-0 text-white"
           >
             <span>{proc?.name}</span>
             <span>{proc?.memoryMbUsed?.toFixed(0)} MB</span>
